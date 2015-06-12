@@ -1,2 +1,4 @@
-# pro-motion
-Create Rich Web Animations with JSON
+# Pro Motion
+Craft rich web animation timelines using JSON.
+
+*(Changelog)[CHANGELOG.md]
