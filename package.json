@@ -1,12 +1,12 @@
 {
   "name": "pro-motion",
   "version": "0.16.0",
-  "homepage": "https://github.com/pro-graphics/pro-motion",
-  "authors": [
-    "Gary Chamberlain <gary@pro.graphics>"
-  ],
   "description": "Craft Rich Animations with Ease™",
   "main": "/src/uncompressed/pro-motion.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pro-graphics/pro-motion.git"
+  },
   "keywords": [
     "web",
     "animation",
@@ -19,9 +19,9 @@
     "tween",
     "animate"
   ],
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components"
-  ]
+  "author": "Gary Chamberlain <gary@pro.graphics>",
+  "bugs": {
+    "url": "https://github.com/pro-graphics/pro-motion/issues"
+  },
+  "homepage": "https://github.com/pro-graphics/pro-motion"
 }
