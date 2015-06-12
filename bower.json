@@ -1,0 +1,27 @@
+{
+  "name": "pro-motion",
+  "version": "0.16.0",
+  "homepage": "https://github.com/pro-graphics/pro-motion",
+  "authors": [
+    "Gary Chamberlain <gary@pro.graphics>"
+  ],
+  "description": "Craft rich animated timelines using JSON",
+  "main": "/src/uncompressed/pro-motion.js",
+  "keywords": [
+    "web",
+    "animation",
+    "css",
+    "css3",
+    "html5",
+    "greensock",
+    "gsap",
+    "timeline",
+    "tween",
+    "animate"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ]
+}
