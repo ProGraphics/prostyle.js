@@ -1,6 +1,6 @@
 /*!
  * VERSION: 0.17.0
- * DATE: 14-Jun-2015
+ * DATE: 26-Jun-2015
  * UPDATES AND DOCS AT: https://pro.graphics
  * 
  * @license Copyright (c) 2011-2015, Pro Graphics, Inc. All rights reserved. 

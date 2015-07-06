@@ -1,4 +1,4 @@
-/// <reference path="greensock/greensock.d.ts" />
+/// <reference path="greensock.d.ts" />
 declare module Pro.Motion.Util {
     function autoButton(btn: any, action: any, start?: number, speedup?: number): void;
 }
