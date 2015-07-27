@@ -1,4 +1,4 @@
-var bars1 = Pro.Motion.Stories.bars1 = Pro.Motion.Stories.bars1 || {};
+var bars1 = ProStyle.Stories.bars1 = ProStyle.Stories.bars1 || {};
 
 bars1.story = {
     item: {

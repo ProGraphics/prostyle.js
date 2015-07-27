@@ -1,4 +1,4 @@
-var chars = Pro.Motion.Stories.chars = Pro.Motion.Stories.chars || {};
+var chars = ProStyle.Stories.chars = ProStyle.Stories.chars || {};
 
 chars.story = {
     items:[

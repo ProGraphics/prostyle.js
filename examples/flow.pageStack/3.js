@@ -1,4 +1,4 @@
-var stack3 = Pro.Motion.Stories.stack3 = Pro.Motion.Stories.stack3 || {};
+var stack3 = ProStyle.Stories.stack3 = ProStyle.Stories.stack3 || {};
 
 stack3.story = {
 	canvas:{ init:{bg:"#BADA55", corners:true} },

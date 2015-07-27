@@ -1,4 +1,4 @@
-var lines = Pro.Motion.Stories.lines = Pro.Motion.Stories.lines || {};
+var lines = ProStyle.Stories.lines = ProStyle.Stories.lines || {};
 
 lines.story = {
     item:{

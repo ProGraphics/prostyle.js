@@ -1,4 +1,4 @@
-var logo = Pro.Motion.Stories.logo = Pro.Motion.Stories.logo || {};
+var logo = ProStyle.Stories.logo = ProStyle.Stories.logo || {};
 
 logo.story = {
     item: {

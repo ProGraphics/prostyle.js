@@ -1,4 +1,4 @@
-var borders = Pro.Motion.Stories.borders = Pro.Motion.Stories.borders || {};
+var borders = ProStyle.Stories.borders = ProStyle.Stories.borders || {};
 
 borders.story = {
     frame: {

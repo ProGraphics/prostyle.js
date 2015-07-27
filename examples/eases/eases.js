@@ -1,4 +1,4 @@
-var eases = Pro.Motion.Stories.eases = Pro.Motion.Stories.eases || {};
+var eases = ProStyle.Stories.eases = ProStyle.Stories.eases || {};
 
 eases.story = {
     classes:{

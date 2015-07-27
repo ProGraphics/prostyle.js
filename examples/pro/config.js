@@ -1,6 +1,6 @@
-Pro.Motion.Stories.Config.default.auto.advance = true;
-Pro.Motion.Stories.Config.default.auto.restart = true;
-Pro.Motion.Stories.Config.default.controls = false;
-//Pro.Motion.Stories.Config.default.controls = { type: "track" };
-Pro.Motion.Stories.Config.default.keyboard = true;
-Pro.Motion.Stories.Config.default.debugBar = false;
+ProStyle.Stories.Config.default.auto.advance = true;
+ProStyle.Stories.Config.default.auto.restart = true;
+ProStyle.Stories.Config.default.controls = false;
+//ProStyle.Stories.Config.default.controls = { type: "track" };
+ProStyle.Stories.Config.default.keyboard = true;
+ProStyle.Stories.Config.default.debugBar = false;

@@ -1,4 +1,4 @@
-var hello = Pro.Motion.Stories.hello = Pro.Motion.Stories.hello || {};
+var hello = ProStyle.Stories.hello = ProStyle.Stories.hello || {};
 
 hello.story = {
     frame: {

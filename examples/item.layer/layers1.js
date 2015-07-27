@@ -1,4 +1,4 @@
-var layers1 = Pro.Motion.Stories.layers1 = Pro.Motion.Stories.layers1 || {};
+var layers1 = ProStyle.Stories.layers1 = ProStyle.Stories.layers1 || {};
 
 layers1.story = {
     canvas:{init:{bg:"#666"}},

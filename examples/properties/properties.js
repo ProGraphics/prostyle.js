@@ -1,4 +1,4 @@
-var properties = Pro.Motion.Stories.properties = Pro.Motion.Stories.properties || {};
+var properties = ProStyle.Stories.properties = ProStyle.Stories.properties || {};
 
 properties.story = {
     frame: {

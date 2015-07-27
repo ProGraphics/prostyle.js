@@ -1,4 +1,4 @@
-var layers2 = Pro.Motion.Stories.layers2 = Pro.Motion.Stories.layers2 || {};
+var layers2 = ProStyle.Stories.layers2 = ProStyle.Stories.layers2 || {};
 
 layers2.story = {
     frame:{

@@ -1,10 +1,10 @@
-Pro.Motion.Stories.Config.default.auto.advance = true;
-Pro.Motion.Stories.Config.default.auto.advanceDelay = 500; //half second
-Pro.Motion.Stories.Config.default.auto.restart = true;
-Pro.Motion.Stories.Config.default.keyboard = true;
-Pro.Motion.Stories.Config.default.mouseWheel = true;
-Pro.Motion.Stories.Config.default.debugBar = false;
-Pro.Motion.Stories.Config.default.controls = {
+ProStyle.Stories.Config.default.auto.advance = true;
+ProStyle.Stories.Config.default.auto.advanceDelay = 500; //half second
+ProStyle.Stories.Config.default.auto.restart = true;
+ProStyle.Stories.Config.default.keyboard = true;
+ProStyle.Stories.Config.default.mouseWheel = true;
+ProStyle.Stories.Config.default.debugBar = false;
+ProStyle.Stories.Config.default.controls = {
     type: "track",
     color: "#030",
     highlightColor: "#000",

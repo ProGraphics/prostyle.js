@@ -1,4 +1,4 @@
-var words = Pro.Motion.Stories.words = Pro.Motion.Stories.words || {};
+var words = ProStyle.Stories.words = ProStyle.Stories.words || {};
 
 words.story = {
     frame:{
