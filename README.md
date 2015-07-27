@@ -1,8 +1,7 @@
-# <img src="https://github.com/pro-graphics/pro-motion/blob/master/logo/ProMotion-1000x326.png" alt="Pro Motion" width="400px">
+# <img src="https://github.com/pro-graphics/prostyle/blob/master/logo/prostyle-1000x338-#345.png" alt="ProStyle" width="400px">
 
 ## Craft Rich Animations with Ease™ ##
-*Pro Motion* makes it simple to craft rich web-based, animated timelines. Animations are written declaratively using a concise JSON syntax. Complex timelines and presentations can be constructed by snapping together configurable page flows and items.  Plus, Pro Motion supports extensions so you can build your own reusable components or use those built by others.  Write and share animations and embed them right into your web pages.
+*ProStyle* makes it simple to craft rich web-based, animated timelines. Animations are written declaratively using a concise JSON syntax. Complex timelines and presentations can be constructed by snapping together configurable page flows and items.  Plus, ProStyle supports extensions so you can build your own reusable components or use those built by others.  Write and share animations and embed them right into your web pages.
 
-* [Getting Started](https://pro.graphics/motion/getting-started/)
-* [Documentation](https://pro.graphics/doc/concepts/)
-* [Changelog](https://github.com/pro-graphics/pro-motion/releases)
+* [Documentation](http://prostyle.io/)
+* [Changelog](https://github.com/pro-graphics/prostyle/releases)
