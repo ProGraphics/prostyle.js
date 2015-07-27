@@ -203,7 +203,7 @@ var ProStyle;
                 var Renderer = (function (_super) {
                     __extends(Renderer, _super);
                     function Renderer(simpleBarChartItem, itemSetElem) {
-                        _super.call(this, simpleBarChartItem, itemSetElem, Util.createChildSvgElement(itemSetElem.div, "svg", { "class": "pro" }));
+                        _super.call(this, simpleBarChartItem, itemSetElem, Util.createChildSvgElement(itemSetElem.div, "svg", { "class": "prostyle" }));
                         this.simpleBarChartItem = simpleBarChartItem;
                         this.barDivs = [];
                         this.width = 0;
@@ -256,7 +256,6 @@ var ProStyle;
                         buckets.forEach(function (bucket, index) {
                             var datumFrom = Util.convertToNumber(bucket.element.proCache.data[0], _this.domainBase);
                             var datumTo = Util.convertToNumber(bucket.element.proCache.data[1], _this.domainBase);
-                            console.log(bucket.element.proCache, datumFrom, datumTo);
                             var y = (_this.maxDomain - Math.max(datumFrom, datumTo)) / _this.domain * _this.height;
                             var h = ((_this.maxDomain - Math.min(datumFrom, datumTo)) / _this.domain * _this.height) - y;
                             var radius = _this.barWidth / 8;
