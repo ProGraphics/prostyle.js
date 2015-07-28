@@ -2176,7 +2176,7 @@ var ProStyle;
             (function (unknown) {
                 function readJson(itemSet, json) {
                     console.log(json);
-                    return new unknown.Extension(itemSet, json.item);
+                    return new unknown.Extension(itemSet, json.itemType);
                 }
                 unknown.readJson = readJson;
             })(unknown = Items.unknown || (Items.unknown = {}));
@@ -5019,12 +5019,13 @@ var ProStyle;
                 };
                 styles.selectors.push(".prostyle.prostyle-item.unknown");
                 styles[".prostyle.prostyle-item.unknown"] = {
-                    fontSize: "16px",
+                    fontSize: "24px",
                     fontWeight: "bold",
-                    color: "#FFF",
+                    color: "#C00",
                     padding: "1% 1%",
-                    backgroundColor: "#C00",
-                    border: "solid 3px #FFF"
+                    backgroundColor: "#FFF",
+                    border: "solid 3px #C00",
+                    opacity: 0.6
                 };
                 styles.selectors.push(".prostyle.prostyle-layer");
                 styles[".prostyle.prostyle-layer"] = {
