@@ -1,6 +1,6 @@
 /*!
  * VERSION: 0.18.0
- * DATE: 27-Jul-2015
+ * DATE: 28-Jul-2015
  * UPDATES AND DOCS AT: https://prostyle.io/
  * 
  * @license Copyright (c) 2011-2015, Pro Graphics, Inc. All rights reserved. 
@@ -43,23 +43,11 @@ var ProStyle;
         }
         Util.autoButton = autoButton;
         ;
-    })(Util = ProStyle.Util || (ProStyle.Util = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Util;
-    (function (Util) {
         function checkBrowserSupport() {
             var body = document.body;
             return (body.classList) && (body.dataset) && (Util.prefixCssStyleIfNeeded("perspective") !== null);
         }
         Util.checkBrowserSupport = checkBrowserSupport;
-    })(Util = ProStyle.Util || (ProStyle.Util = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Util;
-    (function (Util) {
         function configureMetaViewport() {
             var meta = Util.querySelector("meta[name='viewport']") || document.createElement("meta");
             meta.content = "width=device-width, minimum-scale=1, maximum-scale=1, user-scalable=no";
@@ -69,12 +57,6 @@ var ProStyle;
             }
         }
         Util.configureMetaViewport = configureMetaViewport;
-    })(Util = ProStyle.Util || (ProStyle.Util = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Util;
-    (function (Util) {
         function contentLoaded(win, fn) {
             var done = false, top = true, doc = win.document, root = doc.documentElement, modern = doc.addEventListener, add = modern ? 'addEventListener' : 'attachEvent', rem = modern ? 'removeEventListener' : 'detachEvent', pre = modern ? '' : 'on', init = function (e) {
                 if (e.type == 'readystatechange' && doc.readyState != 'complete')
@@ -110,12 +92,6 @@ var ProStyle;
             }
         }
         Util.contentLoaded = contentLoaded;
-    })(Util = ProStyle.Util || (ProStyle.Util = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Util;
-    (function (Util) {
         function convertToNumber(n, fallback, stripTrailingNonDigits) {
             if (fallback === void 0) { fallback = 0; }
             if (stripTrailingNonDigits === void 0) { stripTrailingNonDigits = false; }
@@ -131,22 +107,10 @@ var ProStyle;
             return isNaN(n) ? undefined : Number(n);
         }
         Util.convertToNumber2 = convertToNumber2;
-    })(Util = ProStyle.Util || (ProStyle.Util = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Util;
-    (function (Util) {
         function logError(method, message) {
             console.log("ProStyle Error: " + method + " - " + message);
         }
         Util.logError = logError;
-    })(Util = ProStyle.Util || (ProStyle.Util = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Util;
-    (function (Util) {
         function querySelector(selector, context) {
             if (context === void 0) { context = document; }
             try {
@@ -157,12 +121,6 @@ var ProStyle;
             }
         }
         Util.querySelector = querySelector;
-    })(Util = ProStyle.Util || (ProStyle.Util = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Util;
-    (function (Util) {
         function createChildDivElement(parentDiv, cssClass) {
             if (cssClass === void 0) { cssClass = undefined; }
             var div = document.createElement('div');
@@ -172,12 +130,6 @@ var ProStyle;
             return div;
         }
         Util.createChildDivElement = createChildDivElement;
-    })(Util = ProStyle.Util || (ProStyle.Util = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Util;
-    (function (Util) {
         function createChildImageElement(parentDiv, cssClass, src, width, height) {
             if (width === void 0) { width = undefined; }
             if (height === void 0) { height = undefined; }
@@ -194,12 +146,6 @@ var ProStyle;
             return img;
         }
         Util.createChildImageElement = createChildImageElement;
-    })(Util = ProStyle.Util || (ProStyle.Util = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Util;
-    (function (Util) {
         function createStyleElement(id) {
             var element = document.createElement('style');
             element.type = 'text/css';
@@ -209,12 +155,6 @@ var ProStyle;
             return element;
         }
         Util.createStyleElement = createStyleElement;
-    })(Util = ProStyle.Util || (ProStyle.Util = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Util;
-    (function (Util) {
         function createSvgElement(name, attrs, opt_parent) {
             var svgElement = document.createElementNS('http://www.w3.org/2000/svg', name);
             for (var key in attrs) {
@@ -226,12 +166,6 @@ var ProStyle;
             return svgElement;
         }
         Util.createSvgElement = createSvgElement;
-    })(Util = ProStyle.Util || (ProStyle.Util = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Util;
-    (function (Util) {
         var style = document.createElement('dummy').style, prefixes = 'Webkit Moz O ms Khtml'.split(' '), memory = {};
         function prefixCssStyleIfNeeded(cssStyle) {
             if (typeof memory[cssStyle] === "undefined") {
@@ -247,12 +181,6 @@ var ProStyle;
             return memory[cssStyle];
         }
         Util.prefixCssStyleIfNeeded = prefixCssStyleIfNeeded;
-    })(Util = ProStyle.Util || (ProStyle.Util = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Util;
-    (function (Util) {
         var style = document.createElement('dummy').style;
         function encodeStyle(cssStyle, value) {
             style.cssText = "";
@@ -261,12 +189,6 @@ var ProStyle;
             return style.cssText;
         }
         Util.encodeStyle = encodeStyle;
-    })(Util = ProStyle.Util || (ProStyle.Util = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Util;
-    (function (Util) {
         var style = document.createElement('dummy').style;
         function encodeStyles(cssStyles) {
             style.cssText = "";
@@ -282,12 +204,6 @@ var ProStyle;
             return style.cssText;
         }
         Util.encodeStyles = encodeStyles;
-    })(Util = ProStyle.Util || (ProStyle.Util = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Util;
-    (function (Util) {
         var style = document.createElement('dummy').style;
         function encodeStyleSheet(styles) {
             var encodings = [];
@@ -305,23 +221,11 @@ var ProStyle;
             return encodings.join("");
         }
         Util.encodeStyleSheet = encodeStyleSheet;
-    })(Util = ProStyle.Util || (ProStyle.Util = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Util;
-    (function (Util) {
         function getElementText(element) {
             var textProperty = document.body.textContent ? "textContent" : "innerText";
             return element[textProperty];
         }
         Util.getElementText = getElementText;
-    })(Util = ProStyle.Util || (ProStyle.Util = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Util;
-    (function (Util) {
         function lowercaseProperties(json) {
             var json2 = {};
             for (var prop in json) {
@@ -332,12 +236,6 @@ var ProStyle;
             return json2;
         }
         Util.lowercaseProperties = lowercaseProperties;
-    })(Util = ProStyle.Util || (ProStyle.Util = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Util;
-    (function (Util) {
         function getSetup(json, name) {
             if (json === undefined)
                 return undefined;
@@ -352,22 +250,10 @@ var ProStyle;
             return json[name];
         }
         Util.getSetup = getSetup;
-    })(Util = ProStyle.Util || (ProStyle.Util = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Util;
-    (function (Util) {
         function getSign(n) {
             return n ? n < 0 ? -1 : 1 : 0;
         }
         Util.getSign = getSign;
-    })(Util = ProStyle.Util || (ProStyle.Util = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Util;
-    (function (Util) {
         function getGSTransform(div) {
             var v = {
                 x: 0,
@@ -412,33 +298,15 @@ var ProStyle;
             return v;
         }
         Util.getGSTransform = getGSTransform;
-    })(Util = ProStyle.Util || (ProStyle.Util = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Util;
-    (function (Util) {
         function getStyleElement(styleId) {
             var styleElement = Util.querySelector("#" + styleId);
             return styleElement || Util.createStyleElement(styleId);
         }
         Util.getStyleElement = getStyleElement;
-    })(Util = ProStyle.Util || (ProStyle.Util = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Util;
-    (function (Util) {
         function insertIntoArray(array, index, item) {
             array.splice(index, 0, item);
         }
         Util.insertIntoArray = insertIntoArray;
-    })(Util = ProStyle.Util || (ProStyle.Util = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Util;
-    (function (Util) {
         function isAbsoluteUrl(url) {
             if (url) {
                 url = url.toString().trim();
@@ -455,12 +323,6 @@ var ProStyle;
             return false;
         }
         Util.isAbsoluteUrl = isAbsoluteUrl;
-    })(Util = ProStyle.Util || (ProStyle.Util = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Util;
-    (function (Util) {
         function logStepValues(flowIndex, pageIndex, itemIndex, stepIndex, values) {
             var out = [];
             out.push("f");
@@ -476,32 +338,14 @@ var ProStyle;
             console.log(out.join(""));
         }
         Util.logStepValues = logStepValues;
-    })(Util = ProStyle.Util || (ProStyle.Util = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Util;
-    (function (Util) {
         function logWarning(method, message) {
             console.log("ProStyle Warning: " + method + " - " + message);
         }
         Util.logWarning = logWarning;
-    })(Util = ProStyle.Util || (ProStyle.Util = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Util;
-    (function (Util) {
         function makeArray(a) {
             return [].slice.call(a);
         }
         Util.makeArray = makeArray;
-    })(Util = ProStyle.Util || (ProStyle.Util = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Util;
-    (function (Util) {
         function querySelectorAll(selector, context) {
             if (context === void 0) { context = document; }
             try {
@@ -512,23 +356,11 @@ var ProStyle;
             }
         }
         Util.querySelectorAll = querySelectorAll;
-    })(Util = ProStyle.Util || (ProStyle.Util = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Util;
-    (function (Util) {
         function setElementText(element, text) {
             var textProperty = document.body.textContent !== undefined ? "textContent" : "innerText";
             element[textProperty] = text;
         }
         Util.setElementText = setElementText;
-    })(Util = ProStyle.Util || (ProStyle.Util = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Util;
-    (function (Util) {
         function splitNoParens(s) {
             var left = 0;
             var right = 0;
@@ -557,12 +389,6 @@ var ProStyle;
             return results;
         }
         Util.splitNoParens = splitNoParens;
-    })(Util = ProStyle.Util || (ProStyle.Util = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Util;
-    (function (Util) {
         function svgAddClass(svgElement, className) {
             Util.svgRemoveClass(svgElement, className);
             var classAttr = svgElement.getAttribute('class') || "";
@@ -570,12 +396,6 @@ var ProStyle;
             svgElement.setAttribute("class", classAttr);
         }
         Util.svgAddClass = svgAddClass;
-    })(Util = ProStyle.Util || (ProStyle.Util = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Util;
-    (function (Util) {
         function svgGetBounds(svgElement) {
             try {
                 var rect = svgElement["getBBox"]();
@@ -589,24 +409,12 @@ var ProStyle;
             return rect;
         }
         Util.svgGetBounds = svgGetBounds;
-    })(Util = ProStyle.Util || (ProStyle.Util = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Util;
-    (function (Util) {
         function svgRemoveClass(svgElement, className) {
             var classAttr = svgElement.getAttribute('class') || "";
             classAttr = classAttr.replace(new RegExp('\\s?' + className), '');
             svgElement.setAttribute("class", classAttr);
         }
         Util.svgRemoveClass = svgRemoveClass;
-    })(Util = ProStyle.Util || (ProStyle.Util = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Util;
-    (function (Util) {
         var throttleTimer = null;
         function throttle(fn, delay) {
             var context = this, args = arguments;
@@ -619,9 +427,6 @@ var ProStyle;
         }
         Util.throttle = throttle;
     })(Util = ProStyle.Util || (ProStyle.Util = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
     var Types;
     (function (Types) {
         (function (EazeEffect) {
@@ -640,12 +445,6 @@ var ProStyle;
             EazeEffect[EazeEffect["StopAndReturn"] = 12] = "StopAndReturn";
         })(Types.EazeEffect || (Types.EazeEffect = {}));
         var EazeEffect = Types.EazeEffect;
-    })(Types = ProStyle.Types || (ProStyle.Types = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Types;
-    (function (Types) {
         (function (EazeAmount) {
             EazeAmount[EazeAmount["Less"] = 0] = "Less";
             EazeAmount[EazeAmount["Normal"] = 1] = "Normal";
@@ -653,24 +452,12 @@ var ProStyle;
             EazeAmount[EazeAmount["Extra"] = 3] = "Extra";
         })(Types.EazeAmount || (Types.EazeAmount = {}));
         var EazeAmount = Types.EazeAmount;
-    })(Types = ProStyle.Types || (ProStyle.Types = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Types;
-    (function (Types) {
         (function (EazeEnding) {
             EazeEnding[EazeEnding["In"] = 0] = "In";
             EazeEnding[EazeEnding["Out"] = 1] = "Out";
             EazeEnding[EazeEnding["InOut"] = 2] = "InOut";
         })(Types.EazeEnding || (Types.EazeEnding = {}));
         var EazeEnding = Types.EazeEnding;
-    })(Types = ProStyle.Types || (ProStyle.Types = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Types;
-    (function (Types) {
         var Eaze = (function () {
             function Eaze(effect, amount, ending) {
                 if (effect === void 0) { effect = undefined; }
@@ -799,12 +586,6 @@ var ProStyle;
             return Eaze;
         })();
         Types.Eaze = Eaze;
-    })(Types = ProStyle.Types || (ProStyle.Types = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Types;
-    (function (Types) {
         var Size = (function () {
             function Size(width, height) {
                 if (width === void 0) { width = Size.DEFAULT_WIDTH; }
@@ -839,12 +620,6 @@ var ProStyle;
             return Size;
         })();
         Types.Size = Size;
-    })(Types = ProStyle.Types || (ProStyle.Types = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Types;
-    (function (Types) {
         var Scale = (function () {
             function Scale(x, y) {
                 if (x === void 0) { x = 1; }
@@ -888,12 +663,6 @@ var ProStyle;
             return Scale;
         })();
         Types.Scale = Scale;
-    })(Types = ProStyle.Types || (ProStyle.Types = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Types;
-    (function (Types) {
         var Xyz = (function () {
             function Xyz(x, y, z) {
                 if (x === void 0) { x = 0; }
@@ -943,12 +712,6 @@ var ProStyle;
             return Xyz;
         })();
         Types.Xyz = Xyz;
-    })(Types = ProStyle.Types || (ProStyle.Types = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Types;
-    (function (Types) {
         var Placement = (function () {
             function Placement(position, rotation, scale, opacity) {
                 if (opacity === void 0) { opacity = 1; }
@@ -1050,12 +813,6 @@ var ProStyle;
             return Placement;
         })();
         Types.Placement = Placement;
-    })(Types = ProStyle.Types || (ProStyle.Types = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Types;
-    (function (Types) {
         var Shadow = (function () {
             function Shadow(x, y, blur, color, spread, inset) {
                 if (x === void 0) { x = 0; }
@@ -1173,12 +930,6 @@ var ProStyle;
             return Shadow;
         })();
         Types.Shadow = Shadow;
-    })(Types = ProStyle.Types || (ProStyle.Types = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Types;
-    (function (Types) {
         var Stacks = (function () {
             function Stacks(current, future, futureOffset, past, pastOffset) {
                 this.current = current;
@@ -1197,59 +948,29 @@ var ProStyle;
         })();
         Types.Stacks = Stacks;
     })(Types = ProStyle.Types || (ProStyle.Types = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
     var Svg;
     (function (Svg) {
         var fastForward;
         (function (fastForward) {
             fastForward.svg = '<svg viewBox="0 0 880 1000" xmlns="http://www.w3.org/2000/svg">  <g>    <path d="M866 476c9.333 6.667 14 14.667 14 24c0 9.333 -4.667 16.667 -14 22c0 0 -372 248 -372 248c-14.667 9.333 -27 11.333 -37 6c-10 -5.333 -15 -17.333 -15 -36c0 0 0 -482 0 -482c0 -18.667 5 -30.667 15 -36c10 -5.333 22.333 -3.333 37 6c0 0 372 248 372 248m-454 0c9.333 6.667 14 14.667 14 24c0 9.333 -4.667 16.667 -14 22c0 0 -360 248 -360 248c-13.333 9.333 -25.333 11.333 -36 6c-10.667 -5.333 -16 -17.333 -16 -36c0 0 0 -482 0 -482c0 -18.667 5.333 -30.667 16 -36c10.667 -5.333 22.667 -3.333 36 6c0 0 360 248 360 248" />  </g></svg>';
         })(fastForward = Svg.fastForward || (Svg.fastForward = {}));
-    })(Svg = ProStyle.Svg || (ProStyle.Svg = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Svg;
-    (function (Svg) {
         var logo;
         (function (logo) {
             logo.svg = '<svg viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">  <g>    <path d="M 235.53172,912.14362 C 222.1737,911.65675 192.88213,908.97613 179.7563,907.0393 142.78725,901.5842 111.49908,892.23905 88.608558,879.81533 25.450284,845.53645 -2.363022,754.52992 11.595266,627.82372 25.966799,497.36601 84.182786,347.68421 159.54762,247.41661 197.38417,197.07776 237.03803,160.39415 278.89341,137.01036 374.98294,83.32699 506.9775,80.13258 647.3983,128.09214 c 49.55485,16.92505 104.25567,43.36958 148.76794,71.92026 67.85023,43.51989 124.36319,97.22188 156.87086,149.06805 18.94366,30.21307 31.87969,63.3221 38.06746,97.43144 2.33759,12.88545 2.53863,16.10095 2.59068,41.42752 0.0635,30.88207 -0.93881,40.20361 -6.88779,64.06813 -4.43071,17.77393 -9.49209,31.52197 -18.08915,49.13496 -8.23109,16.86308 -14.88167,27.71 -25.9912,42.39094 C 899.81543,700.24002 812.14549,761.98761 706.85748,809.66081 557.06683,877.48427 374.39035,917.2046 235.53172,912.14362 z m 20.199,-175.08151 c 6.38062,-2.666 6.29534,-1.92178 6.29534,-54.94359 0,-44.83349 0.10257,-47.73586 1.686,-47.70791 0.92731,0.0164 4.93759,0.46167 8.91174,0.9896 31.04792,4.12438 61.94393,2.5304 86.22704,-4.44863 37.74398,-10.8477 65.19426,-39.86566 76.5239,-80.89416 5.21836,-18.89745 5.3677,-20.86694 5.3677,-70.78889 0,-44.41671 -0.10617,-47.267 -2.14793,-57.66335 -10.62749,-54.11369 -43.50561,-87.90953 -95.15856,-97.81468 -34.23802,-6.56561 -88.65352,-3.28975 -141.91157,8.54321 -17.90378,3.97789 -23.30288,6.3891 -24.9484,11.14185 -0.87518,2.52775 -1.1629,48.97756 -1.2043,194.41663 -0.0485,170.42766 0.10664,191.43468 1.43437,194.23266 1.3611,2.86829 3.29589,4.39796 7.18213,5.67829 0.79484,0.26186 16.52472,0.51032 34.95531,0.55216 26.91396,0.0611 34.15522,-0.19347 36.78723,-1.29319 z m 36.16169,-170.6532 c -0.79483,-0.16956 -7.83992,-0.8255 -15.65574,-1.45764 l -14.21061,-1.14936 0,-84.09937 0,-84.09937 2.64944,-0.54561 c 4.32406,-0.89047 29.87188,-2.4793 39.7415,-2.47153 19.88057,0.0156 31.80455,5.28992 40.05624,17.71784 7.62813,11.4888 9.88532,23.73156 10.67225,57.88521 0.94764,41.1288 -1.53911,63.6562 -8.46381,76.6734 -5.72666,10.76513 -16.75587,18.88668 -28.66728,21.10972 -4.72311,0.88147 -22.63346,1.1809 -26.12199,0.43671 z m 525.851,69.28618 c 42.38495,-6.01923 75.22316,-29.25194 92.24766,-65.26424 11.84331,-25.05233 14.87524,-43.63329 14.87524,-91.16232 0,-40.01963 -1.78087,-55.69933 -8.65755,-76.22473 -13.90501,-41.50378 -45.23465,-69.21991 -89.13065,-78.85057 -28.6265,-6.28057 -64.499,-4.3605 -90.6127,4.85004 -45.55567,16.06787 -72.81618,52.13077 -79.95784,105.77608 -1.95361,14.67474 -1.92487,74.08051 0.043,89.09299 5.72313,43.65858 25.18804,75.73978 57.80606,95.27346 26.94864,16.13849 64.15813,22.08028 103.38668,16.50929 z m -38.93145,-72.11263 c -13.50019,-2.93712 -23.06811,-10.72915 -29.29281,-23.85582 -6.58723,-13.89118 -7.22294,-19.21222 -7.22294,-60.45811 0,-41.45888 0.64564,-46.8115 7.29042,-60.44081 8.16765,-16.7529 20.8752,-24.30337 40.94711,-24.32965 17.26097,-0.0226 28.83801,5.77322 37.13719,18.59198 8.46721,13.0783 10.47888,25.78284 10.47888,66.17848 0,38.81099 -1.53158,49.75666 -8.93668,63.86774 -8.79754,16.76446 -29.22827,25.05258 -50.40117,20.44619 z m -221.41931,65.75453 3.2969,-3.59872 0.03,-107.19579 0.03,-107.19581 8.93659,-4.08853 c 20.61319,-9.43061 36.60854,-13.59307 55.5365,-14.45218 11.51659,-0.52274 12.1389,-0.6588 14.69231,-3.2122 l 2.66628,-2.66634 0,-29.49265 c 0,-32.3359 -0.065,-32.73152 -5.87582,-35.73638 -4.84819,-2.50711 -19.8152,-1.095 -36.08282,3.40434 -9.76904,2.70194 -27.10272,11.03633 -34.87766,16.76991 -3.31328,2.44336 -6.2397,4.44247 -6.50316,4.44247 -0.26345,0 -0.47901,-3.43499 -0.47901,-7.63334 0,-7.23931 -0.15301,-7.78635 -2.9644,-10.59774 l -2.96441,-2.96439 -36.03933,0 -36.03934,0 -3.14635,2.81116 -3.14635,2.81117 -0.28573,145.31628 c -0.1992,101.30298 0.027,146.3959 0.74674,148.88076 1.02228,3.52923 4.48752,6.81938 8.20987,7.79506 1.05978,0.27777 17.45985,0.43678 36.44462,0.35334 l 34.51776,-0.1517 3.29689,-3.59872 z" />  </g></svg>';
         })(logo = Svg.logo || (Svg.logo = {}));
-    })(Svg = ProStyle.Svg || (ProStyle.Svg = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Svg;
-    (function (Svg) {
         var pause;
         (function (pause) {
             pause.svg = '<svg viewBox="0 0 530 1000" xmlns="http://www.w3.org/2000/svg">  <g>    <path d="M440 150c60 0 90 21.333 90 64c0 0 0 570 0 570c0 44 -30 66 -90 66c-60 0 -90 -22 -90 -66c0 0 0 -570 0 -570c0 -42.667 30 -64 90 -64c0 0 0 0 0 0m-350 0c60 0 90 21.333 90 64c0 0 0 570 0 570c0 44 -30 66 -90 66c-60 0 -90 -22 -90 -66c0 0 0 -570 0 -570c0 -42.667 30 -64 90 -64c0 0 0 0 0 0" />  </g></svg>';
         })(pause = Svg.pause || (Svg.pause = {}));
-    })(Svg = ProStyle.Svg || (ProStyle.Svg = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Svg;
-    (function (Svg) {
         var play;
         (function (play) {
             play.svg = '<svg viewBox="0 0 500 1000" xmlns="http://www.w3.org/2000/svg">  <g>    <path d="M486 474c9.333 6.667 14 15.333 14 26c0 9.333 -4.667 17.333 -14 24c0 0 -428 266 -428 266c-16 10.667 -29.667 12.667 -41 6c-11.333 -6.667 -17 -20 -17 -40c0 0 0 -514 0 -514c0 -20 5.667 -33.333 17 -40c11.333 -6.667 25 -4.667 41 6c0 0 428 266 428 266" />  </g></svg>';
         })(play = Svg.play || (Svg.play = {}));
-    })(Svg = ProStyle.Svg || (ProStyle.Svg = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Svg;
-    (function (Svg) {
         var toStart;
         (function (toStart) {
             toStart.svg = '<svg viewBox="0 0 600 1000" xmlns="http://www.w3.org/2000/svg">  <g>    <path d="M174 500c0 -9.333 4.667 -17.333 14 -24c0 0 364 -228 364 -228c13.333 -9.333 24.667 -11 34 -5c9.333 6 14 17.667 14 35c0 0 0 442 0 442c0 17.333 -4.667 29 -14 35c-9.333 6 -20.667 4.333 -34 -5c0 0 -364 -228 -364 -228c-9.333 -6.667 -14 -14 -14 -22c0 0 0 0 0 0m-174 -234c0 -38.667 25.333 -58 76 -58c49.333 0 74 19.333 74 58c0 0 0 466 0 466c0 38.667 -24.667 58 -74 58c-50.667 0 -76 -19.333 -76 -58c0 0 0 -466 0 -466c0 0 0 0 0 0" />  </g></svg>';
         })(toStart = Svg.toStart || (Svg.toStart = {}));
     })(Svg = ProStyle.Svg || (ProStyle.Svg = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
     var Models;
     (function (Models) {
         var Model = (function () {
@@ -1261,9 +982,6 @@ var ProStyle;
         })();
         Models.Model = Model;
     })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
     var Stories;
     (function (Stories) {
         Stories.rootUrl = undefined;
@@ -1378,12 +1096,7 @@ var ProStyle;
             return Canvas;
         })(Models.Model);
         Models.Canvas = Canvas;
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Frame = (function (_super) {
             __extends(Frame, _super);
             function Frame(init, aspectRatio, padding) {
@@ -1394,12 +1107,7 @@ var ProStyle;
             return Frame;
         })(Models.Model);
         Models.Frame = Frame;
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Story = (function () {
             function Story(canvas, frame, flows, classes) {
                 this.canvas = canvas;
@@ -1410,12 +1118,7 @@ var ProStyle;
             return Story;
         })();
         Models.Story = Story;
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Properties;
         (function (Properties) {
             var PropertyList = (function () {
@@ -1448,12 +1151,7 @@ var ProStyle;
             })();
             Properties.PropertyList = PropertyList;
         })(Properties = Models.Properties || (Models.Properties = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Page = (function (_super) {
             __extends(Page, _super);
             function Page(init, flow) {
@@ -1491,12 +1189,7 @@ var ProStyle;
             return Page;
         })(Models.Model);
         Models.Page = Page;
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Flows;
         (function (Flows) {
             var Flow = (function () {
@@ -1519,12 +1212,7 @@ var ProStyle;
             })();
             Flows.Flow = Flow;
         })(Flows = Models.Flows || (Models.Flows = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Flows;
         (function (Flows) {
             var SimpleFlow = (function (_super) {
@@ -1540,9 +1228,6 @@ var ProStyle;
             Flows.SimpleFlow = SimpleFlow;
         })(Flows = Models.Flows || (Models.Flows = {}));
     })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
     var Extensions;
     (function (Extensions) {
         var Flows;
@@ -1562,9 +1247,6 @@ var ProStyle;
             })(unknown = Flows.unknown || (Flows.unknown = {}));
         })(Flows = Extensions.Flows || (Extensions.Flows = {}));
     })(Extensions = ProStyle.Extensions || (ProStyle.Extensions = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
     var Render;
     (function (Render) {
         var Models = ProStyle.Models;
@@ -1669,12 +1351,6 @@ var ProStyle;
             return Visual;
         })();
         Render.Visual = Visual;
-    })(Render = ProStyle.Render || (ProStyle.Render = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Render;
-    (function (Render) {
         var Items;
         (function (Items) {
             var Util = ProStyle.Util;
@@ -1699,9 +1375,6 @@ var ProStyle;
             Items.Item = Item;
         })(Items = Render.Items || (Render.Items = {}));
     })(Render = ProStyle.Render || (ProStyle.Render = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
     var Models;
     (function (Models) {
         var Properties;
@@ -1731,12 +1404,7 @@ var ProStyle;
             })();
             Properties.Property = Property;
         })(Properties = Models.Properties || (Models.Properties = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Properties;
         (function (Properties) {
             var Variables;
@@ -1780,12 +1448,7 @@ var ProStyle;
                 Variables.VariableType = VariableType;
             })(Variables = Properties.Variables || (Properties.Variables = {}));
         })(Properties = Models.Properties || (Models.Properties = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Properties;
         (function (Properties) {
             var Variables;
@@ -1805,12 +1468,7 @@ var ProStyle;
                 Variables.StringVariableType = StringVariableType;
             })(Variables = Properties.Variables || (Properties.Variables = {}));
         })(Properties = Models.Properties || (Models.Properties = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Properties;
         (function (Properties) {
             var Variables;
@@ -1828,12 +1486,7 @@ var ProStyle;
                 Variables.BackgroundImageVariableType = BackgroundImageVariableType;
             })(Variables = Properties.Variables || (Properties.Variables = {}));
         })(Properties = Models.Properties || (Models.Properties = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Properties;
         (function (Properties) {
             var Variables;
@@ -1857,12 +1510,7 @@ var ProStyle;
                 Variables.BooleanVariableType = BooleanVariableType;
             })(Variables = Properties.Variables || (Properties.Variables = {}));
         })(Properties = Models.Properties || (Models.Properties = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Properties;
         (function (Properties) {
             var Variables;
@@ -1899,12 +1547,7 @@ var ProStyle;
                 Variables.EnumVariableType = EnumVariableType;
             })(Variables = Properties.Variables || (Properties.Variables = {}));
         })(Properties = Models.Properties || (Models.Properties = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Properties;
         (function (Properties) {
             var Variables;
@@ -1962,12 +1605,7 @@ var ProStyle;
                 Variables.BulletsVariableType = BulletsVariableType;
             })(Variables = Properties.Variables || (Properties.Variables = {}));
         })(Properties = Models.Properties || (Models.Properties = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Properties;
         (function (Properties) {
             var Variables;
@@ -2000,12 +1638,7 @@ var ProStyle;
                 Variables.ColorVariableType = ColorVariableType;
             })(Variables = Properties.Variables || (Properties.Variables = {}));
         })(Properties = Models.Properties || (Models.Properties = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Properties;
         (function (Properties) {
             var Variables;
@@ -2030,12 +1663,7 @@ var ProStyle;
                 Variables.NumberVariableType = NumberVariableType;
             })(Variables = Properties.Variables || (Properties.Variables = {}));
         })(Properties = Models.Properties || (Models.Properties = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Properties;
         (function (Properties) {
             var Variables;
@@ -2058,12 +1686,7 @@ var ProStyle;
                 Variables.ContainerDepthPctVariableType = ContainerDepthPctVariableType;
             })(Variables = Properties.Variables || (Properties.Variables = {}));
         })(Properties = Models.Properties || (Models.Properties = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Properties;
         (function (Properties) {
             var Variables;
@@ -2084,12 +1707,7 @@ var ProStyle;
                 Variables.ContainerHeightPctVariableType = ContainerHeightPctVariableType;
             })(Variables = Properties.Variables || (Properties.Variables = {}));
         })(Properties = Models.Properties || (Models.Properties = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Properties;
         (function (Properties) {
             var Variables;
@@ -2107,12 +1725,7 @@ var ProStyle;
                 Variables.ContainerWidthPctVariableType = ContainerWidthPctVariableType;
             })(Variables = Properties.Variables || (Properties.Variables = {}));
         })(Properties = Models.Properties || (Models.Properties = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Properties;
         (function (Properties) {
             var Variables;
@@ -2139,12 +1752,7 @@ var ProStyle;
                 Variables.EaseVariableType = EaseVariableType;
             })(Variables = Properties.Variables || (Properties.Variables = {}));
         })(Properties = Models.Properties || (Models.Properties = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Properties;
         (function (Properties) {
             var Variables;
@@ -2167,12 +1775,7 @@ var ProStyle;
                 Variables.NumberOffsetVariableType = NumberOffsetVariableType;
             })(Variables = Properties.Variables || (Properties.Variables = {}));
         })(Properties = Models.Properties || (Models.Properties = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Properties;
         (function (Properties) {
             var Variables;
@@ -2256,12 +1859,7 @@ var ProStyle;
                 Variables.OriginVariableType = OriginVariableType;
             })(Variables = Properties.Variables || (Properties.Variables = {}));
         })(Properties = Models.Properties || (Models.Properties = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Properties;
         (function (Properties) {
             var Variables;
@@ -2279,12 +1877,7 @@ var ProStyle;
                 Variables.PercentVariableType = PercentVariableType;
             })(Variables = Properties.Variables || (Properties.Variables = {}));
         })(Properties = Models.Properties || (Models.Properties = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Properties;
         (function (Properties) {
             var Variables;
@@ -2327,12 +1920,7 @@ var ProStyle;
                 Variables.ShadowVariableType = ShadowVariableType;
             })(Variables = Properties.Variables || (Properties.Variables = {}));
         })(Properties = Models.Properties || (Models.Properties = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Properties;
         (function (Properties) {
             var Variables;
@@ -2347,12 +1935,7 @@ var ProStyle;
                 Variables.TextAlignVariableType = TextAlignVariableType;
             })(Variables = Properties.Variables || (Properties.Variables = {}));
         })(Properties = Models.Properties || (Models.Properties = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Properties;
         (function (Properties) {
             var Variables;
@@ -2376,12 +1959,7 @@ var ProStyle;
                 Variables.TextWidthVariableType = TextWidthVariableType;
             })(Variables = Properties.Variables || (Properties.Variables = {}));
         })(Properties = Models.Properties || (Models.Properties = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Properties;
         (function (Properties) {
             var PropertyType = (function () {
@@ -2459,12 +2037,7 @@ var ProStyle;
             })();
             Properties.PropertyType = PropertyType;
         })(Properties = Models.Properties || (Models.Properties = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Items;
         (function (Items) {
             var Item = (function (_super) {
@@ -2495,9 +2068,6 @@ var ProStyle;
             Items.Item = Item;
         })(Items = Models.Items || (Models.Items = {}));
     })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
     var Render;
     (function (Render) {
         var Items;
@@ -2518,9 +2088,6 @@ var ProStyle;
             Items.SequencedItem = SequencedItem;
         })(Items = Render.Items || (Render.Items = {}));
     })(Render = ProStyle.Render || (ProStyle.Render = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
     var Models;
     (function (Models) {
         var Scripts;
@@ -2536,12 +2103,7 @@ var ProStyle;
             })();
             Scripts.Script = Script;
         })(Scripts = Models.Scripts || (Models.Scripts = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Scripts;
         (function (Scripts) {
             var ScriptSet = (function () {
@@ -2584,9 +2146,6 @@ var ProStyle;
             Scripts.ScriptSet = ScriptSet;
         })(Scripts = Models.Scripts || (Models.Scripts = {}));
     })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
     var Extensions;
     (function (Extensions) {
         var Items;
@@ -2609,9 +2168,6 @@ var ProStyle;
             })(unknown = _Items.unknown || (_Items.unknown = {}));
         })(Items = Extensions.Items || (Extensions.Items = {}));
     })(Extensions = ProStyle.Extensions || (ProStyle.Extensions = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
     var Extensions;
     (function (Extensions) {
         var Items;
@@ -2626,9 +2182,6 @@ var ProStyle;
             })(unknown = Items.unknown || (Items.unknown = {}));
         })(Items = Extensions.Items || (Extensions.Items = {}));
     })(Extensions = ProStyle.Extensions || (ProStyle.Extensions = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
     var Serialization;
     (function (Serialization) {
         var Util = ProStyle.Util;
@@ -2664,9 +2217,6 @@ var ProStyle;
         })();
         Serialization.ItemReader = ItemReader;
     })(Serialization = ProStyle.Serialization || (ProStyle.Serialization = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
     var Render;
     (function (Render) {
         var Util = ProStyle.Util;
@@ -2741,12 +2291,6 @@ var ProStyle;
             return Page;
         })(Render.Visual);
         Render.Page = Page;
-    })(Render = ProStyle.Render || (ProStyle.Render = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Render;
-    (function (Render) {
         var Flows;
         (function (Flows) {
             var Util = ProStyle.Util;
@@ -2820,15 +2364,6 @@ var ProStyle;
                 return Flow;
             })(Render.Visual);
             Flows.Flow = Flow;
-        })(Flows = Render.Flows || (Render.Flows = {}));
-    })(Render = ProStyle.Render || (ProStyle.Render = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Render;
-    (function (Render) {
-        var Flows;
-        (function (Flows) {
             var SimpleFlow = (function (_super) {
                 __extends(SimpleFlow, _super);
                 function SimpleFlow(simpleFlow, cameraElem, flowIndex) {
@@ -2874,9 +2409,6 @@ var ProStyle;
             Flows.SimpleFlow = SimpleFlow;
         })(Flows = Render.Flows || (Render.Flows = {}));
     })(Render = ProStyle.Render || (ProStyle.Render = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
     var Extensions;
     (function (Extensions) {
         var Flows;
@@ -2895,9 +2427,6 @@ var ProStyle;
             })(unknown = Flows.unknown || (Flows.unknown = {}));
         })(Flows = Extensions.Flows || (Extensions.Flows = {}));
     })(Extensions = ProStyle.Extensions || (ProStyle.Extensions = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
     var Extensions;
     (function (Extensions) {
         var Flows;
@@ -2915,9 +2444,6 @@ var ProStyle;
             })(unknown = Flows.unknown || (Flows.unknown = {}));
         })(Flows = Extensions.Flows || (Extensions.Flows = {}));
     })(Extensions = ProStyle.Extensions || (ProStyle.Extensions = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
     var Extensions;
     (function (Extensions) {
         var Items;
@@ -2940,9 +2466,6 @@ var ProStyle;
             })(unknown = _Items.unknown || (_Items.unknown = {}));
         })(Items = Extensions.Items || (Extensions.Items = {}));
     })(Extensions = ProStyle.Extensions || (ProStyle.Extensions = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
     var Models;
     (function (Models) {
         var Scripts;
@@ -2961,12 +2484,7 @@ var ProStyle;
             })(Scripts.Script);
             Scripts.ActionsScript = ActionsScript;
         })(Scripts = Models.Scripts || (Models.Scripts = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Actions;
         (function (Actions) {
             (function (ActionType) {
@@ -2974,12 +2492,7 @@ var ProStyle;
             })(Actions.ActionType || (Actions.ActionType = {}));
             var ActionType = Actions.ActionType;
         })(Actions = Models.Actions || (Models.Actions = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Actions;
         (function (Actions) {
             var ActionType;
@@ -3001,12 +2514,7 @@ var ProStyle;
                 ActionType.toString = toString;
             })(ActionType = Actions.ActionType || (Actions.ActionType = {}));
         })(Actions = Models.Actions || (Models.Actions = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Actions;
         (function (Actions) {
             var Action = (function () {
@@ -3024,12 +2532,7 @@ var ProStyle;
             })();
             Actions.Action = Action;
         })(Actions = Models.Actions || (Models.Actions = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Actions;
         (function (Actions) {
             var SetPropertiesAction = (function (_super) {
@@ -3042,12 +2545,7 @@ var ProStyle;
             })(Actions.Action);
             Actions.SetPropertiesAction = SetPropertiesAction;
         })(Actions = Models.Actions || (Models.Actions = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Flows;
         (function (Flows) {
             var PlacementFlow = (function (_super) {
@@ -3070,12 +2568,7 @@ var ProStyle;
             })(Flows.Flow);
             Flows.PlacementFlow = PlacementFlow;
         })(Flows = Models.Flows || (Models.Flows = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Properties;
         (function (Properties) {
             var AnchorPropertyType = (function (_super) {
@@ -3148,12 +2641,7 @@ var ProStyle;
             })(Properties.PropertyType);
             Properties.AnchorPropertyType = AnchorPropertyType;
         })(Properties = Models.Properties || (Models.Properties = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Properties;
         (function (Properties) {
             var AnimationPropertyType = (function (_super) {
@@ -3211,12 +2699,7 @@ var ProStyle;
             })(Properties.PropertyType);
             Properties.AnimationPropertyType = AnimationPropertyType;
         })(Properties = Models.Properties || (Models.Properties = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Properties;
         (function (Properties) {
             var BackgroundPropertyType = (function (_super) {
@@ -3285,12 +2768,7 @@ var ProStyle;
             })(Properties.PropertyType);
             Properties.BackgroundPropertyType = BackgroundPropertyType;
         })(Properties = Models.Properties || (Models.Properties = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Properties;
         (function (Properties) {
             var BorderPropertyType = (function (_super) {
@@ -3354,12 +2832,7 @@ var ProStyle;
             })(Properties.PropertyType);
             Properties.BorderPropertyType = BorderPropertyType;
         })(Properties = Models.Properties || (Models.Properties = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Properties;
         (function (Properties) {
             var BulletsPropertyType = (function (_super) {
@@ -3402,12 +2875,7 @@ var ProStyle;
             })(Properties.PropertyType);
             Properties.BulletsPropertyType = BulletsPropertyType;
         })(Properties = Models.Properties || (Models.Properties = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Properties;
         (function (Properties) {
             var ClassPropertyType = (function (_super) {
@@ -3440,12 +2908,7 @@ var ProStyle;
             })(Properties.PropertyType);
             Properties.ClassPropertyType = ClassPropertyType;
         })(Properties = Models.Properties || (Models.Properties = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Properties;
         (function (Properties) {
             var ColorPropertyType = (function (_super) {
@@ -3484,12 +2947,7 @@ var ProStyle;
             })(Properties.PropertyType);
             Properties.ColorPropertyType = ColorPropertyType;
         })(Properties = Models.Properties || (Models.Properties = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Properties;
         (function (Properties) {
             var CornersPropertyType = (function (_super) {
@@ -3544,12 +3002,7 @@ var ProStyle;
             })(Properties.PropertyType);
             Properties.CornersPropertyType = CornersPropertyType;
         })(Properties = Models.Properties || (Models.Properties = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Properties;
         (function (Properties) {
             var CropPropertyType = (function (_super) {
@@ -3596,12 +3049,7 @@ var ProStyle;
             })(Properties.PropertyType);
             Properties.CropPropertyType = CropPropertyType;
         })(Properties = Models.Properties || (Models.Properties = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Properties;
         (function (Properties) {
             var FontPropertyType = (function (_super) {
@@ -3643,12 +3091,7 @@ var ProStyle;
             })(Properties.PropertyType);
             Properties.FontPropertyType = FontPropertyType;
         })(Properties = Models.Properties || (Models.Properties = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Properties;
         (function (Properties) {
             var MoveToPropertyType = (function (_super) {
@@ -3683,12 +3126,7 @@ var ProStyle;
             })(Properties.PropertyType);
             Properties.MoveToPropertyType = MoveToPropertyType;
         })(Properties = Models.Properties || (Models.Properties = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Properties;
         (function (Properties) {
             var OpacityPropertyType = (function (_super) {
@@ -3727,12 +3165,7 @@ var ProStyle;
             })(Properties.PropertyType);
             Properties.OpacityPropertyType = OpacityPropertyType;
         })(Properties = Models.Properties || (Models.Properties = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Properties;
         (function (Properties) {
             var PaddingPropertyType = (function (_super) {
@@ -3807,12 +3240,7 @@ var ProStyle;
             })(Properties.PropertyType);
             Properties.PaddingPropertyType = PaddingPropertyType;
         })(Properties = Models.Properties || (Models.Properties = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Properties;
         (function (Properties) {
             var PositionPropertyType = (function (_super) {
@@ -3865,12 +3293,7 @@ var ProStyle;
             })(Properties.PropertyType);
             Properties.PositionPropertyType = PositionPropertyType;
         })(Properties = Models.Properties || (Models.Properties = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Properties;
         (function (Properties) {
             var RotationPropertyType = (function (_super) {
@@ -3924,12 +3347,7 @@ var ProStyle;
             })(Properties.PropertyType);
             Properties.RotationPropertyType = RotationPropertyType;
         })(Properties = Models.Properties || (Models.Properties = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Properties;
         (function (Properties) {
             var ScalePropertyType = (function (_super) {
@@ -3985,12 +3403,7 @@ var ProStyle;
             })(Properties.PropertyType);
             Properties.ScalePropertyType = ScalePropertyType;
         })(Properties = Models.Properties || (Models.Properties = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Properties;
         (function (Properties) {
             var SizePropertyType = (function (_super) {
@@ -4037,12 +3450,7 @@ var ProStyle;
             })(Properties.PropertyType);
             Properties.SizePropertyType = SizePropertyType;
         })(Properties = Models.Properties || (Models.Properties = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Properties;
         (function (Properties) {
             var SkewPropertyType = (function (_super) {
@@ -4085,12 +3493,7 @@ var ProStyle;
             })(Properties.PropertyType);
             Properties.SkewPropertyType = SkewPropertyType;
         })(Properties = Models.Properties || (Models.Properties = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Properties;
         (function (Properties) {
             var ShadowPropertyType = (function (_super) {
@@ -4191,12 +3594,7 @@ var ProStyle;
             })(Properties.PropertyType);
             Properties.ShadowPropertyType = ShadowPropertyType;
         })(Properties = Models.Properties || (Models.Properties = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Properties;
         (function (Properties) {
             var SvgFillPropertyType = (function (_super) {
@@ -4238,12 +3636,7 @@ var ProStyle;
             })(Properties.PropertyType);
             Properties.SvgFillPropertyType = SvgFillPropertyType;
         })(Properties = Models.Properties || (Models.Properties = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Properties;
         (function (Properties) {
             var TextAlignPropertyType = (function (_super) {
@@ -4293,12 +3686,7 @@ var ProStyle;
             })(Properties.PropertyType);
             Properties.TextAlignPropertyType = TextAlignPropertyType;
         })(Properties = Models.Properties || (Models.Properties = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Properties;
         (function (Properties) {
             var TextShadowPropertyType = (function (_super) {
@@ -4310,12 +3698,7 @@ var ProStyle;
             })(Properties.ShadowPropertyType);
             Properties.TextShadowPropertyType = TextShadowPropertyType;
         })(Properties = Models.Properties || (Models.Properties = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Properties;
         (function (Properties) {
             var TextStylePropertyType = (function (_super) {
@@ -4401,12 +3784,7 @@ var ProStyle;
             })(Properties.PropertyType);
             Properties.TextStylePropertyType = TextStylePropertyType;
         })(Properties = Models.Properties || (Models.Properties = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Properties;
         (function (Properties) {
             var TextWidthPropertyType = (function (_super) {
@@ -4447,12 +3825,7 @@ var ProStyle;
             })(Properties.PropertyType);
             Properties.TextWidthPropertyType = TextWidthPropertyType;
         })(Properties = Models.Properties || (Models.Properties = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Properties;
         (function (Properties) {
             var TransformOriginPropertyType = (function (_super) {
@@ -4486,12 +3859,7 @@ var ProStyle;
             })(Properties.PropertyType);
             Properties.TransformOriginPropertyType = TransformOriginPropertyType;
         })(Properties = Models.Properties || (Models.Properties = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Properties;
         (function (Properties) {
             var Cache = (function () {
@@ -4528,12 +3896,7 @@ var ProStyle;
             })();
             Properties.Cache = Cache;
         })(Properties = Models.Properties || (Models.Properties = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Items;
         (function (Items) {
             var ImageItem = (function (_super) {
@@ -4548,12 +3911,7 @@ var ProStyle;
             })(Items.Item);
             Items.ImageItem = ImageItem;
         })(Items = Models.Items || (Models.Items = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Items;
         (function (Items) {
             var LayerItem = (function (_super) {
@@ -4578,12 +3936,7 @@ var ProStyle;
             })(Items.Item);
             Items.LayerItem = LayerItem;
         })(Items = Models.Items || (Models.Items = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Items;
         (function (Items) {
             var SequencedItem = (function (_super) {
@@ -4596,12 +3949,7 @@ var ProStyle;
             })(Items.Item);
             Items.SequencedItem = SequencedItem;
         })(Items = Models.Items || (Models.Items = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Items;
         (function (Items) {
             var TextItem = (function (_super) {
@@ -4623,12 +3971,7 @@ var ProStyle;
             })(Items.Item);
             Items.TextItem = TextItem;
         })(Items = Models.Items || (Models.Items = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Properties;
         (function (Properties) {
             var PerElement;
@@ -4658,12 +4001,7 @@ var ProStyle;
                 PerElement.Canvas = Canvas;
             })(PerElement = Properties.PerElement || (Properties.PerElement = {}));
         })(Properties = Models.Properties || (Models.Properties = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Properties;
         (function (Properties) {
             var PerElement;
@@ -4692,12 +4030,7 @@ var ProStyle;
                 PerElement.Frame = Frame;
             })(PerElement = Properties.PerElement || (Properties.PerElement = {}));
         })(Properties = Models.Properties || (Models.Properties = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Properties;
         (function (Properties) {
             var PerElement;
@@ -4729,12 +4062,7 @@ var ProStyle;
                 PerElement.ImageItem = ImageItem;
             })(PerElement = Properties.PerElement || (Properties.PerElement = {}));
         })(Properties = Models.Properties || (Models.Properties = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Properties;
         (function (Properties) {
             var PerElement;
@@ -4771,12 +4099,7 @@ var ProStyle;
                 PerElement.LayerItem = LayerItem;
             })(PerElement = Properties.PerElement || (Properties.PerElement = {}));
         })(Properties = Models.Properties || (Models.Properties = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Properties;
         (function (Properties) {
             var PerElement;
@@ -4808,12 +4131,7 @@ var ProStyle;
                 PerElement.Page = Page;
             })(PerElement = Properties.PerElement || (Properties.PerElement = {}));
         })(Properties = Models.Properties || (Models.Properties = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Properties;
         (function (Properties) {
             var PerElement;
@@ -4888,12 +4206,7 @@ var ProStyle;
                 PerElement.TextItem = TextItem;
             })(PerElement = Properties.PerElement || (Properties.PerElement = {}));
         })(Properties = Models.Properties || (Models.Properties = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Properties;
         (function (Properties) {
             (function (StaggerTargets) {
@@ -4906,12 +4219,7 @@ var ProStyle;
             })(Properties.StaggerTargets || (Properties.StaggerTargets = {}));
             var StaggerTargets = Properties.StaggerTargets;
         })(Properties = Models.Properties || (Models.Properties = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Properties;
         (function (Properties) {
             (function (StaggerOrder) {
@@ -4921,12 +4229,7 @@ var ProStyle;
             })(Properties.StaggerOrder || (Properties.StaggerOrder = {}));
             var StaggerOrder = Properties.StaggerOrder;
         })(Properties = Models.Properties || (Models.Properties = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Properties;
         (function (Properties) {
             var Stagger = (function () {
@@ -4955,12 +4258,7 @@ var ProStyle;
             })();
             Properties.Stagger = Stagger;
         })(Properties = Models.Properties || (Models.Properties = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Properties;
         (function (Properties) {
             var Variables;
@@ -5009,12 +4307,7 @@ var ProStyle;
                 Variables.Variable = Variable;
             })(Variables = Properties.Variables || (Properties.Variables = {}));
         })(Properties = Models.Properties || (Models.Properties = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Scripts;
         (function (Scripts) {
             (function (ScriptType) {
@@ -5026,12 +4319,7 @@ var ProStyle;
             })(Scripts.ScriptType || (Scripts.ScriptType = {}));
             var ScriptType = Scripts.ScriptType;
         })(Scripts = Models.Scripts || (Models.Scripts = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Scripts;
         (function (Scripts) {
             var ScriptType;
@@ -5073,12 +4361,7 @@ var ProStyle;
                 ScriptType.toString = toString;
             })(ScriptType = Scripts.ScriptType || (Scripts.ScriptType = {}));
         })(Scripts = Models.Scripts || (Models.Scripts = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Scripts;
         (function (Scripts) {
             var ActionsOrphan = (function (_super) {
@@ -5092,12 +4375,7 @@ var ProStyle;
             })(Scripts.ActionsScript);
             Scripts.ActionsOrphan = ActionsOrphan;
         })(Scripts = Models.Scripts || (Models.Scripts = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Scripts;
         (function (Scripts) {
             var PropertiesScript = (function (_super) {
@@ -5110,12 +4388,7 @@ var ProStyle;
             })(Scripts.Script);
             Scripts.PropertiesScript = PropertiesScript;
         })(Scripts = Models.Scripts || (Models.Scripts = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Scripts;
         (function (Scripts) {
             var InitEvent = (function (_super) {
@@ -5128,12 +4401,7 @@ var ProStyle;
             })(Scripts.PropertiesScript);
             Scripts.InitEvent = InitEvent;
         })(Scripts = Models.Scripts || (Models.Scripts = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Scripts;
         (function (Scripts) {
             var PropertyOrphan = (function (_super) {
@@ -5146,12 +4414,7 @@ var ProStyle;
             })(Scripts.PropertiesScript);
             Scripts.PropertyOrphan = PropertyOrphan;
         })(Scripts = Models.Scripts || (Models.Scripts = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Scripts;
         (function (Scripts) {
             var StepEvent = (function (_super) {
@@ -5164,12 +4427,7 @@ var ProStyle;
             })(Scripts.ActionsScript);
             Scripts.StepEvent = StepEvent;
         })(Scripts = Models.Scripts || (Models.Scripts = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Scripts;
         (function (Scripts) {
             var SwitchEvent = (function (_super) {
@@ -5182,12 +4440,7 @@ var ProStyle;
             })(Scripts.ActionsScript);
             Scripts.SwitchEvent = SwitchEvent;
         })(Scripts = Models.Scripts || (Models.Scripts = {}));
-    })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Models;
-    (function (Models) {
+
         var Step = (function () {
             function Step(autoAdvanceDelay) {
                 if (autoAdvanceDelay === void 0) { autoAdvanceDelay = undefined; }
@@ -5200,9 +4453,6 @@ var ProStyle;
         })();
         Models.Step = Step;
     })(Models = ProStyle.Models || (ProStyle.Models = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
     var Serialization;
     (function (Serialization) {
         var FlowReader = (function () {
@@ -5246,9 +4496,6 @@ var ProStyle;
         })();
         Serialization.FlowReader = FlowReader;
     })(Serialization = ProStyle.Serialization || (ProStyle.Serialization = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
     var Render;
     (function (Render) {
         var Util = ProStyle.Util;
@@ -5288,12 +4535,6 @@ var ProStyle;
             return Camera;
         })(Render.Visual);
         Render.Camera = Camera;
-    })(Render = ProStyle.Render || (ProStyle.Render = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Render;
-    (function (Render) {
         var Util = ProStyle.Util;
         var Frame = (function (_super) {
             __extends(Frame, _super);
@@ -5333,9 +4574,6 @@ var ProStyle;
         })(Render.Visual);
         Render.Frame = Frame;
     })(Render = ProStyle.Render || (ProStyle.Render = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
     var Util;
     (function (Util) {
         var Events;
@@ -5363,9 +4601,6 @@ var ProStyle;
             Events.LiteEvent = LiteEvent;
         })(Events = Util.Events || (Util.Events = {}));
     })(Util = ProStyle.Util || (ProStyle.Util = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
     var Play;
     (function (Play) {
         var Events = ProStyle.Util.Events;
@@ -5660,12 +4895,6 @@ var ProStyle;
             return Player;
         })();
         Play.Player = Player;
-    })(Play = ProStyle.Play || (ProStyle.Play = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Play;
-    (function (Play) {
         var Controls = (function () {
             function Controls() {
             }
@@ -5683,9 +4912,6 @@ var ProStyle;
         })();
         Play.Controls = Controls;
     })(Play = ProStyle.Play || (ProStyle.Play = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
     var Render;
     (function (Render) {
         var Util = ProStyle.Util;
@@ -5889,9 +5115,6 @@ var ProStyle;
         })(Render.Visual);
         Render.Canvas = Canvas;
     })(Render = ProStyle.Render || (ProStyle.Render = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
     var Play;
     (function (Play) {
         var Util = ProStyle.Util;
@@ -5937,12 +5160,6 @@ var ProStyle;
             return AutoPlay;
         })();
         Play.AutoPlay = AutoPlay;
-    })(Play = ProStyle.Play || (ProStyle.Play = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Play;
-    (function (Play) {
         var Util = ProStyle.Util;
         var KeyboardPlay = (function () {
             function KeyboardPlay(canvasElem, config) {
@@ -6061,12 +5278,6 @@ var ProStyle;
             return KeyboardPlay;
         })();
         Play.KeyboardPlay = KeyboardPlay;
-    })(Play = ProStyle.Play || (ProStyle.Play = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Play;
-    (function (Play) {
         var Util = ProStyle.Util;
         var Svg = ProStyle.Svg;
         var TrackControls = (function (_super) {
@@ -6336,9 +5547,6 @@ var ProStyle;
         })(Play.Controls);
         Play.TrackControls = TrackControls;
     })(Play = ProStyle.Play || (ProStyle.Play = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
     var Render;
     (function (Render) {
         var Actions;
@@ -6441,12 +5649,6 @@ var ProStyle;
             })();
             Actions.SetPropertiesAction = SetPropertiesAction;
         })(Actions = Render.Actions || (Render.Actions = {}));
-    })(Render = ProStyle.Render || (ProStyle.Render = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Render;
-    (function (Render) {
         var Flows;
         (function (Flows) {
             var PlacementFlow = (function (_super) {
@@ -6458,12 +5660,6 @@ var ProStyle;
             })(Flows.Flow);
             Flows.PlacementFlow = PlacementFlow;
         })(Flows = Render.Flows || (Render.Flows = {}));
-    })(Render = ProStyle.Render || (ProStyle.Render = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Render;
-    (function (Render) {
         var Items;
         (function (Items) {
             var Util = ProStyle.Util;
@@ -6487,15 +5683,6 @@ var ProStyle;
                 return ImageItem;
             })(Items.Item);
             Items.ImageItem = ImageItem;
-        })(Items = Render.Items || (Render.Items = {}));
-    })(Render = ProStyle.Render || (ProStyle.Render = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Render;
-    (function (Render) {
-        var Items;
-        (function (Items) {
             var Util = ProStyle.Util;
             var LayerItem = (function (_super) {
                 __extends(LayerItem, _super);
@@ -6521,15 +5708,6 @@ var ProStyle;
                 return LayerItem;
             })(Items.Item);
             Items.LayerItem = LayerItem;
-        })(Items = Render.Items || (Render.Items = {}));
-    })(Render = ProStyle.Render || (ProStyle.Render = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Render;
-    (function (Render) {
-        var Items;
-        (function (Items) {
             var Util = ProStyle.Util;
             var TextItem = (function (_super) {
                 __extends(TextItem, _super);
@@ -6596,12 +5774,6 @@ var ProStyle;
             })(Items.Item);
             Items.TextItem = TextItem;
         })(Items = Render.Items || (Render.Items = {}));
-    })(Render = ProStyle.Render || (ProStyle.Render = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Render;
-    (function (Render) {
         var Step = (function () {
             function Step(step, flowIndex, pageIndex, stepIndex, sequencedItems) {
                 this.step = step;
@@ -6633,12 +5805,6 @@ var ProStyle;
             return Step;
         })();
         Render.Step = Step;
-    })(Render = ProStyle.Render || (ProStyle.Render = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Render;
-    (function (Render) {
         var Types = ProStyle.Types;
         var Timeline = (function () {
             function Timeline(frameElem, positionChanged) {
@@ -6684,9 +5850,6 @@ var ProStyle;
         })();
         Render.Timeline = Timeline;
     })(Render = ProStyle.Render || (ProStyle.Render = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
     var Serialization;
     (function (Serialization) {
         var Actions = ProStyle.Models.Actions;
@@ -6715,12 +5878,6 @@ var ProStyle;
             return ActionReader;
         })();
         Serialization.ActionReader = ActionReader;
-    })(Serialization = ProStyle.Serialization || (ProStyle.Serialization = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Serialization;
-    (function (Serialization) {
         var Actions = ProStyle.Models.Actions;
         var ActionWriter = (function () {
             function ActionWriter() {
@@ -6748,12 +5905,6 @@ var ProStyle;
             return ActionWriter;
         })();
         Serialization.ActionWriter = ActionWriter;
-    })(Serialization = ProStyle.Serialization || (ProStyle.Serialization = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Serialization;
-    (function (Serialization) {
         var PropertyReader = (function () {
             function PropertyReader() {
             }
@@ -6777,12 +5928,6 @@ var ProStyle;
             return PropertyReader;
         })();
         Serialization.PropertyReader = PropertyReader;
-    })(Serialization = ProStyle.Serialization || (ProStyle.Serialization = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Serialization;
-    (function (Serialization) {
         var Properties = ProStyle.Models.Properties;
         var PropertyListReader = (function () {
             function PropertyListReader() {
@@ -6851,12 +5996,6 @@ var ProStyle;
             return PropertyListReader;
         })();
         Serialization.PropertyListReader = PropertyListReader;
-    })(Serialization = ProStyle.Serialization || (ProStyle.Serialization = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Serialization;
-    (function (Serialization) {
         var Properties = ProStyle.Models.Properties;
         var CanvasReader = (function () {
             function CanvasReader() {
@@ -6872,12 +6011,6 @@ var ProStyle;
             return CanvasReader;
         })();
         Serialization.CanvasReader = CanvasReader;
-    })(Serialization = ProStyle.Serialization || (ProStyle.Serialization = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Serialization;
-    (function (Serialization) {
         var CanvasWriter = (function () {
             function CanvasWriter() {
             }
@@ -6889,12 +6022,6 @@ var ProStyle;
             return CanvasWriter;
         })();
         Serialization.CanvasWriter = CanvasWriter;
-    })(Serialization = ProStyle.Serialization || (ProStyle.Serialization = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Serialization;
-    (function (Serialization) {
         var FlowWriter = (function () {
             function FlowWriter() {
             }
@@ -6917,12 +6044,6 @@ var ProStyle;
             return FlowWriter;
         })();
         Serialization.FlowWriter = FlowWriter;
-    })(Serialization = ProStyle.Serialization || (ProStyle.Serialization = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Serialization;
-    (function (Serialization) {
         var Flows;
         (function (Flows) {
             var Models = ProStyle.Models;
@@ -6934,25 +6055,10 @@ var ProStyle;
                 return new Models.Flows.SimpleFlow(story, placement, setup.defaultPageClass, pageAspectRatio);
             }
             Flows.read_simple = read_simple;
-        })(Flows = Serialization.Flows || (Serialization.Flows = {}));
-    })(Serialization = ProStyle.Serialization || (ProStyle.Serialization = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Serialization;
-    (function (Serialization) {
-        var Flows;
-        (function (Flows) {
             function write_simple(flow, json) {
             }
             Flows.write_simple = write_simple;
         })(Flows = Serialization.Flows || (Serialization.Flows = {}));
-    })(Serialization = ProStyle.Serialization || (ProStyle.Serialization = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Serialization;
-    (function (Serialization) {
         var Properties = ProStyle.Models.Properties;
         var FrameReader = (function () {
             function FrameReader() {
@@ -6969,12 +6075,6 @@ var ProStyle;
             return FrameReader;
         })();
         Serialization.FrameReader = FrameReader;
-    })(Serialization = ProStyle.Serialization || (ProStyle.Serialization = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Serialization;
-    (function (Serialization) {
         var FrameWriter = (function () {
             function FrameWriter() {
             }
@@ -6987,12 +6087,6 @@ var ProStyle;
             return FrameWriter;
         })();
         Serialization.FrameWriter = FrameWriter;
-    })(Serialization = ProStyle.Serialization || (ProStyle.Serialization = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Serialization;
-    (function (Serialization) {
         var ItemWriter = (function () {
             function ItemWriter() {
             }
@@ -7017,12 +6111,6 @@ var ProStyle;
             return ItemWriter;
         })();
         Serialization.ItemWriter = ItemWriter;
-    })(Serialization = ProStyle.Serialization || (ProStyle.Serialization = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Serialization;
-    (function (Serialization) {
         var Items;
         (function (Items) {
             var Models = ProStyle.Models;
@@ -7040,15 +6128,6 @@ var ProStyle;
                 return item;
             }
             Items.read_image = read_image;
-        })(Items = Serialization.Items || (Serialization.Items = {}));
-    })(Serialization = ProStyle.Serialization || (ProStyle.Serialization = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Serialization;
-    (function (Serialization) {
-        var Items;
-        (function (Items) {
             var Models = ProStyle.Models;
             function read_layer(itemSet, json) {
                 var propertyTypes = Models.Properties.PerElement.LayerItem.getPropertyTypes();
@@ -7059,15 +6138,6 @@ var ProStyle;
                 return item;
             }
             Items.read_layer = read_layer;
-        })(Items = Serialization.Items || (Serialization.Items = {}));
-    })(Serialization = ProStyle.Serialization || (ProStyle.Serialization = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Serialization;
-    (function (Serialization) {
-        var Items;
-        (function (Items) {
             var Models = ProStyle.Models;
             var Util = ProStyle.Util;
             function read_text(itemSet, json) {
@@ -7103,12 +6173,6 @@ var ProStyle;
             }
             Items.read_text = read_text;
         })(Items = Serialization.Items || (Serialization.Items = {}));
-    })(Serialization = ProStyle.Serialization || (ProStyle.Serialization = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Serialization;
-    (function (Serialization) {
         var PropertyWriter = (function () {
             function PropertyWriter() {
             }
@@ -7130,12 +6194,6 @@ var ProStyle;
             return PropertyWriter;
         })();
         Serialization.PropertyWriter = PropertyWriter;
-    })(Serialization = ProStyle.Serialization || (ProStyle.Serialization = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Serialization;
-    (function (Serialization) {
         var PropertyListWriter = (function () {
             function PropertyListWriter() {
             }
@@ -7146,12 +6204,6 @@ var ProStyle;
             return PropertyListWriter;
         })();
         Serialization.PropertyListWriter = PropertyListWriter;
-    })(Serialization = ProStyle.Serialization || (ProStyle.Serialization = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Serialization;
-    (function (Serialization) {
         var ScriptType = ProStyle.Models.Scripts.ScriptType;
         var ScriptWriter = (function () {
             function ScriptWriter() {
@@ -7209,12 +6261,6 @@ var ProStyle;
             return ScriptWriter;
         })();
         Serialization.ScriptWriter = ScriptWriter;
-    })(Serialization = ProStyle.Serialization || (ProStyle.Serialization = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Serialization;
-    (function (Serialization) {
         var Items;
         (function (Items) {
             function write_image(item, json) {
@@ -7228,30 +6274,12 @@ var ProStyle;
                 json.scripts = Serialization.ScriptSetWriter.write(item.scriptSet);
             }
             Items.write_image = write_image;
-        })(Items = Serialization.Items || (Serialization.Items = {}));
-    })(Serialization = ProStyle.Serialization || (ProStyle.Serialization = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Serialization;
-    (function (Serialization) {
-        var Items;
-        (function (Items) {
             function write_layer(item, json) {
                 json.init = Serialization.PropertyListWriter.write(item.init);
                 json.scripts = Serialization.ScriptSetWriter.write(item.scriptSet);
                 Serialization.PageWriter.writeItems(item, json);
             }
             Items.write_layer = write_layer;
-        })(Items = Serialization.Items || (Serialization.Items = {}));
-    })(Serialization = ProStyle.Serialization || (ProStyle.Serialization = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Serialization;
-    (function (Serialization) {
-        var Items;
-        (function (Items) {
             function write_text(item, json) {
                 json.setup = json.setup || {};
                 var lines = item.text.split("<br>");
@@ -7276,12 +6304,6 @@ var ProStyle;
             }
             Items.write_text = write_text;
         })(Items = Serialization.Items || (Serialization.Items = {}));
-    })(Serialization = ProStyle.Serialization || (ProStyle.Serialization = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Serialization;
-    (function (Serialization) {
         var Models = ProStyle.Models;
         var Items = ProStyle.Models.Items;
         var PageReader = (function () {
@@ -7344,12 +6366,6 @@ var ProStyle;
             return PageReader;
         })();
         Serialization.PageReader = PageReader;
-    })(Serialization = ProStyle.Serialization || (ProStyle.Serialization = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Serialization;
-    (function (Serialization) {
         var PageWriter = (function () {
             function PageWriter() {
             }
@@ -7371,12 +6387,6 @@ var ProStyle;
             return PageWriter;
         })();
         Serialization.PageWriter = PageWriter;
-    })(Serialization = ProStyle.Serialization || (ProStyle.Serialization = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Serialization;
-    (function (Serialization) {
         var Scripts = ProStyle.Models.Scripts;
         var ScriptType = ProStyle.Models.Scripts.ScriptType;
         var Util = ProStyle.Util;
@@ -7439,12 +6449,6 @@ var ProStyle;
             return ScriptReader;
         })();
         Serialization.ScriptReader = ScriptReader;
-    })(Serialization = ProStyle.Serialization || (ProStyle.Serialization = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Serialization;
-    (function (Serialization) {
         var Scripts = ProStyle.Models.Scripts;
         var ScriptSetReader = (function () {
             function ScriptSetReader() {
@@ -7499,12 +6503,6 @@ var ProStyle;
             return ScriptSetReader;
         })();
         Serialization.ScriptSetReader = ScriptSetReader;
-    })(Serialization = ProStyle.Serialization || (ProStyle.Serialization = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Serialization;
-    (function (Serialization) {
         var ScriptSetWriter = (function () {
             function ScriptSetWriter() {
             }
@@ -7518,12 +6516,6 @@ var ProStyle;
             return ScriptSetWriter;
         })();
         Serialization.ScriptSetWriter = ScriptSetWriter;
-    })(Serialization = ProStyle.Serialization || (ProStyle.Serialization = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Serialization;
-    (function (Serialization) {
         var Properties = ProStyle.Models.Properties;
         var StaggerReader = (function () {
             function StaggerReader() {
@@ -7538,12 +6530,6 @@ var ProStyle;
             return StaggerReader;
         })();
         Serialization.StaggerReader = StaggerReader;
-    })(Serialization = ProStyle.Serialization || (ProStyle.Serialization = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Serialization;
-    (function (Serialization) {
         var StaggerWriter = (function () {
             function StaggerWriter() {
             }
@@ -7559,12 +6545,6 @@ var ProStyle;
             return StaggerWriter;
         })();
         Serialization.StaggerWriter = StaggerWriter;
-    })(Serialization = ProStyle.Serialization || (ProStyle.Serialization = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Serialization;
-    (function (Serialization) {
         var Models = ProStyle.Models;
         var StepReader = (function () {
             function StepReader() {
@@ -7575,12 +6555,6 @@ var ProStyle;
             return StepReader;
         })();
         Serialization.StepReader = StepReader;
-    })(Serialization = ProStyle.Serialization || (ProStyle.Serialization = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Serialization;
-    (function (Serialization) {
         var StepWriter = (function () {
             function StepWriter() {
             }
@@ -7593,12 +6567,6 @@ var ProStyle;
             return StepWriter;
         })();
         Serialization.StepWriter = StepWriter;
-    })(Serialization = ProStyle.Serialization || (ProStyle.Serialization = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Serialization;
-    (function (Serialization) {
         var Models = ProStyle.Models;
         var StoryReader = (function () {
             function StoryReader() {
@@ -7637,12 +6605,6 @@ var ProStyle;
             return StoryReader;
         })();
         Serialization.StoryReader = StoryReader;
-    })(Serialization = ProStyle.Serialization || (ProStyle.Serialization = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Serialization;
-    (function (Serialization) {
         var StoryWriter = (function () {
             function StoryWriter() {
             }
@@ -7663,9 +6625,6 @@ var ProStyle;
         })();
         Serialization.StoryWriter = StoryWriter;
     })(Serialization = ProStyle.Serialization || (ProStyle.Serialization = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
     var Util;
     (function (Util) {
         function createChildSvgElement(parent, tag, attrs) {
@@ -7679,9 +6638,6 @@ var ProStyle;
         }
         Util.createChildSvgElement = createChildSvgElement;
     })(Util = ProStyle.Util || (ProStyle.Util = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
     function preprocess(div) {
         var storyName = div.dataset["prostyle"];
         if (storyName !== undefined) {
