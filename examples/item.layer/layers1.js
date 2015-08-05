@@ -1,6 +1,4 @@
-var layers1 = ProStyle.Stories.layers1 = ProStyle.Stories.layers1 || {};
-
-layers1.story = {
+ProStyle.Stories.layers1 = {
     canvas:{init:{bg:"#666"}},
     frame:{setup:{aspectRatio:1}, init:{bg:"#FFF"}},
     items:[

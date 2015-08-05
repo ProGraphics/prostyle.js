@@ -1,6 +1,4 @@
-var lines = ProStyle.Stories.lines = ProStyle.Stories.lines || {};
-
-lines.story = {
+ProStyle.Stories.lines = {
     item:{
         setup:{
             text:[

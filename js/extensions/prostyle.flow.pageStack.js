@@ -15,16 +15,22 @@ var ProStyle;
     (function (Extensions) {
         var Flows;
         (function (Flows) {
-            var pageStack;
-            (function (pageStack) {
+            var PageStack;
+            (function (PageStack) {
                 var Models = ProStyle.Models;
-                var Extension = (function (_super) {
-                    __extends(Extension, _super);
-                    function Extension(story, placement, defaultPageClass, pageAspectRatio, stacks) {
+                var PageStackFlowModel = (function (_super) {
+                    __extends(PageStackFlowModel, _super);
+                    function PageStackFlowModel(story, placement, defaultPageClass, pageAspectRatio, stacks) {
                         _super.call(this, story, "pageStack", placement, defaultPageClass, pageAspectRatio, "pageStackPage");
                         this.stacks = stacks;
                     }
-                    Extension.defaultStacksJson = {
+                    PageStackFlowModel.prototype.serialize = function () {
+                        return PageStack.serialize(this);
+                    };
+                    PageStackFlowModel.prototype.createView = function (camera, flowIndex) {
+                        return new PageStack.PageStackFlowView(this, camera, flowIndex);
+                    };
+                    PageStackFlowModel.defaultStacksJson = {
                         current: {
                             position: [0, 0, 0],
                             rotation: [0, 0, 0],
@@ -56,10 +62,10 @@ var ProStyle;
                             }
                         }
                     };
-                    return Extension;
-                })(Models.Flows.PlacementFlow);
-                pageStack.Extension = Extension;
-            })(pageStack = Flows.pageStack || (Flows.pageStack = {}));
+                    return PageStackFlowModel;
+                })(Models.Flows.PlacementFlowModel);
+                PageStack.PageStackFlowModel = PageStackFlowModel;
+            })(PageStack = Flows.PageStack || (Flows.PageStack = {}));
         })(Flows = Extensions.Flows || (Extensions.Flows = {}));
     })(Extensions = ProStyle.Extensions || (ProStyle.Extensions = {}));
 })(ProStyle || (ProStyle = {}));
@@ -69,50 +75,50 @@ var ProStyle;
     (function (Extensions) {
         var Flows;
         (function (Flows) {
-            var pageStack;
-            (function (pageStack) {
-                var Render = ProStyle.Render;
-                var Renderer = (function (_super) {
-                    __extends(Renderer, _super);
-                    function Renderer(pageStackFlow, cameraElem, flowIndex) {
-                        _super.call(this, pageStackFlow, cameraElem, flowIndex);
+            var PageStack;
+            (function (PageStack) {
+                var Views = ProStyle.Views;
+                var PageStackFlowView = (function (_super) {
+                    __extends(PageStackFlowView, _super);
+                    function PageStackFlowView(pageStackFlow, camera, flowIndex) {
+                        _super.call(this, pageStackFlow, camera, flowIndex);
                         this.pageStackFlow = pageStackFlow;
                     }
-                    Renderer.prototype.initializePages = function (timeline) {
+                    PageStackFlowView.prototype.initializePages = function (timeline) {
                         var _this = this;
-                        var pageSize = this.cameraElem.size.getContainedSize(this.pageStackFlow.pageAspectRatio);
-                        this.pageElems.forEach(function (pageElem, index) {
+                        var pageSize = this.camera.size.getContainedSize(this.pageStackFlow.pageAspectRatio);
+                        this.pages.forEach(function (pageElem, index) {
                             var css = {
                                 width: pageSize.width,
                                 height: pageSize.height,
                                 perspective: 10000
                             };
-                            timeline.set(_this.pageElems[index].div, css, "initialize");
+                            timeline.set(_this.pages[index].div, css, "initialize");
                         });
                     };
-                    Renderer.prototype.generatePageMovement = function (timeline, label, pageIndex) {
+                    PageStackFlowView.prototype.generatePageMovement = function (timeline, label, pageIndex) {
                         var current = this.pageStackFlow.stacks.current;
                         var future = this.pageStackFlow.stacks.future;
                         var futureOffset = this.pageStackFlow.stacks.futureOffset;
                         var past = this.pageStackFlow.stacks.past;
                         var pastOffset = this.pageStackFlow.stacks.pastOffset;
-                        var pageSize = this.cameraElem.size.getContainedSize(this.pageStackFlow.pageAspectRatio);
+                        var pageSize = this.camera.size.getContainedSize(this.pageStackFlow.pageAspectRatio);
                         var css = current.renderCss(pageSize);
-                        this.applyCss(timeline, this.pageElems[pageIndex].div, label, 1, css, Expo.easeOut);
+                        this.applyCss(timeline, this.pages[pageIndex].div, label, 1, css, Expo.easeOut);
                         past = past.duplicate();
                         for (var i = pageIndex - 1; i >= 0; i--) {
                             css = past.renderCss(pageSize);
-                            this.applyCss(timeline, this.pageElems[i].div, label, 1, css, Expo.easeOut);
+                            this.applyCss(timeline, this.pages[i].div, label, 1, css, Expo.easeOut);
                             past.adjust(pastOffset);
                         }
                         future = future.duplicate();
-                        for (var i = pageIndex + 1; i < this.pageElems.length; i++) {
+                        for (var i = pageIndex + 1; i < this.pages.length; i++) {
                             css = future.renderCss(pageSize);
-                            this.applyCss(timeline, this.pageElems[i].div, label, 1, css, Expo.easeOut);
+                            this.applyCss(timeline, this.pages[i].div, label, 1, css, Expo.easeOut);
                             future.adjust(futureOffset);
                         }
                     };
-                    Renderer.prototype.applyCss = function (timeline, div, label, duration, css, ease) {
+                    PageStackFlowView.prototype.applyCss = function (timeline, div, label, duration, css, ease) {
                         if (label === "initialize") {
                             timeline.set(div, css, label);
                         }
@@ -121,10 +127,10 @@ var ProStyle;
                             timeline.to(div, duration, css, label);
                         }
                     };
-                    return Renderer;
-                })(Render.Flows.PlacementFlow);
-                pageStack.Renderer = Renderer;
-            })(pageStack = Flows.pageStack || (Flows.pageStack = {}));
+                    return PageStackFlowView;
+                })(Views.Flows.PlacementFlowView);
+                PageStack.PageStackFlowView = PageStackFlowView;
+            })(PageStack = Flows.PageStack || (Flows.PageStack = {}));
         })(Flows = Extensions.Flows || (Extensions.Flows = {}));
     })(Extensions = ProStyle.Extensions || (ProStyle.Extensions = {}));
 })(ProStyle || (ProStyle = {}));
@@ -134,23 +140,37 @@ var ProStyle;
     (function (Extensions) {
         var Flows;
         (function (Flows) {
-            var pageStack;
-            (function (pageStack) {
+            var PageStack;
+            (function (PageStack) {
                 var Util = ProStyle.Util;
-                function readJson(story, json) {
+                function deserialize(story, json) {
                     var placement = ProStyle.Types.Placement.fromJson(Util.getSetup(json, "placement"));
                     var pageAspectRatio = Util.convertToNumber(Util.getSetup(json, "pageAspectRatio"), 4 / 3);
-                    var stacks = ProStyle.Types.Stacks.fromJson(Util.getSetup(json, "stacks") || pageStack.Extension.defaultStacksJson);
-                    return new pageStack.Extension(story, placement, Util.getSetup(json, "defaultPageClass"), pageAspectRatio, stacks);
+                    var stacks = ProStyle.Types.Stacks.fromJson(Util.getSetup(json, "stacks") || PageStack.PageStackFlowModel.defaultStacksJson);
+                    return new PageStack.PageStackFlowModel(story, placement, Util.getSetup(json, "defaultPageClass"), pageAspectRatio, stacks);
                 }
-                pageStack.readJson = readJson;
-                function writeJson(flow, json) {
-                    var setup = {};
-                    if (flow.defaultPageClass !== undefined)
-                        setup.defaultPageClass = flow.defaultPageClass;
+                PageStack.deserialize = deserialize;
+            })(PageStack = Flows.PageStack || (Flows.PageStack = {}));
+        })(Flows = Extensions.Flows || (Extensions.Flows = {}));
+    })(Extensions = ProStyle.Extensions || (ProStyle.Extensions = {}));
+})(ProStyle || (ProStyle = {}));
+var ProStyle;
+(function (ProStyle) {
+    var Extensions;
+    (function (Extensions) {
+        var Flows;
+        (function (Flows) {
+            var PageStack;
+            (function (PageStack) {
+                function serialize(model) {
+                    var json = {};
+                    json.setup = {};
+                    if (model.defaultPageClass !== undefined)
+                        json.setup.defaultPageClass = model.defaultPageClass;
+                    return json;
                 }
-                pageStack.writeJson = writeJson;
-            })(pageStack = Flows.pageStack || (Flows.pageStack = {}));
+                PageStack.serialize = serialize;
+            })(PageStack = Flows.PageStack || (Flows.PageStack = {}));
         })(Flows = Extensions.Flows || (Extensions.Flows = {}));
     })(Extensions = ProStyle.Extensions || (ProStyle.Extensions = {}));
 })(ProStyle || (ProStyle = {}));

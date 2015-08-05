@@ -1,6 +1,4 @@
-var bars1 = ProStyle.Stories.bars1 = ProStyle.Stories.bars1 || {};
-
-bars1.story = {
+ProStyle.Stories.bars1 = {
     item: {
         itemType: "layer",
         init: {bg: "#EEE", size: [32,32], corners: 1, position: {z:-1}},

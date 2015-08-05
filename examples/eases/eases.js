@@ -1,6 +1,4 @@
-var eases = ProStyle.Stories.eases = ProStyle.Stories.eases || {};
-
-eases.story = {
+ProStyle.Stories.eases = {
     classes:{
         label:{ font:6, anchor:-50, origin:-50, rot:-90 }
     },

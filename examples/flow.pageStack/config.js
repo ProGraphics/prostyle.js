@@ -1,3 +1,9 @@
+ProStyle.defaultControllers = [
+	{ controllerType: "auto", start: true, stepAdvance: true, restart: true },
+	{ controllerType: "resize" }
+];
+
+/*
 ProStyle.Stories.Config.default.auto.advance = true;
 ProStyle.Stories.Config.default.auto.advanceDelay = 500; //half second
 ProStyle.Stories.Config.default.auto.restart = true;
@@ -12,3 +18,4 @@ ProStyle.Stories.Config.default.controls = {
     stepColor1: "transparent",
     stepColor2: "rgba(0,47,0,0.5)"
 };
+*/

@@ -9,6 +9,7 @@
         p { color: #AAA; font-size: 1.4em; font-family: Tahoma, Geneva, sans-serif; }
         p.text { color: #000; }
         .controls { background-color: #F9EDC5 }
+        label { font-size: 0.8em; }
     </style>
 </head>
 <body>
@@ -21,6 +22,7 @@
 <div id="controls" class="left controls">
     <p class="text"><label><input id="chkDebug" type="checkbox" onclick='checkChange(this);'>Debug Bar</label>
         <label><input id="chkTrack" type="checkbox" onclick='checkChange(this);'>Track Controls</label>
+        <label><input id="chkKeyboard" type="checkbox" onclick='checkChange(this);'>Keyboard</label>
         <label><input id="chkWheel" type="checkbox" onclick='checkChange(this);'>Mouse Wheel (try CTRL + ALT)</label></p>
 </div>
 
@@ -70,10 +72,27 @@
 <script src="hello.js"></script>
 <script>
     function checkChange(cb) {
-        var config = ProStyle.Stories.Config.default;
-        config.debugBar = document.getElementById("chkDebug").checked;
-        config.controls = document.getElementById("chkTrack").checked ? {type: "track"} : false;
-        config.mouseWheel = document.getElementById("chkWheel").checked;
+
+        ProStyle.defaultControllers = [
+        	{ controllerType: "auto", 
+                start: true, 
+                stepAdvance: !document.getElementById("chkKeyboard").checked, 
+                restart: !document.getElementById("chkKeyboard").checked
+            },
+        	{ controllerType: "resize" }
+        ];
+        if (document.getElementById("chkDebug").checked) {
+            ProStyle.defaultControllers.push({ controllerType: "debug" });
+        }
+        if (document.getElementById("chkTrack").checked) {
+            ProStyle.defaultControllers.push({ controllerType: "track" });
+        }
+        if (document.getElementById("chkKeyboard").checked) {
+            ProStyle.defaultControllers.push({ controllerType: "keyboard" });
+        }
+        if (document.getElementById("chkWheel").checked) {
+            ProStyle.defaultControllers.push({ controllerType: "mousewheel" });
+        }
         ProStyle.reload();
     }
 </script>

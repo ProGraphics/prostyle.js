@@ -1,6 +1,4 @@
-var properties = ProStyle.Stories.properties = ProStyle.Stories.properties || {};
-
-properties.story = {
+ProStyle.Stories.properties = {
     frame: {
         padding:10,
         init:{background: "#BADA55", corners: true}

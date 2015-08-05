@@ -1,6 +1,4 @@
-var hello = ProStyle.Stories.hello = ProStyle.Stories.hello || {};
-
-hello.story = {
+ProStyle.Stories.hello = {
     frame: {
         padding:15,
         init: {bg: "#BADA55", corners:true}
@@ -25,6 +23,10 @@ hello.story = {
                         {delay:3, anim:[3,"elastic"], pos:[35,-35]},
                         {anim:[3,"bounce"], pos:[35,35]}
                     ]
+                },
+                { 
+                    scriptType: "step2",
+                    action: { anim:4, rot:360 } 
                 }
             ]
         }

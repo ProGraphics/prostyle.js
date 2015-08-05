@@ -1,6 +1,4 @@
-var logo = ProStyle.Stories.logo = ProStyle.Stories.logo || {};
-
-logo.story = {
+ProStyle.Stories.logo = {
     item: {
         itemType:"image",
         setup:{src:"pro-1000x829.png", width:90},

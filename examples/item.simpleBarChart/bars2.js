@@ -1,6 +1,4 @@
-var bars2 = ProStyle.Stories.bars2 = ProStyle.Stories.bars2 || {};
-
-bars2.story = {
+ProStyle.Stories.bars2 = {
     items: [
         {   itemType: "simpleBarChart",
             setup: {bars:30, domain:50, width:90, height:40, margin:0.3},

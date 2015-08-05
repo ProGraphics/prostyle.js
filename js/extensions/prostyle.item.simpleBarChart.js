@@ -15,8 +15,8 @@ var ProStyle;
     (function (Extensions) {
         var Items;
         (function (Items) {
-            var simpleBarChart;
-            (function (simpleBarChart) {
+            var SimpleBarChart;
+            (function (SimpleBarChart) {
                 var Variables = ProStyle.Models.Properties.Variables;
                 var BarDataVariableType = (function (_super) {
                     __extends(BarDataVariableType, _super);
@@ -64,8 +64,8 @@ var ProStyle;
                     };
                     return BarDataVariableType;
                 })(Variables.VariableType);
-                simpleBarChart.BarDataVariableType = BarDataVariableType;
-            })(simpleBarChart = Items.simpleBarChart || (Items.simpleBarChart = {}));
+                SimpleBarChart.BarDataVariableType = BarDataVariableType;
+            })(SimpleBarChart = Items.SimpleBarChart || (Items.SimpleBarChart = {}));
         })(Items = Extensions.Items || (Extensions.Items = {}));
     })(Extensions = ProStyle.Extensions || (ProStyle.Extensions = {}));
 })(ProStyle || (ProStyle = {}));
@@ -75,14 +75,14 @@ var ProStyle;
     (function (Extensions) {
         var Items;
         (function (Items) {
-            var simpleBarChart;
-            (function (simpleBarChart) {
+            var SimpleBarChart;
+            (function (SimpleBarChart) {
                 var Properties = ProStyle.Models.Properties;
                 var BarDataPropertyType = (function (_super) {
                     __extends(BarDataPropertyType, _super);
                     function BarDataPropertyType() {
                         var v = [];
-                        v.push(new simpleBarChart.BarDataVariableType("values", ["values"], "dummy", [], "", true));
+                        v.push(new SimpleBarChart.BarDataVariableType("values", ["values"], "dummy", [], "", true));
                         _super.call(this, "data", ["data"], v);
                     }
                     BarDataPropertyType.prototype.createPropertyFromBoolean = function (json) {
@@ -107,8 +107,8 @@ var ProStyle;
                     };
                     return BarDataPropertyType;
                 })(Properties.PropertyType);
-                simpleBarChart.BarDataPropertyType = BarDataPropertyType;
-            })(simpleBarChart = Items.simpleBarChart || (Items.simpleBarChart = {}));
+                SimpleBarChart.BarDataPropertyType = BarDataPropertyType;
+            })(SimpleBarChart = Items.SimpleBarChart || (Items.SimpleBarChart = {}));
         })(Items = Extensions.Items || (Extensions.Items = {}));
     })(Extensions = ProStyle.Extensions || (ProStyle.Extensions = {}));
 })(ProStyle || (ProStyle = {}));
@@ -118,45 +118,16 @@ var ProStyle;
     (function (Extensions) {
         var Items;
         (function (Items) {
-            var simpleBarChart;
-            (function (simpleBarChart) {
-                var Models = ProStyle.Models;
-                var Extension = (function (_super) {
-                    __extends(Extension, _super);
-                    function Extension(itemSet, bars, width, height, margin, minDomainValue, maxDomainValue, init, scriptSet, barsInit, barsScriptSet) {
-                        _super.call(this, itemSet, "simpleBarChart", "SimpleBarChart", [init, barsInit], [scriptSet, barsScriptSet]);
-                        this.bars = bars;
-                        this.width = width;
-                        this.height = height;
-                        this.margin = margin;
-                        this.minDomainValue = minDomainValue;
-                        this.maxDomainValue = maxDomainValue;
-                        this.barsInit = barsInit;
-                        this.barsScriptSet = barsScriptSet;
-                    }
-                    return Extension;
-                })(Models.Items.Item);
-                simpleBarChart.Extension = Extension;
-            })(simpleBarChart = Items.simpleBarChart || (Items.simpleBarChart = {}));
-        })(Items = Extensions.Items || (Extensions.Items = {}));
-    })(Extensions = ProStyle.Extensions || (ProStyle.Extensions = {}));
-})(ProStyle || (ProStyle = {}));
-var ProStyle;
-(function (ProStyle) {
-    var Extensions;
-    (function (Extensions) {
-        var Items;
-        (function (Items) {
-            var simpleBarChart;
-            (function (simpleBarChart) {
+            var SimpleBarChart;
+            (function (SimpleBarChart) {
                 var Properties = ProStyle.Models.Properties;
-                var Props = (function () {
-                    function Props() {
+                var SimpleBarChartPropertyTypes = (function () {
+                    function SimpleBarChartPropertyTypes() {
                     }
-                    Props.cacheProperties = function () {
-                        Props._propertyTypes = [];
-                        Props._barPropertyTypes = [];
-                        var p = Props._propertyTypes;
+                    SimpleBarChartPropertyTypes.cacheProperties = function () {
+                        SimpleBarChartPropertyTypes._propertyTypes = [];
+                        SimpleBarChartPropertyTypes._barPropertyTypes = [];
+                        var p = SimpleBarChartPropertyTypes._propertyTypes;
                         p.push(Properties.Cache.ANIMATION);
                         p.push(Properties.Cache.CROP_SVG);
                         p.push(Properties.Cache.OPACITY);
@@ -164,29 +135,29 @@ var ProStyle;
                         p.push(Properties.Cache.ROTATION);
                         p.push(Properties.Cache.SCALE);
                         p.push(Properties.Cache.SKEW);
-                        var p = Props._barPropertyTypes;
+                        var p = SimpleBarChartPropertyTypes._barPropertyTypes;
                         p.push(Properties.Cache.ANIMATION);
                         p.push(new Properties.SvgFillPropertyType("rgba(0,0,0,0.5)"));
                         p.push(Properties.Cache.OPACITY);
                         p.push(Properties.Cache.SKEW);
-                        p.push(new simpleBarChart.BarDataPropertyType());
+                        p.push(new SimpleBarChart.BarDataPropertyType());
                     };
-                    Props.getPropertyTypes = function () {
-                        if (Props._propertyTypes === undefined)
-                            Props.cacheProperties();
-                        return Props._propertyTypes;
+                    SimpleBarChartPropertyTypes.get = function () {
+                        if (SimpleBarChartPropertyTypes._propertyTypes === undefined)
+                            SimpleBarChartPropertyTypes.cacheProperties();
+                        return SimpleBarChartPropertyTypes._propertyTypes;
                     };
-                    Props.getBarPropertyTypes = function () {
-                        if (Props._barPropertyTypes === undefined)
-                            Props.cacheProperties();
-                        return Props._barPropertyTypes;
+                    SimpleBarChartPropertyTypes.getForBars = function () {
+                        if (SimpleBarChartPropertyTypes._barPropertyTypes === undefined)
+                            SimpleBarChartPropertyTypes.cacheProperties();
+                        return SimpleBarChartPropertyTypes._barPropertyTypes;
                     };
-                    Props._propertyTypes = undefined;
-                    Props._barPropertyTypes = undefined;
-                    return Props;
+                    SimpleBarChartPropertyTypes._propertyTypes = undefined;
+                    SimpleBarChartPropertyTypes._barPropertyTypes = undefined;
+                    return SimpleBarChartPropertyTypes;
                 })();
-                simpleBarChart.Props = Props;
-            })(simpleBarChart = Items.simpleBarChart || (Items.simpleBarChart = {}));
+                SimpleBarChart.SimpleBarChartPropertyTypes = SimpleBarChartPropertyTypes;
+            })(SimpleBarChart = Items.SimpleBarChart || (Items.SimpleBarChart = {}));
         })(Items = Extensions.Items || (Extensions.Items = {}));
     })(Extensions = ProStyle.Extensions || (ProStyle.Extensions = {}));
 })(ProStyle || (ProStyle = {}));
@@ -196,15 +167,34 @@ var ProStyle;
     (function (Extensions) {
         var Items;
         (function (Items) {
-            var simpleBarChart;
-            (function (simpleBarChart) {
-                var Render = ProStyle.Render;
+            var SimpleBarChart;
+            (function (SimpleBarChart) {
+                var DEFAULT_WH = 50;
+                var DEFAULT_M = 1;
+                var Models = ProStyle.Models;
+                function serialize(model) {
+                    return {};
+                }
+                SimpleBarChart.serialize = serialize;
+            })(SimpleBarChart = Items.SimpleBarChart || (Items.SimpleBarChart = {}));
+        })(Items = Extensions.Items || (Extensions.Items = {}));
+    })(Extensions = ProStyle.Extensions || (ProStyle.Extensions = {}));
+})(ProStyle || (ProStyle = {}));
+var ProStyle;
+(function (ProStyle) {
+    var Extensions;
+    (function (Extensions) {
+        var Items;
+        (function (Items) {
+            var SimpleBarChart;
+            (function (SimpleBarChart) {
+                var Views = ProStyle.Views;
                 var Util = ProStyle.Util;
-                var Renderer = (function (_super) {
-                    __extends(Renderer, _super);
-                    function Renderer(simpleBarChartItem, itemSetElem) {
-                        _super.call(this, simpleBarChartItem, itemSetElem, Util.createChildSvgElement(itemSetElem.div, "svg", { "class": "prostyle" }));
-                        this.simpleBarChartItem = simpleBarChartItem;
+                var SimpleBarChartItemView = (function (_super) {
+                    __extends(SimpleBarChartItemView, _super);
+                    function SimpleBarChartItemView(model, itemViewSet) {
+                        _super.call(this, model, itemViewSet, Util.createChildSvgElement(itemViewSet.div, "svg", { "class": "prostyle" }));
+                        this.model = model;
                         this.barDivs = [];
                         this.width = 0;
                         this.height = 0;
@@ -216,40 +206,38 @@ var ProStyle;
                         this.domainBase = 0;
                         this.rangeBase = 0;
                         this.g = Util.createChildSvgElement(this.element, "g");
-                        for (var c = 0; c < simpleBarChartItem.bars; c++) {
+                        for (var c = 0; c < model.bars; c++) {
                             this.barDivs.push(Util.createChildSvgElement(this.g, "rect"));
                         }
-                        this.maxDomain = simpleBarChartItem.maxDomainValue;
-                        this.minDomain = simpleBarChartItem.minDomainValue;
+                        this.maxDomain = model.maxDomainValue;
+                        this.minDomain = model.minDomainValue;
                         this.domain = Math.abs(this.maxDomain - this.minDomain);
                         this.domainBase = this.maxDomain < 0 ? this.maxDomain : (this.minDomain > 0 ? this.minDomain : 0);
                     }
-                    Renderer.prototype.initializeItem = function (timeline, cameraSize) {
-                        var item = this.simpleBarChartItem;
-                        var story = item.itemSet.flow.story;
-                        var pageAspectRatio = item.itemSet.flow.pageAspectRatio;
+                    SimpleBarChartItemView.prototype.initializeItem = function (timeline, cameraSize) {
+                        var story = this.model.itemModelSet.flow.story;
+                        var pageAspectRatio = this.model.itemModelSet.flow.pageAspectRatio;
                         var pageSize = cameraSize.getContainedSize(pageAspectRatio);
-                        this.width = (item.width / 100) * pageSize.width;
-                        this.height = (item.height / 100) * pageSize.height;
-                        this.margin = this.simpleBarChartItem.margin / 100 * this.width;
-                        if (this.margin * (this.simpleBarChartItem.bars + 1) > this.width) {
-                            this.margin = this.width / (this.simpleBarChartItem.bars + 1);
+                        this.width = (this.model.width / 100) * pageSize.width;
+                        this.height = (this.model.height / 100) * pageSize.height;
+                        this.margin = this.model.margin / 100 * this.width;
+                        if (this.margin * (this.model.bars + 1) > this.width) {
+                            this.margin = this.width / (this.model.bars + 1);
                         }
                         else {
-                            this.barWidth = (this.width - this.margin * this.simpleBarChartItem.bars) / this.simpleBarChartItem.bars;
+                            this.barWidth = (this.width - this.margin * this.model.bars) / this.model.bars;
                         }
-                        this.rangeBase = Math.abs(this.simpleBarChartItem.maxDomainValue - this.domainBase) / this.domain * this.height;
+                        this.rangeBase = Math.abs(this.model.maxDomainValue - this.domainBase) / this.domain * this.height;
                         var forceProps = { width: this.width, height: this.height };
-                        this.initializeProperties(story, [this.element], pageSize, timeline, item.init, true, forceProps);
+                        this.initializeProperties(story, [this.element], pageSize, timeline, this.model.init, true, forceProps);
                         forceProps = {};
-                        this.initializeProperties(story, this.barDivs, pageSize, timeline, item.barsInit, false, forceProps, this.afterBarCssProperties.bind(this));
+                        this.initializeProperties(story, this.barDivs, pageSize, timeline, this.model.barsInit, false, forceProps, this.afterBarCssProperties.bind(this));
                     };
-                    Renderer.prototype.generateStepActions = function (itemSet, pageSize, timeline, stepIndex, label) {
-                        var item = this.simpleBarChartItem;
-                        this.generateActionsForStep(itemSet, [this.element], pageSize, timeline, stepIndex, label, item.scriptSet);
-                        this.generateActionsForStep(itemSet, this.barDivs, pageSize, timeline, stepIndex, label, item.barsScriptSet, this.afterBarCssProperties.bind(this));
+                    SimpleBarChartItemView.prototype.generateStepActions = function (itemViewSet, pageSize, timeline, stepIndex, label) {
+                        this.generateActionsForStep(itemViewSet, [this.element], pageSize, timeline, stepIndex, label, this.model.scriptSet);
+                        this.generateActionsForStep(itemViewSet, this.barDivs, pageSize, timeline, stepIndex, label, this.model.barsScriptSet, this.afterBarCssProperties.bind(this));
                     };
-                    Renderer.prototype.afterBarCssProperties = function (properties, buckets, containerSize) {
+                    SimpleBarChartItemView.prototype.afterBarCssProperties = function (properties, buckets, containerSize) {
                         var _this = this;
                         if (this.domain <= 0)
                             return;
@@ -269,10 +257,10 @@ var ProStyle;
                             };
                         });
                     };
-                    return Renderer;
-                })(Render.Items.Item);
-                simpleBarChart.Renderer = Renderer;
-            })(simpleBarChart = Items.simpleBarChart || (Items.simpleBarChart = {}));
+                    return SimpleBarChartItemView;
+                })(Views.Items.ItemView);
+                SimpleBarChart.SimpleBarChartItemView = SimpleBarChartItemView;
+            })(SimpleBarChart = Items.SimpleBarChart || (Items.SimpleBarChart = {}));
         })(Items = Extensions.Items || (Extensions.Items = {}));
     })(Extensions = ProStyle.Extensions || (ProStyle.Extensions = {}));
 })(ProStyle || (ProStyle = {}));
@@ -282,14 +270,49 @@ var ProStyle;
     (function (Extensions) {
         var Items;
         (function (Items) {
-            var simpleBarChart;
-            (function (simpleBarChart) {
+            var SimpleBarChart;
+            (function (SimpleBarChart) {
+                var Models = ProStyle.Models;
+                var SimpleBarChartItemModel = (function (_super) {
+                    __extends(SimpleBarChartItemModel, _super);
+                    function SimpleBarChartItemModel(itemSet, bars, width, height, margin, minDomainValue, maxDomainValue, init, scriptSet, barsInit, barsScriptSet) {
+                        _super.call(this, itemSet, "simpleBarChart", "SimpleBarChart", [init, barsInit], [scriptSet, barsScriptSet]);
+                        this.bars = bars;
+                        this.width = width;
+                        this.height = height;
+                        this.margin = margin;
+                        this.minDomainValue = minDomainValue;
+                        this.maxDomainValue = maxDomainValue;
+                        this.barsInit = barsInit;
+                        this.barsScriptSet = barsScriptSet;
+                    }
+                    SimpleBarChartItemModel.prototype.serialize = function () {
+                        return SimpleBarChart.serialize(this);
+                    };
+                    SimpleBarChartItemModel.prototype.createView = function (itemViewSet) {
+                        return new SimpleBarChart.SimpleBarChartItemView(this, itemViewSet);
+                    };
+                    return SimpleBarChartItemModel;
+                })(Models.Items.ItemModel);
+                SimpleBarChart.SimpleBarChartItemModel = SimpleBarChartItemModel;
+            })(SimpleBarChart = Items.SimpleBarChart || (Items.SimpleBarChart = {}));
+        })(Items = Extensions.Items || (Extensions.Items = {}));
+    })(Extensions = ProStyle.Extensions || (ProStyle.Extensions = {}));
+})(ProStyle || (ProStyle = {}));
+var ProStyle;
+(function (ProStyle) {
+    var Extensions;
+    (function (Extensions) {
+        var Items;
+        (function (Items) {
+            var SimpleBarChart;
+            (function (SimpleBarChart) {
                 var DEFAULT_WH = 50;
                 var DEFAULT_M = 1;
                 var Models = ProStyle.Models;
                 var Serialization = ProStyle.Serialization;
                 var Util = ProStyle.Util;
-                function readJson(itemSet, json) {
+                function deserialize(itemSet, json) {
                     var bars = Math.max(1, Math.min(Util.convertToNumber(Util.getSetup(json, "bars")), 100));
                     var width = Math.max(0, Util.convertToNumber(Util.getSetup(json, "width"), DEFAULT_WH));
                     var height = Math.max(0, Util.convertToNumber(Util.getSetup(json, "height"), DEFAULT_WH));
@@ -309,16 +332,16 @@ var ProStyle;
                         maxDomainValue = minDomainValue;
                         minDomainValue = swap;
                     }
-                    var propertyTypes = simpleBarChart.Props.getPropertyTypes();
-                    var barPropertyTypes = simpleBarChart.Props.getBarPropertyTypes();
+                    var propertyTypes = SimpleBarChart.SimpleBarChartPropertyTypes.get();
+                    var barPropertyTypes = SimpleBarChart.SimpleBarChartPropertyTypes.getForBars();
                     var init = Serialization.PropertyListReader.read(itemSet.story, json.init, propertyTypes);
                     var barsInit = Serialization.PropertyListReader.read(itemSet.story, json.barInit || json.barsInit, barPropertyTypes);
                     var scriptSet = Serialization.ScriptSetReader.readJson(itemSet, "Chart", json, [""], propertyTypes);
                     var barsScriptSet = Serialization.ScriptSetReader.readJson(itemSet, "Bars", json, ["bar", "bars"], barPropertyTypes);
-                    return new simpleBarChart.Extension(itemSet, bars, width, height, margin, minDomainValue, maxDomainValue, init, scriptSet, barsInit, barsScriptSet);
+                    return new SimpleBarChart.SimpleBarChartItemModel(itemSet, bars, width, height, margin, minDomainValue, maxDomainValue, init, scriptSet, barsInit, barsScriptSet);
                 }
-                simpleBarChart.readJson = readJson;
-            })(simpleBarChart = Items.simpleBarChart || (Items.simpleBarChart = {}));
+                SimpleBarChart.deserialize = deserialize;
+            })(SimpleBarChart = Items.SimpleBarChart || (Items.SimpleBarChart = {}));
         })(Items = Extensions.Items || (Extensions.Items = {}));
     })(Extensions = ProStyle.Extensions || (ProStyle.Extensions = {}));
 })(ProStyle || (ProStyle = {}));

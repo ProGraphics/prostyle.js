@@ -1,6 +1,4 @@
-var chars = ProStyle.Stories.chars = ProStyle.Stories.chars || {};
-
-chars.story = {
+ProStyle.Stories.chars = {
     items:[
         {
             setup:{text:"CHARACTER ANIMATION"},

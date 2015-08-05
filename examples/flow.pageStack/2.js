@@ -1,6 +1,4 @@
-var stack2 = ProStyle.Stories.stack2 = ProStyle.Stories.stack2 || {};
-
-stack2.story = {
+ProStyle.Stories.stack2 = {
 	canvas: { padding:7 },
 	frame: {
 		padding:13,

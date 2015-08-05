@@ -1,6 +1,4 @@
-var layers2 = ProStyle.Stories.layers2 = ProStyle.Stories.layers2 || {};
-
-layers2.story = {
+ProStyle.Stories.layers2 = {
     frame:{
         setup:{aspectRatio:1}
     },

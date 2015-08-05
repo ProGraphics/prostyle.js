@@ -1,6 +1,4 @@
-var borders = ProStyle.Stories.borders = ProStyle.Stories.borders || {};
-
-borders.story = {
+ProStyle.Stories.borders = {
     frame: {
         padding:5,
         init: {background:"#BADA55", corners:true}

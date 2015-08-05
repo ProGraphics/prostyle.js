@@ -1,6 +1,4 @@
-var words = ProStyle.Stories.words = ProStyle.Stories.words || {};
-
-words.story = {
+ProStyle.Stories.words = {
     frame:{
         init:{bg:"#BADA55", corners:true}
     },
