@@ -486,6 +486,13 @@ declare module ProStyle.Controllers {
         serialize(): any;
     }
 }
+declare module ProStyle.Cursors {
+    var back_24x24: string;
+    var play_20x28: string;
+    var pause_21x24: string;
+    var next_37x24: string;
+    var seek_36x12: string;
+}
 declare module ProStyle.Extensions.Controllers.Auto {
     class AutoController extends ProStyle.Controllers.Controller {
         _start: any;

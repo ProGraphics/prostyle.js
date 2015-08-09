@@ -1,9 +1,19 @@
 /*!
- * @license: MIT License - See https://github.com/GaryChamberlain/prostyle-item-simpleBarChart/LICENSE
+ * VERSION: 0.19.0
+ * DATE: 09-Aug-2015
+ * UPDATES AND DOCS AT: https://prostyle.io/plus/
+ * 
+ * This file is part of ProStyle Plus, a set of premium extensions for ProStyle. It may be
+ * used for free for personal projects or licensed per website domain name for commercial use.
+ * 
+ * @copyright - Copyright (c) 2013-2015, Pro Graphics, Inc. All rights reserved. 
+ * @license - This work is subject to the terms at https://prostyle.io/plus/license/
  * @author: Gary Chamberlain, gary@pro.graphics.
+ * 
  **/
 
-var __extends = this.__extends || function (d, b) {
+/// <reference path="../../../ts/prostyle.d.ts" />
+var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     __.prototype = b.prototype;
@@ -69,6 +79,8 @@ var ProStyle;
         })(Items = Extensions.Items || (Extensions.Items = {}));
     })(Extensions = ProStyle.Extensions || (ProStyle.Extensions = {}));
 })(ProStyle || (ProStyle = {}));
+/// <reference path="../../../ts/prostyle.d.ts" />
+/// <reference path="BarDataVariableType.ts" />
 var ProStyle;
 (function (ProStyle) {
     var Extensions;
@@ -112,6 +124,9 @@ var ProStyle;
         })(Items = Extensions.Items || (Extensions.Items = {}));
     })(Extensions = ProStyle.Extensions || (ProStyle.Extensions = {}));
 })(ProStyle || (ProStyle = {}));
+/// <reference path="../../../ts/prostyle.d.ts" />
+/// <reference path="SimpleBarChartItemModel.ts" />
+/// <reference path="BarDataPropertyType.ts" />
 var ProStyle;
 (function (ProStyle) {
     var Extensions;
@@ -161,6 +176,9 @@ var ProStyle;
         })(Items = Extensions.Items || (Extensions.Items = {}));
     })(Extensions = ProStyle.Extensions || (ProStyle.Extensions = {}));
 })(ProStyle || (ProStyle = {}));
+/// <reference path="../../../ts/prostyle.d.ts" />
+/// <reference path="SimpleBarChartItemModel.ts" />
+/// <reference path="SimpleBarChartPropertyTypes.ts" />
 var ProStyle;
 (function (ProStyle) {
     var Extensions;
@@ -171,7 +189,6 @@ var ProStyle;
             (function (SimpleBarChart) {
                 var DEFAULT_WH = 50;
                 var DEFAULT_M = 1;
-                var Models = ProStyle.Models;
                 function serialize(model) {
                     return {};
                 }
@@ -180,6 +197,8 @@ var ProStyle;
         })(Items = Extensions.Items || (Extensions.Items = {}));
     })(Extensions = ProStyle.Extensions || (ProStyle.Extensions = {}));
 })(ProStyle || (ProStyle = {}));
+/// <reference path="../../../ts/prostyle.d.ts" />
+/// <reference path="SimpleBarChartItemModel.ts" />
 var ProStyle;
 (function (ProStyle) {
     var Extensions;
@@ -264,6 +283,9 @@ var ProStyle;
         })(Items = Extensions.Items || (Extensions.Items = {}));
     })(Extensions = ProStyle.Extensions || (ProStyle.Extensions = {}));
 })(ProStyle || (ProStyle = {}));
+/// <reference path="../../../ts/prostyle.d.ts" />
+/// <reference path="serialize.ts" />
+/// <reference path="SimpleBarChartItemView.ts" />
 var ProStyle;
 (function (ProStyle) {
     var Extensions;
@@ -299,6 +321,9 @@ var ProStyle;
         })(Items = Extensions.Items || (Extensions.Items = {}));
     })(Extensions = ProStyle.Extensions || (ProStyle.Extensions = {}));
 })(ProStyle || (ProStyle = {}));
+/// <reference path="../../../ts/prostyle.d.ts" />
+/// <reference path="SimpleBarChartItemModel.ts" />
+/// <reference path="SimpleBarChartPropertyTypes.ts" />
 var ProStyle;
 (function (ProStyle) {
     var Extensions;
@@ -309,7 +334,6 @@ var ProStyle;
             (function (SimpleBarChart) {
                 var DEFAULT_WH = 50;
                 var DEFAULT_M = 1;
-                var Models = ProStyle.Models;
                 var Serialization = ProStyle.Serialization;
                 var Util = ProStyle.Util;
                 function deserialize(itemSet, json) {

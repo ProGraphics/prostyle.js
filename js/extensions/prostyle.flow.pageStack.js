@@ -1,9 +1,19 @@
 /*!
- * @license: MIT License - See https://github.com/GaryChamberlain/prostyle-flow-pageStack/LICENSE
+ * VERSION: 0.19.0
+ * DATE: 09-Aug-2015
+ * UPDATES AND DOCS AT: https://prostyle.io/plus/
+ * 
+ * This file is part of ProStyle Plus, a set of premium extensions for ProStyle. It may be
+ * used for free for personal projects or licensed per website domain name for commercial use.
+ * 
+ * @copyright - Copyright (c) 2013-2015, Pro Graphics, Inc. All rights reserved. 
+ * @license - This work is subject to the terms at https://prostyle.io/plus/license/
  * @author: Gary Chamberlain, gary@pro.graphics.
+ * 
  **/
 
-var __extends = this.__extends || function (d, b) {
+/// <reference path="../../../ts/prostyle.d.ts" />
+var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     __.prototype = b.prototype;
@@ -69,6 +79,8 @@ var ProStyle;
         })(Flows = Extensions.Flows || (Extensions.Flows = {}));
     })(Extensions = ProStyle.Extensions || (ProStyle.Extensions = {}));
 })(ProStyle || (ProStyle = {}));
+/// <reference path="../../../ts/prostyle.d.ts" />
+/// <reference path="PageStackFlowModel.ts" />
 var ProStyle;
 (function (ProStyle) {
     var Extensions;
@@ -134,6 +146,8 @@ var ProStyle;
         })(Flows = Extensions.Flows || (Extensions.Flows = {}));
     })(Extensions = ProStyle.Extensions || (ProStyle.Extensions = {}));
 })(ProStyle || (ProStyle = {}));
+/// <reference path="../../../ts/prostyle.d.ts" />
+/// <reference path="PageStackFlowModel.ts" />
 var ProStyle;
 (function (ProStyle) {
     var Extensions;
@@ -154,6 +168,8 @@ var ProStyle;
         })(Flows = Extensions.Flows || (Extensions.Flows = {}));
     })(Extensions = ProStyle.Extensions || (ProStyle.Extensions = {}));
 })(ProStyle || (ProStyle = {}));
+/// <reference path="../../../ts/prostyle.d.ts" />
+/// <reference path="PageStackFlowModel.ts" />
 var ProStyle;
 (function (ProStyle) {
     var Extensions;
@@ -163,6 +179,10 @@ var ProStyle;
             var PageStack;
             (function (PageStack) {
                 function serialize(model) {
+                    //TODO: write the json configuration back out.
+                    // Important,
+                    //   don't write current page placement values if it is default
+                    //   don't write future and past page placements and their offsets if they equal the defaults
                     var json = {};
                     json.setup = {};
                     if (model.defaultPageClass !== undefined)
