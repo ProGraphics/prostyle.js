@@ -1,6 +1,6 @@
 /*!
  * VERSION: 0.19.0
- * DATE: 09-Aug-2015
+ * DATE: 10-Aug-2015
  * UPDATES AND DOCS AT: https://prostyle.io/plus/
  * 
  * This file is part of ProStyle Plus, a set of premium extensions for ProStyle. It may be
@@ -369,4 +369,4 @@ var ProStyle;
         })(Items = Extensions.Items || (Extensions.Items = {}));
     })(Extensions = ProStyle.Extensions || (ProStyle.Extensions = {}));
 })(ProStyle || (ProStyle = {}));
-//# sourceMappingURL=prostyle.item.simpleBarChart.js.map
+//# sourceMappingURL=prostyle.item.simplebarchart.js.map

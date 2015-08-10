@@ -584,31 +584,6 @@ declare module ProStyle.Extensions.Controllers.Keyboard {
 declare module ProStyle.Extensions.Controllers.Keyboard {
     function serialize(controller: KeyboardController): any;
 }
-declare module ProStyle.Extensions.Controllers.MouseWheel {
-    class MouseWheelController extends ProStyle.Controllers.Controller {
-        speed: number;
-        ctrlSpeed: number;
-        altSpeed: number;
-        altCtrlSpeed: number;
-        private wheelEventBound;
-        private canvas;
-        private player;
-        constructor(speed?: number, ctrlSpeed?: number, altSpeed?: number, altCtrlSpeed?: number);
-        start(canvas: Views.CanvasView, player: Play.IPlayer): void;
-        stop(): void;
-        private wheelEvent(e);
-        private moveByStep(forward);
-        private moveByTime(delta);
-        resize(): void;
-        serialize(): any;
-    }
-}
-declare module ProStyle.Extensions.Controllers.MouseWheel {
-    function deserialize(json: any): MouseWheelController;
-}
-declare module ProStyle.Extensions.Controllers.MouseWheel {
-    function serialize(controller: MouseWheelController): any;
-}
 declare module ProStyle.Extensions.Controllers.Resize {
     class ResizeController extends ProStyle.Controllers.Controller {
         throttleDelay: number;
