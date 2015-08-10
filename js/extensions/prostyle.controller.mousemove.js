@@ -57,8 +57,8 @@ var ProStyle;
                     };
                     MouseMoveController.prototype.stop = function () {
                         if (this.player !== undefined) {
-                            this.canvas.div.addEventListener("mousemove", this.mousemoveBound);
-                            this.canvas.div.addEventListener("mouseout", this.mouseoutBound);
+                            this.canvas.div.removeEventListener("mousemove", this.mousemoveBound);
+                            this.canvas.div.removeEventListener("mouseout", this.mouseoutBound);
                             this.canvas = undefined;
                             this.player = undefined;
                         }
