@@ -95,10 +95,10 @@ var ProStyle;
                         this.stop();
                         this.canvas = canvas;
                         this.player = player;
-                        this.backDiv = ProStyle.Util.createChildDivElement(this.canvas.div);
-                        this.playDiv = ProStyle.Util.createChildDivElement(this.canvas.div);
-                        this.nextDiv = ProStyle.Util.createChildDivElement(this.canvas.div);
-                        this.seekDiv = ProStyle.Util.createChildDivElement(this.canvas.div);
+                        this.backDiv = ProStyle.Util.createChildDivElement(this.canvas.frame.div);
+                        this.playDiv = ProStyle.Util.createChildDivElement(this.canvas.frame.div);
+                        this.nextDiv = ProStyle.Util.createChildDivElement(this.canvas.frame.div);
+                        this.seekDiv = ProStyle.Util.createChildDivElement(this.canvas.frame.div);
                         this.player.stateChanged.on(this.stateChangedBound);
                         this.resize();
                         this.backDiv.addEventListener("click", this.backBound);
@@ -145,9 +145,9 @@ var ProStyle;
                         this.player.playNextStep(true);
                     };
                     TapController.prototype.seek = function (m) {
-                        var pos = m.clientX;
-                        var w = m.currentTarget["offsetWidth"];
-                        var p = pos / w * 100;
+                        var rect = ProStyle.Util.getOffset(m.currentTarget);
+                        var pos = m.pageX - rect.left;
+                        var w = m.target["offsetWidth"];
                         this.player.seek(pos / w, true);
                     };
                     TapController.prototype.stateChanged = function (paused) {
@@ -161,8 +161,8 @@ var ProStyle;
                         }
                     };
                     TapController.prototype.resize = function () {
-                        var cw = this.canvas.div.offsetWidth;
-                        var ch = this.canvas.div.offsetHeight;
+                        var cw = this.canvas.frame.div.offsetWidth;
+                        var ch = this.canvas.frame.div.offsetHeight;
                         var bw = cw * this.bwr;
                         var pw = cw * this.pwr;
                         var nw = cw * this.nwr;
