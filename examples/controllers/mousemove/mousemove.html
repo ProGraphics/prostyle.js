@@ -10,11 +10,11 @@
 
 <div data-prostyle="mousemove"></div>
 
-<p>The mousemove controller uses the position of the mouse on the canvas to seek the player position. As the mouse is moved over the canvas, the mouse's X position relative to the width of the canvas is used to determine the percentage of the story that should be played.</p> 
+<p>The mousemove controller uses the position of the mouse on the <a href="http://prostyle.io/models/#frame">frame</a> to seek the player position. As the mouse is moved over the frame, the mouse's X position relative to the width of the frame is used to determine the percentage of the story that should be played.</p> 
     
-<p>There are <code>start</code> and <code>end</code> parameters that default to 0 and 100, representing the left edge of the canvas and right edge, respectively.  These edges can be adjusted to shorten the *hit* area. If the <code>end</code> value is less than the <code>start</code>, the effect will work in reverse. If the values are the same, it will cause a split point so that when the mouse is to the left of it, the story will be seeked to the beginning, and to the right to the end.</p>
+<p>There are <code>start</code> and <code>end</code> parameters that default to 0 and 100, representing the left edge of the frame and right edge, respectively.  These edges can be adjusted to shorten the *hit* area. If the <code>end</code> value is less than the <code>start</code>, the effect will work in reverse. If the values are the same, it will cause a split point so that when the mouse is to the left of it, the story will be seeked to the beginning, and to the right to the end.</p>
 
-<p>When the mouse leaves the canvas, the player will begin playing like normal.</p>
+<p>When the mouse leaves the frame, the player will begin playing like normal.</p>
 
 <p>The mousemove controller is a <a href="http://prostyle.io/plus/">ProStyle Plus</a> premium extension.</p>
 

@@ -52,13 +52,13 @@ var ProStyle;
                         this.stop();
                         this.canvas = canvas;
                         this.player = player;
-                        canvas.div.addEventListener("mousemove", this.mousemoveBound);
-                        canvas.div.addEventListener("mouseout", this.mouseoutBound);
+                        canvas.frame.div.addEventListener("mousemove", this.mousemoveBound);
+                        canvas.frame.div.addEventListener("mouseout", this.mouseoutBound);
                     };
                     MouseMoveController.prototype.stop = function () {
                         if (this.player !== undefined) {
-                            this.canvas.div.removeEventListener("mousemove", this.mousemoveBound);
-                            this.canvas.div.removeEventListener("mouseout", this.mouseoutBound);
+                            this.canvas.frame.div.removeEventListener("mousemove", this.mousemoveBound);
+                            this.canvas.frame.div.removeEventListener("mouseout", this.mouseoutBound);
                             this.canvas = undefined;
                             this.player = undefined;
                         }
@@ -68,10 +68,14 @@ var ProStyle;
                             this.player.playCurrentStep();
                     };
                     MouseMoveController.prototype.mousemove = function (m) {
-                        var pos = m.clientX;
-                        var w = m.currentTarget["offsetWidth"];
-                        var p = pos / w * 100;
+                        var div = m.currentTarget;
+                        var rect = ProStyle.Util.getOffset(div);
+                        var pos = m.pageX - rect.left;
+                        var w = div.offsetWidth;
+                        console.log(div, pos, w);
                         this.player.seek(this.posToSeek(pos / w));
+                        m.stopPropagation();
+                        m.preventDefault();
                     };
                     MouseMoveController.prototype.posToSeek = function (pos) {
                         var range;

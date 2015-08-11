@@ -486,13 +486,6 @@ declare module ProStyle.Controllers {
         serialize(): any;
     }
 }
-declare module ProStyle.Cursors {
-    var back_24x24: string;
-    var play_20x28: string;
-    var pause_21x24: string;
-    var next_37x24: string;
-    var seek_36x12: string;
-}
 declare module ProStyle.Extensions.Controllers.Auto {
     class AutoController extends ProStyle.Controllers.Controller {
         _start: any;
@@ -1888,6 +1881,12 @@ declare module ProStyle.Util {
 }
 declare module ProStyle.Util {
     function createChildSvgElement(parent: Element, tag: string, attrs?: any): SVGElement;
+}
+declare module ProStyle.Util {
+    function getOffset(elem: HTMLElement): {
+        top: number;
+        left: number;
+    };
 }
 declare module ProStyle.Views.Actions {
     import Actions = ProStyle.Models.Actions;
