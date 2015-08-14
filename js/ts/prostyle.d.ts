@@ -1,4 +1,11 @@
 /// <reference path="greensock.d.ts" />
+declare module ProStyle {
+    var mediaRootUrl: string;
+    var defaultControllers: any;
+}
+declare module ProStyle.Stories {
+    var _empty: boolean;
+}
 declare module ProStyle.Svg.fastForward {
     var svg: string;
 }
@@ -14,56 +21,6 @@ declare module ProStyle.Svg.play {
 declare module ProStyle.Svg.toStart {
     var svg: string;
 }
-declare module ProStyle.Config {
-    interface IAutoConfig {
-        start?: boolean;
-        advance?: boolean;
-        advanceDelay?: number;
-        restart?: boolean;
-        resize?: boolean;
-    }
-}
-declare module ProStyle.Config {
-    interface IControlsConfig {
-        type: string;
-    }
-}
-declare module ProStyle.Config {
-    interface IKeyboardConfig {
-        play: number[];
-        pause: number[];
-        togglePlay: number[];
-        back: number[];
-        playNext: number[];
-        start: number[];
-        end: number[];
-    }
-}
-declare module ProStyle.Config {
-    interface ITouchConfig {
-    }
-}
-declare module ProStyle.Config {
-    interface IConfig {
-        auto?: IAutoConfig;
-        controls?: IControlsConfig;
-        keyboard?: IKeyboardConfig;
-        touch?: ITouchConfig;
-        mouseWheel?: boolean;
-        debugBar?: boolean;
-    }
-}
-declare module ProStyle.Config {
-    interface ITrackControlsConfig extends IControlsConfig {
-        autoHide?: boolean;
-        color?: string;
-        highlightColor?: string;
-        backColor?: string;
-        stepColor1?: string;
-        stepColor2?: string;
-        startHint?: boolean;
-    }
-}
 declare module ProStyle.Util {
     function setElementText(element: HTMLElement, text: string): void;
 }
@@ -73,34 +30,6 @@ declare module ProStyle.Models {
         init: Properties.PropertyList;
         constructor(initPropertyLists: Properties.PropertyList[]);
     }
-}
-declare module ProStyle.Stories {
-    var rootUrl: string;
-    var Config: {
-        "default": {
-            auto: {
-                start: boolean;
-                advance: boolean;
-                advanceDelay: number;
-                restart: boolean;
-                resize: boolean;
-            };
-            controls: {
-                type: string;
-                autoHide: boolean;
-                color: string;
-                highlightColor: string;
-                backColor: string;
-                stepColor1: string;
-                stepColor2: string;
-                startHint: boolean;
-            };
-            keyboard: boolean;
-            touch: boolean;
-            mouseWheel: boolean;
-            debugBar: boolean;
-        };
-    };
 }
 declare module ProStyle.Types {
     class Size {
@@ -125,10 +54,10 @@ declare module ProStyle.Models {
     import Types = ProStyle.Types;
     class CanvasModel extends Model {
         padding: number;
-        imageRootUrl: string;
-        private adjustedImageRootUrl;
-        constructor(init: Properties.PropertyList, padding: number, imageRootUrl: string);
-        private setAdjustedImageRootUrl(imageRootUrl);
+        canvasMediaUrl: string;
+        mediaUrl: string;
+        constructor(init: Properties.PropertyList, padding: number, canvasMediaUrl: string);
+        private setAdjustedImageRootUrl(canvasUrl);
         adjustBackgroundImage(bg: string, containerSize: Types.Size): string;
         adjustImageUrl(url: string): string;
     }
@@ -464,10 +393,9 @@ declare module ProStyle.Views {
         private story;
         frame: Views.FrameView;
         player: Play.IPlayer;
-        keyboard: Play.KeyboardPlay;
         size: Types.Size;
         fullScreen: boolean;
-        constructor(story: Models.Story, div: HTMLDivElement, config?: Config.IConfig);
+        constructor(story: Models.Story, div: HTMLDivElement);
         startControllers(): void;
         stopControllers(): void;
         resize(force?: boolean): void;
@@ -1686,25 +1614,6 @@ declare module ProStyle.Models {
         constructor(autoAdvanceDelay?: number);
     }
 }
-declare module ProStyle.Play {
-    import Config = ProStyle.Config;
-    class KeyboardPlay {
-        private canvas;
-        private config;
-        private player;
-        constructor(canvas: Views.CanvasView, config: Config.IKeyboardConfig);
-        private getDefaultConfig();
-        private listenForKeyPresses(config);
-        private mapKeys(map, keys, func);
-        private play();
-        private pause();
-        private togglePlay();
-        private back();
-        private playNext();
-        private start();
-        private end();
-    }
-}
 declare module ProStyle.Serialization {
     import Actions = ProStyle.Models.Actions;
     import Scripts = ProStyle.Models.Scripts;
@@ -1930,9 +1839,6 @@ declare module ProStyle.Views {
         constructor(frame: Views.FrameView, positionChanged: () => void);
         private generateTimeline(frame, positionChanged);
     }
-}
-declare module ProStyle {
-    var defaultControllers: any;
 }
 declare module ProStyle {
     function reload(): void;

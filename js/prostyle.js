@@ -1,6 +1,6 @@
 /*!
- * VERSION: 0.19.0
- * DATE: 10-Aug-2015
+ * VERSION: 0.20.0
+ * DATE: 14-Aug-2015
  * UPDATES AND DOCS AT: https://prostyle.io/
  * 
  * @license Copyright (c) 2013-2015, Pro Graphics, Inc. All rights reserved. 
@@ -12,6 +12,18 @@
 var ProStyle;
 
 (function(ProStyle) {
+ ProStyle.mediaRootUrl = undefined;
+ ProStyle.defaultControllers = [ {
+  controllerType:"auto"
+ }, {
+  controllerType:"resize"
+ } ];
+
+ var Stories;
+ (function(Stories) {
+  Stories._empty = true;
+ })(Stories = ProStyle.Stories || (ProStyle.Stories = {}));
+
  var Svg;
  (function(Svg) {
   var fastForward;
@@ -60,36 +72,6 @@ var ProStyle;
   }();
   Models.Model = Model;
  })(Models = ProStyle.Models || (ProStyle.Models = {}));
-
- var Stories;
- (function(Stories) {
-  Stories.rootUrl = undefined;
-  Stories.Config = {
-   default:{
-    auto:{
-     start:true,
-     advance:false,
-     advanceDelay:0,
-     restart:true,
-     resize:true
-    },
-    controls:{
-     type:"track",
-     autoHide:true,
-     color:"#EEE",
-     highlightColor:"#FFF",
-     backColor:"#094766",
-     stepColor1:"#0c5f89",
-     stepColor2:"#EEE",
-     startHint:true
-    },
-    keyboard:false,
-    touch:false,
-    mouseWheel:false,
-    debugBar:false
-   }
-  };
- })(Stories = ProStyle.Stories || (ProStyle.Stories = {}));
 
  var Types;
  (function(Types) {
@@ -188,37 +170,37 @@ var ProStyle;
  (function(Models) {
   var CanvasModel = function(_super) {
    __extends(CanvasModel, _super);
-   function CanvasModel(init, padding, imageRootUrl) {
+   function CanvasModel(init, padding, canvasMediaUrl) {
     _super.call(this, [ init ]);
     this.padding = padding;
-    this.imageRootUrl = imageRootUrl;
-    this.setAdjustedImageRootUrl(imageRootUrl);
+    this.canvasMediaUrl = canvasMediaUrl;
+    this.setAdjustedImageRootUrl(canvasMediaUrl);
    }
-   CanvasModel.prototype.setAdjustedImageRootUrl = function(imageRootUrl) {
-    if (imageRootUrl) {
-     imageRootUrl = imageRootUrl.toString().trim();
-     if (ProStyle.Util.isAbsoluteUrl(imageRootUrl)) {
-      this.adjustedImageRootUrl = imageRootUrl;
+   CanvasModel.prototype.setAdjustedImageRootUrl = function(canvasUrl) {
+    if (canvasUrl) {
+     canvasUrl = canvasUrl.toString().trim();
+     if (ProStyle.Util.isAbsoluteUrl(canvasUrl)) {
+      this.mediaUrl = canvasUrl;
       return;
      }
     }
-    var rootUrl = ProStyle.Stories.rootUrl;
+    var rootUrl = ProStyle.mediaRootUrl;
     if (rootUrl) {
      var rootHasTrailingSlash = rootUrl.lastIndexOf("/") === rootUrl.length - 1;
-     if (imageRootUrl) {
-      if (imageRootUrl.indexOf("/") === 0) {
-       if (!rootHasTrailingSlash) rootUrl += imageRootUrl; else rootUrl += imageRootUrl.substr(1);
+     if (canvasUrl) {
+      if (canvasUrl.indexOf("/") === 0) {
+       if (!rootHasTrailingSlash) rootUrl += canvasUrl; else rootUrl += canvasUrl.substr(1);
       } else {
-       if (rootHasTrailingSlash) rootUrl += imageRootUrl; else rootUrl += "/" + imageRootUrl;
+       if (rootHasTrailingSlash) rootUrl += canvasUrl; else rootUrl += "/" + canvasUrl;
       }
      }
     } else {
-     rootUrl = imageRootUrl;
+     rootUrl = canvasUrl;
     }
     if (rootUrl) {
      if (rootUrl.lastIndexOf("/") !== rootUrl.length - 1) rootUrl += "/";
     }
-    this.adjustedImageRootUrl = rootUrl;
+    this.mediaUrl = rootUrl;
    };
    CanvasModel.prototype.adjustBackgroundImage = function(bg, containerSize) {
     var _this = this;
@@ -235,12 +217,12 @@ var ProStyle;
    };
    CanvasModel.prototype.adjustImageUrl = function(url) {
     if (url.toLowerCase().indexOf("url(") === 0) url = url.substr(4, url.length - 5).trim();
-    if (this.adjustedImageRootUrl) {
+    if (this.mediaUrl) {
      if (!ProStyle.Util.isAbsoluteUrl(url)) {
       if (url.indexOf("/") === 0) {
-       url = this.adjustedImageRootUrl + url.substr(1);
+       url = this.mediaUrl + url.substr(1);
       } else {
-       url = this.adjustedImageRootUrl + url;
+       url = this.mediaUrl + url;
       }
      }
     }
@@ -1234,10 +1216,7 @@ var ProStyle;
   var Util = ProStyle.Util;
   var CanvasView = function(_super) {
    __extends(CanvasView, _super);
-   function CanvasView(story, div, config) {
-    if (config === void 0) {
-     config = {};
-    }
+   function CanvasView(story, div) {
     _super.call(this, story.canvas, div);
     this.story = story;
     Util.setElementText(div, "");
@@ -1246,7 +1225,6 @@ var ProStyle;
     this.setCanvasSize();
     this.frame = new Views.FrameView(this.story, this);
     this.player = new ProStyle.Play.Player(this.frame);
-    this.keyboard = new ProStyle.Play.KeyboardPlay(this, config.keyboard);
     this.hideContextMenu();
    }
    CanvasView.prototype.startControllers = function() {
@@ -5848,98 +5826,6 @@ var ProStyle;
   Models.Step = Step;
  })(Models = ProStyle.Models || (ProStyle.Models = {}));
 
- var Play;
- (function(Play) {
-  var Util = ProStyle.Util;
-  var KeyboardPlay = function() {
-   function KeyboardPlay(canvas, config) {
-    this.canvas = canvas;
-    this.config = config;
-    if (config === undefined || config === false) return;
-    this.player = canvas.player;
-    if (typeof config !== "object") config = this.getDefaultConfig();
-    this.listenForKeyPresses(config);
-   }
-   KeyboardPlay.prototype.getDefaultConfig = function() {
-    return {
-     play:[ 13, 116 ],
-     pause:[ 19, 27 ],
-     togglePlay:[ 32 ],
-     back:[ 8, 33, 37, 38, 188 ],
-     playNext:[ 34, 39, 40, 9 ],
-     start:[ 36, 190 ],
-     end:[ 35 ]
-    };
-   };
-   KeyboardPlay.prototype.listenForKeyPresses = function(config) {
-    var map = {};
-    var count = 0;
-    count += this.mapKeys(map, config.end, this.end.bind(this));
-    count += this.mapKeys(map, config.start, this.start.bind(this));
-    count += this.mapKeys(map, config.back, this.back.bind(this));
-    count += this.mapKeys(map, config.pause, this.pause.bind(this));
-    count += this.mapKeys(map, config.play, this.play.bind(this));
-    count += this.mapKeys(map, config.togglePlay, this.togglePlay.bind(this));
-    count += this.mapKeys(map, config.playNext, this.playNext.bind(this));
-    if (count === 0) return;
-    document.addEventListener("keydown", function(event) {
-     if (event.ctrlKey) return;
-     var c = event.keyCode;
-     var f = map[c];
-     if (f instanceof Function || c === 9) {
-      event.preventDefault();
-     }
-    }, false);
-    document.addEventListener("keyup", function(event) {
-     if (event.ctrlKey) return;
-     var c = event.keyCode;
-     var f = map[c];
-     if (f instanceof Function || c === 9) {
-      if (f instanceof Function) f();
-      event.preventDefault();
-     }
-    }, false);
-   };
-   KeyboardPlay.prototype.mapKeys = function(map, keys, func) {
-    var c = 0;
-    if (keys instanceof Array) {
-     keys.forEach(function(k) {
-      var key = Util.convertToNumber(k);
-      if (key > 0) {
-       map[key] = func;
-       c++;
-      }
-     });
-    }
-    return c;
-   };
-   KeyboardPlay.prototype.play = function() {
-    this.player.playCurrentStep();
-   };
-   KeyboardPlay.prototype.pause = function() {
-    this.player.pause();
-   };
-   KeyboardPlay.prototype.togglePlay = function() {
-    this.player.togglePlay();
-   };
-   KeyboardPlay.prototype.back = function() {
-    this.player.backStep(true);
-   };
-   KeyboardPlay.prototype.playNext = function() {
-    this.player.playNextStep(true);
-   };
-   KeyboardPlay.prototype.start = function() {
-    this.player.seekStep(this.player.steps[0], false);
-   };
-   KeyboardPlay.prototype.end = function() {
-    this.player.seekStep(this.player.steps[0], false);
-    this.player.backStep(false);
-   };
-   return KeyboardPlay;
-  }();
-  Play.KeyboardPlay = KeyboardPlay;
- })(Play = ProStyle.Play || (ProStyle.Play = {}));
-
  var Serialization;
  (function(Serialization) {
   var Actions = ProStyle.Models.Actions;
@@ -6002,7 +5888,7 @@ var ProStyle;
     json.init.crop = json.init.crop === undefined ? true :json.init.crop;
     var init = Serialization.PropertyListReader.read(undefined, json.init, ProStyle.Models.CanvasPropertyTypes.get());
     var padding = Math.max(0, Math.min(ProStyle.Util.convertToNumber(ProStyle.Util.getSetup(json, "padding"), 0), 50));
-    return new ProStyle.Models.CanvasModel(init, padding, ProStyle.Util.getSetup(json, "imageRootUrl"));
+    return new ProStyle.Models.CanvasModel(init, padding, ProStyle.Util.getSetup(json, "mediaUrl"));
    };
    return CanvasReader;
   }();
@@ -6014,7 +5900,8 @@ var ProStyle;
     var o = {
      setup:{}
     };
-    o.setup.padding = canvas.padding;
+    if (canvas.padding) o.setup.padding = canvas.padding;
+    if (canvas.canvasMediaUrl) o.setup.mediaUrl = canvas.canvasMediaUrl;
     return o;
    };
    return CanvasWriter;
@@ -6828,12 +6715,6 @@ var ProStyle;
   Views.Timeline = Timeline;
  })(Views = ProStyle.Views || (ProStyle.Views = {}));
 
- ProStyle.defaultControllers = [ {
-  controllerType:"auto"
- }, {
-  controllerType:"resize"
- } ];
-
  function preprocess(div) {
   var storyName = div.dataset["prostyle"];
   if (storyName !== undefined) {
@@ -6894,8 +6775,8 @@ var ProStyle;
  function bootstrap() {
   preprocessAll();
   window.addEventListener("load", function() {
-   if (ProStyle.Stories.rootUrl === undefined) {
-    ProStyle.Stories.rootUrl = window["Pro_Style_Stories_rootUrl"];
+   if (ProStyle.mediaRootUrl === undefined) {
+    ProStyle.mediaRootUrl = window["ProStyle_mediaRootUrl"];
    }
    preprocessAll();
    reload();
