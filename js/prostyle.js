@@ -1,6 +1,6 @@
 /*!
  * VERSION: 0.20.0
- * DATE: 14-Aug-2015
+ * DATE: 15-Aug-2015
  * UPDATES AND DOCS AT: https://prostyle.io/
  * 
  * @license Copyright (c) 2013-2015, Pro Graphics, Inc. All rights reserved. 
@@ -2745,30 +2745,27 @@ var ProStyle;
     var Types = ProStyle.Types;
     var OriginVariableType = function(_super) {
      __extends(OriginVariableType, _super);
-     function OriginVariableType(transform, useContainer) {
-      if (useContainer === void 0) {
-       useContainer = false;
-      }
+     function OriginVariableType(transform) {
       _super.call(this, transform ? "transform origin" :"perspective origin", transform ? [ "transformOrigin", "origin" ] :[ "perspectiveOrigin", "origin" ], transform ? "transformOrigin" :"perspectiveOrigin", "", new Types.Xyz(0, 0, 0), false);
       this.transform = transform;
-      this.useContainer = useContainer;
      }
      OriginVariableType.prototype.scrubValue = function(value) {
       if (typeof value == "boolean") {
        return this.defaultValue;
       } else if (typeof value == "number") {
-       return new Types.Xyz(value);
+       return this.scrubArray(value, false);
       } else if (typeof value == "string") {
-       return this.scrubArray(value.split(" "));
+       return this.scrubArray(value.split(" "), false);
       }
       if (value instanceof Array) {
-       return this.scrubArray(value);
+       return this.scrubArray(value, false);
       } else {
-       return this.scrubArray([ value.x, value.y, value.z ]);
+       return this.scrubArray([ value.x, value.y, value.z ], !!(value.expand | value.expanded));
       }
      };
-     OriginVariableType.prototype.scrubArray = function(a) {
+     OriginVariableType.prototype.scrubArray = function(a, expand) {
       var v = new Types.Xyz(this.defaultValue.x, this.defaultValue.y, this.defaultValue.z);
+      v["useContainer"] = expand;
       if (a.length > 0) v.x = this.scrubString(a[0]);
       if (a.length > 1) v.y = this.scrubString(a[1]);
       if (this.transform && a.length > 2) v.z = ProStyle.Util.convertToNumber(a[2], 0, true);
@@ -2787,9 +2784,10 @@ var ProStyle;
       var _this = this;
       var xyz = variable.getValue(initializing);
       if (xyz === undefined) return;
+      var useContainer = xyz["useContainer"];
       if (!initializing || !xyz.equals(this.defaultValue) || this.alwaysInitializeCss) {
        var v;
-       if (this.useContainer) {
+       if (useContainer) {
         v = Math.round(xyz.x / 100 * containerSize.width) + "px " + Math.round(xyz.y / 100 * containerSize.height) + "px";
        } else {
         v = Math.round(xyz.x * 100) / 100 + 50 + "%" + " " + (Math.round(xyz.y * 100) / 100 + 50) + "%";
@@ -4622,9 +4620,9 @@ var ProStyle;
   
    var TransformOriginPropertyType = function(_super) {
     __extends(TransformOriginPropertyType, _super);
-    function TransformOriginPropertyType(useContainer) {
+    function TransformOriginPropertyType() {
      var v = [];
-     v.push(new Properties.Variables.OriginVariableType(true, useContainer));
+     v.push(new Properties.Variables.OriginVariableType(true));
      _super.call(this, "transformOrigin", [ "transformorigin", "origin" ], v);
     }
     TransformOriginPropertyType.prototype.createProperty = function(json) {
@@ -4642,6 +4640,12 @@ var ProStyle;
      return this.createProperty(json);
     };
     TransformOriginPropertyType.prototype.createPropertyFromArray = function(json) {
+     return this.createProperty(json);
+    };
+    TransformOriginPropertyType.prototype.createPropertyFromObject = function(json) {
+     if (json.x == undefined && json.X !== undefined) json.x = json.X;
+     if (json.y == undefined && json.Y !== undefined) json.y = json.Y;
+     if (json.z == undefined && json.Z !== undefined) json.z = json.Z;
      return this.createProperty(json);
     };
     TransformOriginPropertyType.prototype.renderLabel = function(property) {
@@ -4678,8 +4682,7 @@ var ProStyle;
     Cache.TEXT_SHADOW = new Properties.TextShadowPropertyType();
     Cache.TEXT_STYLE = new Properties.TextStylePropertyType();
     Cache.TEXT_WIDTH = new Properties.TextWidthPropertyType();
-    Cache.TRANSFORM_ORIGIN = new Properties.TransformOriginPropertyType(false);
-    Cache.TRANSFORM_ORIGIN_CONTAINER = new Properties.TransformOriginPropertyType(true);
+    Cache.TRANSFORM_ORIGIN = new Properties.TransformOriginPropertyType();
     return Cache;
    }();
    Properties.Cache = Cache;
@@ -5368,8 +5371,7 @@ var ProStyle;
       TextPropertyTypes.addPropertyType(all, Properties.Cache.TEXT_SHADOW);
       TextPropertyTypes.addPropertyType(all, Properties.Cache.TEXT_STYLE);
       TextPropertyTypes.addPropertyType(text, Properties.Cache.TEXT_WIDTH);
-      TextPropertyTypes.addPropertyType(text, Properties.Cache.TRANSFORM_ORIGIN);
-      TextPropertyTypes.addPropertyType(allButText, Properties.Cache.TRANSFORM_ORIGIN_CONTAINER);
+      TextPropertyTypes.addPropertyType(all, Properties.Cache.TRANSFORM_ORIGIN);
      };
      TextPropertyTypes.addPropertyType = function(arrays, propertyType) {
       arrays.forEach(function(a) {

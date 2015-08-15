@@ -808,10 +808,9 @@ declare module ProStyle.Models.Properties.Variables {
     import Types = ProStyle.Types;
     class OriginVariableType extends VariableType<Types.Xyz> {
         private transform;
-        private useContainer;
-        constructor(transform: boolean, useContainer?: boolean);
+        constructor(transform: boolean);
         scrubValue(value: any): Types.Xyz;
-        private scrubArray(a);
+        private scrubArray(a, expand);
         private scrubString(s);
         writeCssBuckets(story: Story, model: Model, containerSize: Types.Size, variable: IVariable, buckets: any[], initializing: boolean): void;
     }
@@ -1244,12 +1243,13 @@ declare module ProStyle.Models.Properties {
 }
 declare module ProStyle.Models.Properties {
     class TransformOriginPropertyType extends PropertyType {
-        constructor(useContainer: boolean);
+        constructor();
         private createProperty(json);
         createPropertyFromBoolean(json: boolean): IProperty;
         createPropertyFromNumber(json: number): IProperty;
         createPropertyFromString(json: string): IProperty;
         createPropertyFromArray(json: any[]): IProperty;
+        createPropertyFromObject(json: any): IProperty;
         renderLabel(property: IProperty): string;
     }
 }
@@ -1281,7 +1281,6 @@ declare module ProStyle.Models.Properties {
         static TEXT_STYLE: TextStylePropertyType;
         static TEXT_WIDTH: TextWidthPropertyType;
         static TRANSFORM_ORIGIN: TransformOriginPropertyType;
-        static TRANSFORM_ORIGIN_CONTAINER: TransformOriginPropertyType;
     }
 }
 declare module ProStyle.Extensions.Items.Image {
