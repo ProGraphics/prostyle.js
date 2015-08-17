@@ -1322,7 +1322,7 @@ declare module ProStyle.Serialization {
     import Models = ProStyle.Models;
     import Properties = ProStyle.Models.Properties;
     class PropertyListReader {
-        static read(story: Models.Story, json: any, propertyTypes: Properties.IPropertyType[], className?: string, classValue?: any, priorClasses?: string[]): Properties.PropertyList;
+        static read(story: Models.Story, json: any, propertyTypes: Properties.IPropertyType[], defaultClassName?: string, defaultClassValue?: any, priorClasses?: string[]): Properties.PropertyList;
     }
 }
 declare module ProStyle.Serialization {

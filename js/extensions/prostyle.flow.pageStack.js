@@ -1,6 +1,6 @@
 /*!
- * VERSION: 0.19.0
- * DATE: 10-Aug-2015
+ * VERSION: 0.20.0
+ * DATE: 17-Aug-2015
  * UPDATES AND DOCS AT: https://prostyle.io/plus/
  * 
  * This file is part of ProStyle Plus, a set of premium extensions for ProStyle. It may be
@@ -31,7 +31,7 @@ var ProStyle;
                 var PageStackFlowModel = (function (_super) {
                     __extends(PageStackFlowModel, _super);
                     function PageStackFlowModel(story, placement, defaultPageClass, pageAspectRatio, stacks) {
-                        _super.call(this, story, "pageStack", placement, defaultPageClass, pageAspectRatio, "pageStackPage");
+                        _super.call(this, story, "pageStack", placement, defaultPageClass, pageAspectRatio, "stackedpage");
                         this.stacks = stacks;
                     }
                     PageStackFlowModel.prototype.serialize = function () {

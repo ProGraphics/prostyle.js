@@ -1,6 +1,6 @@
 /*!
  * VERSION: 0.20.0
- * DATE: 15-Aug-2015
+ * DATE: 17-Aug-2015
  * UPDATES AND DOCS AT: https://prostyle.io/
  * 
  * @license Copyright (c) 2013-2015, Pro Graphics, Inc. All rights reserved. 
@@ -2314,7 +2314,7 @@ var ProStyle;
       _super.call(this, story, "simple", placement, pageAspectRatio, defaultPageClass);
      }
      SimpleFlowModel.prototype.getDefaultPageClassName = function() {
-      return this.defaultPageClass || "simpleFlowPage";
+      return this.defaultPageClass || "page";
      };
      SimpleFlowModel.prototype.serialize = function() {
       return Simple.serialize(this);
@@ -4801,51 +4801,70 @@ var ProStyle;
   var Properties = ProStyle.Models.Properties;
   var PropertyListReader = function() {
    function PropertyListReader() {}
-   PropertyListReader.read = function(story, json, propertyTypes, className, classValue, priorClasses) {
-    if (className === void 0) {
-     className = undefined;
+   PropertyListReader.read = function(story, json, propertyTypes, defaultClassName, defaultClassValue, priorClasses) {
+    if (defaultClassName === void 0) {
+     defaultClassName = undefined;
     }
-    if (classValue === void 0) {
-     classValue = undefined;
+    if (defaultClassValue === void 0) {
+     defaultClassValue = undefined;
     }
     if (priorClasses === void 0) {
      priorClasses = [];
     }
     json = json || {};
-    var properties = [];
-    propertyTypes.forEach(function(propertyType) {
-     if (propertyType.jsonNames[0] === "class") {
-      if (json.hasOwnProperty("class")) {
-       var property = Serialization.PropertyReader.read(propertyType, json["class"]);
-       var givenClassName = property.getVariable("name").getValue();
-       if (givenClassName) {
-        className = givenClassName.trim();
-        classValue = {};
+    var json2 = ProStyle.Util.lowercaseProperties(json);
+    var classNames = [];
+    if (defaultClassName) {
+     classNames = defaultClassName.split(",");
+    }
+    if (json["class"] !== undefined) {
+     classNames.push.apply(classNames, json["class"].split(","));
+    }
+    var ambientPropList = undefined;
+    if (defaultClassValue !== undefined) ambientPropList = PropertyListReader.read(story, defaultClassValue || {}, propertyTypes);
+    classNames.forEach(function(className) {
+     className = className.trim().toLowerCase();
+     if (className && priorClasses.indexOf(className) === -1) {
+      var localPriorClasses = priorClasses.slice();
+      localPriorClasses.push(className);
+      var classValue = (story.classes || {})[className] || undefined;
+      if (classValue) {
+       var classPropList = PropertyListReader.read(story, classValue, propertyTypes, undefined, undefined, localPriorClasses);
+       if (ambientPropList === undefined) {
+        ambientPropList = classPropList;
+       } else {
+        classPropList.properties.forEach(function(classProperty) {
+         var ambientProperty = ambientPropList.getPropertyOfType(classProperty.type);
+         if (ambientProperty == undefined) {
+          ambientPropList.properties.push(classProperty);
+         } else {
+          classProperty.type.variableTypes.forEach(function(variableType) {
+           var classVariable = classProperty[variableType.jsonNames[0]];
+           var ambientVariable = ambientProperty[variableType.jsonNames[0]];
+           if (classVariable !== undefined && ambientVariable !== undefined) {
+            var classValue_1 = classVariable.getValue(false);
+            if (classValue_1 !== undefined) ambientVariable.setValue(classValue_1);
+           }
+          });
+         }
+        });
        }
       }
      }
     });
-    var ambientPropertyList = undefined;
-    if (className && priorClasses.indexOf(className) === -1) {
-     priorClasses.push(className);
-     classValue = (story.classes || {})[className] || classValue;
-     if (classValue !== undefined) {
-      ambientPropertyList = PropertyListReader.read(story, classValue, propertyTypes, undefined, undefined, priorClasses);
-     }
-    }
-    var json2 = ProStyle.Util.lowercaseProperties(json);
+    var properties = [];
     propertyTypes.forEach(function(propertyType) {
      var property = undefined;
      var ambientProperty = undefined;
-     if (ambientPropertyList !== undefined) {
-      ambientProperty = ambientPropertyList.getPropertyOfType(propertyType);
-     }
      for (var i = 0; i < propertyType.jsonNames.length; i++) {
       var jsonName = propertyType.jsonNames[i];
       if (json2.hasOwnProperty(jsonName)) {
        property = Serialization.PropertyReader.read(propertyType, json2[jsonName]);
        break;
       }
+     }
+     if (ambientPropList !== undefined) {
+      ambientProperty = ambientPropList.getPropertyOfType(propertyType);
      }
      if (ambientProperty !== undefined) {
       if (property === undefined) property = new Properties.Property(propertyType);
@@ -4932,7 +4951,7 @@ var ProStyle;
      var width = isNaN(widthSetup) ? undefined :Number(widthSetup);
      var height = isNaN(heightSetup) ? undefined :Number(heightSetup);
      var propertyTypes = Image.ImagePropertyTypes.get();
-     var init = ProStyle.Serialization.PropertyListReader.read(itemModelSet.story, json.init, propertyTypes);
+     var init = ProStyle.Serialization.PropertyListReader.read(itemModelSet.story, json.init, propertyTypes, "image");
      var scriptSet = ProStyle.Serialization.ScriptSetReader.readJson(itemModelSet, "Image", json, [ "" ], propertyTypes);
      var item = new Image.ImageItemModel(itemModelSet, src, width, height, init, scriptSet);
      return item;
@@ -5216,7 +5235,7 @@ var ProStyle;
    (function(Layer) {
     function deserialize(itemModelSet, json) {
      var propertyTypes = Layer.LayerPropertyTypes.get();
-     var init = ProStyle.Serialization.PropertyListReader.read(itemModelSet.story, json.init, propertyTypes);
+     var init = ProStyle.Serialization.PropertyListReader.read(itemModelSet.story, json.init, propertyTypes, "layer");
      var scriptSet = ProStyle.Serialization.ScriptSetReader.readJson(itemModelSet, "Layer", json, [ "" ], propertyTypes);
      var model = new Layer.LayerItemModel(itemModelSet, init, scriptSet);
      model.items = ProStyle.Serialization.PageReader.readItems(model, json);
@@ -5426,7 +5445,7 @@ var ProStyle;
      var linePropertyTypes = Text.TextPropertyTypes.getForLines();
      var wordPropertyTypes = Text.TextPropertyTypes.getForWords();
      var charPropertyTypes = Text.TextPropertyTypes.getForChars();
-     var init = ProStyle.Serialization.PropertyListReader.read(itemModelSet.story, json.init, propertyTypes);
+     var init = ProStyle.Serialization.PropertyListReader.read(itemModelSet.story, json.init, propertyTypes, "text");
      var linesInit = ProStyle.Serialization.PropertyListReader.read(itemModelSet.story, json.lineInit || json.linesInit, linePropertyTypes);
      var wordsInit = ProStyle.Serialization.PropertyListReader.read(itemModelSet.story, json.wordInit || json.wordsInit, wordPropertyTypes);
      var charsInit = ProStyle.Serialization.PropertyListReader.read(itemModelSet.story, json.charInit || json.charsInit, charPropertyTypes);
@@ -5716,13 +5735,10 @@ var ProStyle;
       if (getDefaultIfMissing === void 0) {
        getDefaultIfMissing = false;
       }
-      if (getDefaultIfMissing) {
-       if (this._value !== undefined) return this._value;
-       if (this.defaultValueOverride !== undefined) return this.defaultValueOverride;
-       return this.type.defaultValue;
-      } else {
-       return this._value;
-      }
+      if (this._value !== undefined) return this._value;
+      if (this.defaultValueOverride !== undefined) return this.defaultValueOverride;
+      if (getDefaultIfMissing) return this.type.defaultValue;
+      return undefined;
      };
      Variable.prototype.setValue = function(value) {
       if (value === undefined) {
@@ -6114,7 +6130,7 @@ var ProStyle;
     var frame = Serialization.FrameReader.read(json.frame || {});
     var flows = [];
     var controllers = [];
-    var story = new Models.Story(canvas, frame, flows, json.classes, controllers, false);
+    var story = new Models.Story(canvas, frame, flows, ProStyle.Util.lowercaseProperties(json.classes), controllers, false);
     if (json.flows instanceof Array) {
      json.flows.forEach(function(flowJson) {
       flows.push(Serialization.FlowReader.read(story, flowJson));
