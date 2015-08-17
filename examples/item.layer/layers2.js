@@ -38,7 +38,7 @@ ProStyle.Stories.layers2 = {
             },
             {
                 itemType:"text",
-                setup:{text:"MOTION"},
+                setup:{text:"STYLE"},
                 init:{font:8, pos:[0,30,21], opacity:0, color:"#FFF", textShadow:[0,0,1,"#094766"]},
                 actions:[
                     {delay:6, anim:3, opacity:100},
