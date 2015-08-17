@@ -2,7 +2,7 @@ ProStyle.Stories.stack3 = {
 	canvas:{ init:{bg:"#BADA55", corners:true} },
 	frame:{ padding:15 },
 	flow:{
-		flowType:"pageStack",
+		flowType:"stack",
 		placement:{ pos:[-100,-100,0]},
 		pageAspectRatio:4/3,
 		stacks:{

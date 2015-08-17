@@ -9,7 +9,7 @@ ProStyle.Stories.stack1 = {
 		}
 	},
 	flow: {
-		flowType:"pageStack",
+		flowType:"stack",
 		placement:{pos:100},
 		pages:[
 			{ item:{
