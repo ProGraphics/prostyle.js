@@ -2753,7 +2753,7 @@ var ProStyle;
       if (typeof value == "boolean") {
        return this.defaultValue;
       } else if (typeof value == "number") {
-       return this.scrubArray(value, false);
+       return this.scrubArray([ value ], false);
       } else if (typeof value == "string") {
        return this.scrubArray(value.split(" "), false);
       }

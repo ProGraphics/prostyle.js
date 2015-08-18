@@ -1,6 +1,6 @@
 ProStyle.Stories.bars2 = {
     items: [
-        {   itemType: "simpleBarChart",
+        {   itemType: "barChart",
             setup: {bars:30, domain:50, width:90, height:40, margin:0.3},
             barInit: {fill: "#BADA55"},
             barActions: [
@@ -16,7 +16,7 @@ ProStyle.Stories.bars2 = {
                 }
             ]
         },
-        {   itemType: "simpleBarChart",
+        {   itemType: "barChart",
             setup: {bars:30, domain:50, width:90, height:40, margin:2},
             barInit: {fill:"orange"},
             barActions: [

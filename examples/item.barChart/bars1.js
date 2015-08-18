@@ -3,7 +3,7 @@ ProStyle.Stories.bars1 = {
         itemType: "layer",
         init: {bg: "#EEE", size: [32,32], corners: 1, position: {z:-1}},
         items: [
-            {   itemType: "simpleBarChart",
+            {   itemType: "barChart",
                 setup: {bars:10, domain:10, width:30, height:30, margin:1},
                 barActions: [
                     {   anim: {dur:3, ease:"elastic", stagger:0.05},
