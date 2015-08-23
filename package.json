@@ -1,11 +1,11 @@
 {
-  "name": "pro-motion",
-  "version": "0.16.0",
-  "description": "Craft Rich Animations with Ease™",
-  "main": "/src/uncompressed/pro-motion.js",
+  "name": "prostyle",
+  "version": "0.20.0",
+  "description": "ProStyle is a JavaScript library for crafting rich, timeline-based animation for the web. Craft Rich Animations with Ease™",
+  "main": "/examples/examples.html",
   "repository": {
     "type": "git",
-    "url": "https://github.com/pro-graphics/pro-motion.git"
+    "url": "https://github.com/ProGraphics/prostyle.js"
   },
   "keywords": [
     "web",
@@ -21,7 +21,7 @@
   ],
   "author": "Gary Chamberlain <gary@pro.graphics>",
   "bugs": {
-    "url": "https://github.com/pro-graphics/pro-motion/issues"
+    "url": "https://github.com/ProGraphics/prostyle.js/issues"
   },
-  "homepage": "https://github.com/pro-graphics/pro-motion"
+  "homepage": "http://prostyle.io"
 }
