@@ -1,6 +1,6 @@
 /*!
- * VERSION: 0.20.0
- * DATE: 17-Aug-2015
+ * VERSION: 0.21.0
+ * DATE: 03-Sep-2015
  * UPDATES AND DOCS AT: https://prostyle.io/
  * 
  * @license Copyright (c) 2013-2015, Pro Graphics, Inc. All rights reserved. 
@@ -1458,7 +1458,7 @@ var ProStyle;
       player.stepComplete.on(this.stepCompleteBound);
       player.pause();
       if (this.autoStart) {
-       player.playCurrentStepDelayed(this.autoRestartDelay);
+       player.playCurrentStepDelayed(this.autoStartDelay);
       }
      };
      AutoController.prototype.stop = function() {
@@ -3839,6 +3839,10 @@ var ProStyle;
      return property;
     };
     ColorPropertyType.prototype.createPropertyFromString = function(json) {
+     json = json.trim();
+     if (json.length === 0 || json === "none") {
+      return _super.prototype.createPropertyFromBoolean.call(this, false);
+     }
      var property = new Properties.Property(this);
      property["color"].setValue(json);
      return property;
@@ -4438,7 +4442,7 @@ var ProStyle;
     }
     SvgFillPropertyType.prototype.createPropertyFromBoolean = function(json) {
      var property = _super.prototype.createPropertyFromBoolean.call(this, false);
-     if (json === true) property["color"].setValue("#F7F7F7");
+     if (json === true) property["color"].setValue("white");
      return property;
     };
     SvgFillPropertyType.prototype.createPropertyFromNumber = function(json) {
@@ -6173,7 +6177,45 @@ var ProStyle;
       controllers.push(Serialization.ControllerReader.read(controllerJson));
      });
     }
+    StoryReader.checkPL(story);
     return story;
+   };
+   StoryReader.checkPL = function(story) {
+    var pl = ProStyle["pl"] || 0;
+    if (pl < 2) return;
+    var hn = ProStyle["hn"];
+    if (hn.indexOf("www.") === 0) hn = hn.substring(4);
+    var msg = "This story uses ProStyle Plus premium extensions. Please purchase a license at https://prostyle.io/plus/ for the " + hn + " domain.";
+    if (pl === 3) {
+     console.log("Attempting to use ProStyle Plus license for " + ProStyle["pld"] + " at " + ProStyle["hn"]);
+    }
+    story.flows.push(Serialization.FlowReader.read(story, {
+     pages:[ {
+      items:[ {
+       text:msg,
+       init:{
+        font:6,
+        width:65,
+        opacity:0,
+        padding:true,
+        bg:"#FF9",
+        border:true,
+        corners:true,
+        pos:{
+         z:13
+        }
+       },
+       actions:[ {
+        anim:1,
+        opacity:100
+       }, {
+        delay:20,
+        anim:1,
+        opacity:0
+       } ]
+      } ]
+     } ]
+    }));
    };
    return StoryReader;
   }();

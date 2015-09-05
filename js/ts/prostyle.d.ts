@@ -1709,6 +1709,7 @@ declare module ProStyle.Serialization {
     import Models = ProStyle.Models;
     class StoryReader {
         static read(json: any): Models.Story;
+        private static checkPL(story);
     }
 }
 declare module ProStyle.Serialization {
