@@ -1,5 +1,33 @@
 /*!
  * VERSION: 0.20.0
+ * DATE: 05-Sep-2015
+ * UPDATES AND DOCS AT: https://prostyle.io/plus/
+ * 
+ * This file is part of ProStyle Plus, a set of premium extensions for ProStyle. It may be
+ * used for free for personal projects or licensed per website domain name for commercial use.
+ * 
+ * @copyright - Copyright (c) 2013-2015, Pro Graphics, Inc. All rights reserved. 
+ * @license - This work is subject to the terms at https://prostyle.io/plus/license/
+ * @author: Gary Chamberlain, gary@pro.graphics.
+ * 
+ **/
+
+/*!
+ * VERSION: 0.20.0
+ * DATE: 05-Sep-2015
+ * UPDATES AND DOCS AT: https://prostyle.io/plus/
+ * 
+ * This file is part of ProStyle Plus, a set of premium extensions for ProStyle. It may be
+ * used for free for personal projects or licensed per website domain name for commercial use.
+ * 
+ * @copyright - Copyright (c) 2013-2015, Pro Graphics, Inc. All rights reserved. 
+ * @license - This work is subject to the terms at https://prostyle.io/plus/license/
+ * @author: Gary Chamberlain, gary@pro.graphics.
+ * 
+ **/
+
+/*!
+ * VERSION: 0.20.0
  * DATE: 03-Sep-2015
  * UPDATES AND DOCS AT: https://prostyle.io/plus/
  * 

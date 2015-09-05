@@ -1,6 +1,6 @@
 /*!
  * VERSION: 0.21.0
- * DATE: 03-Sep-2015
+ * DATE: 05-Sep-2015
  * UPDATES AND DOCS AT: https://prostyle.io/
  * 
  * @license Copyright (c) 2013-2015, Pro Graphics, Inc. All rights reserved. 
@@ -911,6 +911,26 @@ var ProStyle;
     this.refreshTimeline(frame);
     this.currentStep = this.getStepAtTime(0);
    }
+   Player.prototype.getDuration = function(total) {
+    if (total === void 0) {
+     total = false;
+    }
+    if (total) {
+     return this.timeline.totalDuration();
+    } else {
+     return this.timeline.duration();
+    }
+   };
+   Player.prototype.getTime = function(total) {
+    if (total === void 0) {
+     total = false;
+    }
+    if (total) {
+     return this.timeline.totalTime();
+    } else {
+     return this.timeline.time();
+    }
+   };
    Player.prototype.refreshTimeline = function(frame) {
     var _this = this;
     var time = 0;
@@ -1071,6 +1091,12 @@ var ProStyle;
     }
     progress = Math.max(0, Math.min(progress, 1));
     var time = this.timeline.duration() * progress;
+    this.seekTime(time, animate);
+   };
+   Player.prototype.seekTime = function(time, animate) {
+    if (animate === void 0) {
+     animate = false;
+    }
     this.moveTo(time, animate, false);
     this.currentStep = this.getStepAtTime(time);
     this.alignSequencedItemsToStep(this.currentStep, this.currentStep.isAtStart(time), this.currentStep.isAtEnd(time), false);
@@ -1186,9 +1212,13 @@ var ProStyle;
    Player.prototype.getCurrentStep = function() {
     return this.currentStep;
    };
-   Player.prototype.pause = function() {
+   Player.prototype.pause = function(time) {
+    if (time === void 0) {
+     time = undefined;
+    }
     clearTimeout(this.timeout);
-    this.timeline.pause();
+    this.timeline.pause(time);
+    if (time !== undefined) this.triggerProgressChanged();
     this.triggerStateChanged();
    };
    return Player;
@@ -1478,7 +1508,7 @@ var ProStyle;
        var delayTime = step.step.autoAdvanceDelay == undefined ? advanceDelay :ProStyle.Util.convertToNumber(step.step.autoAdvanceDelay);
        player.playNextStepDelayed(Math.max(0, delayTime));
       } else {
-       player.timeline.seek(step.stopTime, true);
+       player.seekTime(step.stopTime, false);
       }
      };
      AutoController.prototype.resize = function() {};
@@ -1925,7 +1955,7 @@ var ProStyle;
       var barHeight2 = s.barHeight / 2;
       var x = Math.max(barHeight2, Math.min(e.clientX - rect.left - s.left, s.width - barHeight2)) - s.barHeight;
       this.divScrubberHoverPoint.style.left = (x + barHeight2 + barHeight2 / 2 - 1).toString() + "px";
-      var duration = player.timeline.duration();
+      var duration = player.getDuration();
       var t = duration * (x + barHeight2) / barWidth;
       this.divScrubberHoverText.style.left = x.toString() + "px";
       Util.setElementText(this.divScrubberHoverText, t.toFixed(2));
@@ -2022,7 +2052,7 @@ var ProStyle;
       var s = this.scrubberSize;
       var player = this.canvas.player;
       var stepCount = player.steps.length - 1;
-      var duration = player.timeline.duration();
+      var duration = player.getDuration();
       var radius = s.barHeight / 2;
       var barWidth = s.width - s.barHeight;
       this.divScrubber.style.left = s.left + "px";

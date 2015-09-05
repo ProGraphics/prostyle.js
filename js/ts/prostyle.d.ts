@@ -316,8 +316,9 @@ declare module ProStyle.Play {
 declare module ProStyle.Play {
     import Events = ProStyle.Util.Events;
     interface IPlayer {
-        timeline: TimelineMax;
         steps: ProStyle.Views.Step[];
+        getDuration(total?: boolean): number;
+        getTime(total?: boolean): number;
         isAtStoryStart(): boolean;
         isAtStoryEnd(): boolean;
         isAtStepStart(): boolean;
@@ -327,6 +328,7 @@ declare module ProStyle.Play {
         stateChanged: Events.ILiteEvent<boolean>;
         stepComplete: Events.ILiteEvent<ProStyle.Views.Step>;
         seek(progress: number, animate?: boolean): any;
+        seekTime(time: number, animate?: boolean): any;
         seekStep(step: ProStyle.Views.Step, animate?: boolean): any;
         playCurrentStep(): any;
         playCurrentStepDelayed(delay: number): any;
@@ -335,7 +337,7 @@ declare module ProStyle.Play {
         togglePlay(): any;
         backStep(animate?: boolean): any;
         getCurrentStep(): ProStyle.Views.Step;
-        pause(): any;
+        pause(time?: number): any;
     }
 }
 declare module ProStyle.Play {
@@ -354,6 +356,8 @@ declare module ProStyle.Play {
         private timeout;
         state: IPlayerProgress;
         constructor(frame: Views.FrameView);
+        getDuration(total?: boolean): number;
+        getTime(total?: boolean): number;
         refreshTimeline(frame: Views.FrameView): void;
         isAtStoryStart(): boolean;
         isAtStoryEnd(): boolean;
@@ -371,6 +375,7 @@ declare module ProStyle.Play {
         private moveTo(time, animate, thenPlay);
         private thenPlay(isAtStepEnd, playNextStep?);
         seek(progress: number, animate?: boolean): void;
+        seekTime(time: number, animate?: boolean): void;
         seekStep(step: Views.Step, animate?: boolean): void;
         private alignSequencedItemsToStep(destStep, atStepStart, atStepEnd, animate?);
         private playSubStep(subStep, animate?);
@@ -382,7 +387,7 @@ declare module ProStyle.Play {
         playNextStepDelayed(delay: number): void;
         backStep(animate?: boolean): void;
         getCurrentStep(): ProStyle.Views.Step;
-        pause(): void;
+        pause(time?: number): void;
     }
 }
 declare module ProStyle.Util {

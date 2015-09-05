@@ -1,6 +1,6 @@
 /*!
  * VERSION: 0.20.0
- * DATE: 03-Sep-2015
+ * DATE: 05-Sep-2015
  * UPDATES AND DOCS AT: https://prostyle.io/plus/
  * 
  * This file is part of ProStyle Plus, a set of premium extensions for ProStyle. It may be
@@ -69,14 +69,12 @@ var ProStyle;
                                 delta = -delta;
                             t = this.moveByTime(delta);
                         }
-                        var d = this.player.timeline.totalDuration();
+                        var d = this.player.getDuration(true);
                         if (t < 0.01)
                             t = d;
                         else if (t > d)
                             t = 0.01;
-                        this.player.timeline.totalTime(t);
-                        this.player.timeline.pause(t);
-                        this.player.pause();
+                        this.player.pause(t);
                         e.preventDefault();
                         return false;
                     };
@@ -95,7 +93,7 @@ var ProStyle;
                         return 0;
                     };
                     MouseWheelController.prototype.moveByTime = function (delta) {
-                        var t = this.player.timeline.totalTime() + delta;
+                        var t = this.player.getTime(true) + delta;
                         t = Math.round(t / delta) * delta;
                         return t;
                     };
