@@ -4,7 +4,7 @@ ProStyle.Stories.hello = {
     init: {
       color:"#FFF",
       align:"center",
-			textShadow:[0,0,0,"rgba(0,0,0,0)"],
+      textShadow:[0,0,0,"rgba(0,0,0,0)"],
       font:26
     },
     charAction: {
