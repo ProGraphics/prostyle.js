@@ -187,9 +187,9 @@ declare module ProStyle.Models.Flows {
         flowType: string;
         placement: Types.Placement;
         pageAspectRatio: number;
-        defaultPageClass: string;
+        protected pageClass: string;
         pages: PageModel[];
-        constructor(story: Story, flowType: string, placement: Types.Placement, pageAspectRatio: number, defaultPageClass?: string);
+        constructor(story: Story, flowType: string, placement: Types.Placement, pageAspectRatio: number, pageClass?: string);
         getDefaultPageClassName(): string;
         getDefaultPageClassValue(): any;
         serialize(): any;
@@ -627,7 +627,7 @@ declare module ProStyle.Extensions.Flows.Simple {
     import Models = ProStyle.Models;
     import Types = ProStyle.Types;
     class SimpleFlowModel extends Models.Flows.FlowModel {
-        constructor(story: Models.Story, placement: Types.Placement, defaultPageClass: string, pageAspectRatio: number);
+        constructor(story: Models.Story, placement: Types.Placement, pageClass: string, pageAspectRatio: number);
         getDefaultPageClassName(): string;
         serialize(): any;
         createView(camera: Views.CameraView, flowIndex: number): Views.Flows.FlowView;
@@ -995,7 +995,7 @@ declare module ProStyle.Extensions.Flows.Unknown {
     import Models = ProStyle.Models;
     import Types = ProStyle.Types;
     class UnknownFlowModel extends Simple.SimpleFlowModel {
-        constructor(story: Models.Story, placement: Types.Placement, defaultPageClass: string, pageAspectRatio: number);
+        constructor(story: Models.Story, placement: Types.Placement, pageClass: string, pageAspectRatio: number);
         serialize(): any;
     }
 }
@@ -1526,8 +1526,8 @@ declare module ProStyle.Models {
 }
 declare module ProStyle.Models.Flows {
     class PlacementFlowModel extends FlowModel {
-        private defaultPageClassIfNotGiven;
-        constructor(story: Story, flowType: string, placement: Types.Placement, defaultPageClass: string, pageAspectRatio: number, defaultPageClassIfNotGiven: string);
+        private pageClassIfNotGiven;
+        constructor(story: Story, flowType: string, placement: Types.Placement, pageClass: string, pageAspectRatio: number, pageClassIfNotGiven: string);
         getDefaultPageClassName(): string;
         getDefaultPageClassValue(): any;
     }

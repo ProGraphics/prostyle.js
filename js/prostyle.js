@@ -4981,7 +4981,7 @@ var ProStyle;
    (function(Image) {
     var Util = ProStyle.Util;
     function deserialize(itemModelSet, json) {
-     var src = (Util.getSetup(json, "src") || "").trim();
+     var src = (Util.getSetup(json, "src") || Util.getSetup(json, "img") || Util.getSetup(json, "url") || "https://prostyle.io/pro.svg").trim();
      var widthSetup = Util.getSetup(json, "width");
      var heightSetup = Util.getSetup(json, "height");
      var width = isNaN(widthSetup) ? undefined :Number(widthSetup);
