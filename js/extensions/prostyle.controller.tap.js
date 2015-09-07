@@ -1,6 +1,6 @@
 /*!
  * VERSION: 0.20.0
- * DATE: 05-Sep-2015
+ * DATE: 07-Sep-2015
  * UPDATES AND DOCS AT: https://prostyle.io/plus/
  * 
  * This file is part of ProStyle Plus, a set of premium extensions for ProStyle. It may be
@@ -95,10 +95,10 @@ var ProStyle;
                         this.stop();
                         this.canvas = canvas;
                         this.player = player;
-                        this.backDiv = ProStyle.Util.createChildDivElement(this.canvas.frame.div);
-                        this.playDiv = ProStyle.Util.createChildDivElement(this.canvas.frame.div);
-                        this.nextDiv = ProStyle.Util.createChildDivElement(this.canvas.frame.div);
-                        this.seekDiv = ProStyle.Util.createChildDivElement(this.canvas.frame.div);
+                        this.backDiv = ProStyle.Util.createChildDivElement(this.canvas.frame.div, "tap-back");
+                        this.playDiv = ProStyle.Util.createChildDivElement(this.canvas.frame.div, "tap-play");
+                        this.nextDiv = ProStyle.Util.createChildDivElement(this.canvas.frame.div, "tap-next");
+                        this.seekDiv = ProStyle.Util.createChildDivElement(this.canvas.frame.div, "tap-seek");
                         this.player.stateChanged.on(this.stateChangedBound);
                         this.resize();
                         this.backDiv.addEventListener("click", this.backBound);

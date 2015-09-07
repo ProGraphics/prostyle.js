@@ -1,6 +1,6 @@
 /*!
  * VERSION: 0.21.0
- * DATE: 06-Sep-2015
+ * DATE: 07-Sep-2015
  * UPDATES AND DOCS AT: https://prostyle.io/
  * 
  * @license Copyright (c) 2013-2015, Pro Graphics, Inc. All rights reserved. 
@@ -202,21 +202,9 @@ var ProStyle;
     }
     this.mediaUrl = rootUrl;
    };
-   CanvasModel.prototype.adjustBackgroundImage = function(bg, containerSize) {
-    var _this = this;
-    var parts = ProStyle.Util.splitNoParens(bg);
-    var newParts = [];
-    parts.forEach(function(part) {
-     part = part.trim();
-     if (part.toLowerCase().indexOf("url(") === 0) {
-      part = "url(" + _this.adjustImageUrl(part) + ")";
-     }
-     newParts.push(part);
-    });
-    return newParts.join(",");
-   };
    CanvasModel.prototype.adjustImageUrl = function(url) {
     if (url.toLowerCase().indexOf("url(") === 0) url = url.substr(4, url.length - 5).trim();
+    if (url.indexOf("data:") === 0) return url;
     if (this.mediaUrl) {
      if (!ProStyle.Util.isAbsoluteUrl(url)) {
       if (url.indexOf("/") === 0) {
@@ -2453,17 +2441,45 @@ var ProStyle;
     }(Variables.VariableType);
     Variables.StringVariableType = StringVariableType;
    
-    var BackgroundImageVariableType = function(_super) {
-     __extends(BackgroundImageVariableType, _super);
-     function BackgroundImageVariableType(label, jsonNames, cssName, defaultValue, alwaysInitializeCss) {
+    var BackgroundCssVariableType = function(_super) {
+     __extends(BackgroundCssVariableType, _super);
+     function BackgroundCssVariableType(label, jsonNames, cssName, defaultValue, alwaysInitializeCss) {
       _super.call(this, label, jsonNames, cssName, defaultValue, alwaysInitializeCss);
      }
-     BackgroundImageVariableType.prototype.writeCssBucket = function(story, model, containerSize, bucket, value) {
-      bucket[this.cssName] = story.canvas.adjustBackgroundImage(value, containerSize);
+     BackgroundCssVariableType.prototype.writeCssBucket = function(story, model, containerSize, bucket, value) {
+      console.log(value);
+      bucket[this.cssName] = this.rewriteUrls(story.canvas, (value || "").trim());
+      console.log(bucket[this.cssName]);
      };
-     return BackgroundImageVariableType;
+     BackgroundCssVariableType.prototype.rewriteUrls = function(canvas, css) {
+      var parts = [];
+      this.rewriteUrl(canvas, parts, css);
+      return parts.join("");
+     };
+     BackgroundCssVariableType.prototype.rewriteUrl = function(canvas, parts, css) {
+      if ((css || "").length == 0) return;
+      var css2 = css.toLowerCase();
+      var pos = css2.indexOf("url(");
+      if (pos < 0) {
+       parts.push(css);
+      } else {
+       if (pos > 0) {
+        parts.push(css.substr(0, pos));
+        css = css.substr(pos);
+       }
+       css = css.substr(4);
+       pos = css.indexOf(")");
+       if (pos < 0) pos = css.length + 1;
+       var url = css.substr(0, pos);
+       parts.push("url(");
+       parts.push(canvas.adjustImageUrl(url));
+       parts.push(")");
+       this.rewriteUrl(canvas, parts, css.substr(pos + 1));
+      }
+     };
+     return BackgroundCssVariableType;
     }(Variables.StringVariableType);
-    Variables.BackgroundImageVariableType = BackgroundImageVariableType;
+    Variables.BackgroundCssVariableType = BackgroundCssVariableType;
    
     var BooleanVariableType = function(_super) {
      __extends(BooleanVariableType, _super);
@@ -3549,7 +3565,7 @@ var ProStyle;
      var setup = json.setup || {};
      var placement = ProStyle.Types.Placement.fromJson(setup.placement);
      var pageAspectRatio = Util.convertToNumber(setup.pageAspectRatio, story.frame.aspectRatio);
-     return new Unknown.UnknownFlowModel(story, placement, setup.defaultPageClass, pageAspectRatio);
+     return new Unknown.UnknownFlowModel(story, placement, setup.pageClass, pageAspectRatio);
     }
     Unknown.deserialize = deserialize;
    })(Unknown = Flows.Unknown || (Flows.Unknown = {}));
@@ -3678,21 +3694,18 @@ var ProStyle;
   
    var BackgroundPropertyType = function(_super) {
     __extends(BackgroundPropertyType, _super);
-    function BackgroundPropertyType(backgroundColor) {
-     if (backgroundColor === void 0) {
-      backgroundColor = "transparent";
+    function BackgroundPropertyType(color) {
+     if (color === void 0) {
+      color = "transparent";
      }
      var v = [];
-     v.push(new Properties.Variables.ColorVariableType("color", [ "color" ], "backgroundColor", backgroundColor, backgroundColor !== "transparent"));
-     v.push(new Properties.Variables.BackgroundImageVariableType("image", [ "image" ], "backgroundImage", "none", false));
-     v.push(new Properties.Variables.StringVariableType("repeat", [ "repeat", "rep" ], "backgroundRepeat", "repeat", false));
-     v.push(new Properties.Variables.StringVariableType("position", [ "position", "pos" ], "backgroundPosition", "0% 0%", false));
-     v.push(new Properties.Variables.StringVariableType("size", [ "size" ], "backgroundSize", "auto", false));
-     _super.call(this, "background", [ "background", "back", "bg" ], v);
+     v.push(new Properties.Variables.ColorVariableType("color", [ "color" ], "backgroundColor", color, color !== "transparent"));
+     v.push(new Properties.Variables.BackgroundCssVariableType("css", [ "css" ], "background", "", false));
+     _super.call(this, "background", [ "background", "bg" ], v);
     }
     BackgroundPropertyType.prototype.createPropertyFromBoolean = function(json) {
      var property = _super.prototype.createPropertyFromBoolean.call(this, false);
-     if (json === true) property["color"].setValue("#F7F7F7");
+     if (json === true) property["color"].setValue("#FFF");
      return property;
     };
     BackgroundPropertyType.prototype.createPropertyFromNumber = function(json) {
@@ -3708,7 +3721,7 @@ var ProStyle;
      var property;
      if (json.toLowerCase().indexOf("url(") === 0) {
       property = new Properties.Property(this);
-      property["image"].setValue(json);
+      property["css"].setValue(json);
      } else {
       property = _super.prototype.createPropertyFromBoolean.call(this, false);
       property["color"].setValue(json);
@@ -3718,10 +3731,7 @@ var ProStyle;
     BackgroundPropertyType.prototype.createPropertyFromArray = function(json) {
      var property = _super.prototype.createPropertyFromBoolean.call(this, false);
      if (json.length > 0) property["color"].setValue(json[0] === null ? undefined :json[0]);
-     if (json.length > 1) property["image"].setValue(json[1] === null ? undefined :json[1]);
-     if (json.length > 2) property["repeat"].setValue(json[2] === null ? undefined :json[2]);
-     if (json.length > 3) property["position"].setValue(json[3] === null ? undefined :json[3]);
-     if (json.length > 4) property["size"].setValue(json[4] === null ? undefined :json[4]);
+     if (json.length > 1) property["css"].setValue(json[1] === null ? undefined :json[1]);
      return property;
     };
     BackgroundPropertyType.prototype.renderLabel = function(property) {
@@ -4772,6 +4782,7 @@ var ProStyle;
       var forceProps = {};
       if (model.width !== undefined) forceProps.width = model.width.toString() + "%";
       if (model.height !== undefined) forceProps.height = model.height.toString() + "%";
+      if (model.width === undefined && model.height === undefined) forceProps.width = "50%";
       this.initializeProperties(model.itemModelSet.flow.story, [ this.element ], pageSize, timeline, model.init, false, forceProps);
      };
      return ImageItemView;
@@ -6363,7 +6374,7 @@ var ProStyle;
    var img = document.createElement("img");
    img.setAttribute("class", cssClass);
    img.setAttribute("src", src);
-   if (width === undefined && height === undefined) height = 100;
+   if (width === undefined && height === undefined) width = 50;
    if (width !== undefined) img.setAttribute("width", width.toString() + "%");
    if (height !== undefined) img.setAttribute("height", height.toString() + "%");
    parentDiv.appendChild(img);

@@ -51,14 +51,12 @@ declare module ProStyle.Util {
     function isAbsoluteUrl(url: string): boolean;
 }
 declare module ProStyle.Models {
-    import Types = ProStyle.Types;
     class CanvasModel extends Model {
         padding: number;
         canvasMediaUrl: string;
         mediaUrl: string;
         constructor(init: Properties.PropertyList, padding: number, canvasMediaUrl: string);
         private setAdjustedImageRootUrl(canvasUrl);
-        adjustBackgroundImage(bg: string, containerSize: Types.Size): string;
         adjustImageUrl(url: string): string;
     }
 }
@@ -681,9 +679,11 @@ declare module ProStyle.Models.Properties.Variables {
     }
 }
 declare module ProStyle.Models.Properties.Variables {
-    class BackgroundImageVariableType extends StringVariableType {
+    class BackgroundCssVariableType extends StringVariableType {
         constructor(label: string, jsonNames: string[], cssName: string, defaultValue: string, alwaysInitializeCss: boolean);
         writeCssBucket(story: Story, model: Model, containerSize: Types.Size, bucket: any, value: string): void;
+        private rewriteUrls(canvas, css);
+        private rewriteUrl(canvas, parts, css);
     }
 }
 declare module ProStyle.Models.Properties.Variables {
@@ -1034,7 +1034,7 @@ declare module ProStyle.Models.Properties {
 }
 declare module ProStyle.Models.Properties {
     class BackgroundPropertyType extends PropertyType {
-        constructor(backgroundColor?: string);
+        constructor(color?: string);
         createPropertyFromBoolean(json: boolean): IProperty;
         createPropertyFromNumber(json: number): IProperty;
         createPropertyFromString(json: string): IProperty;

@@ -1,6 +1,6 @@
 /*!
  * VERSION: 0.20.0
- * DATE: 05-Sep-2015
+ * DATE: 07-Sep-2015
  * UPDATES AND DOCS AT: https://prostyle.io/plus/
  * 
  * This file is part of ProStyle Plus, a set of premium extensions for ProStyle. It may be
@@ -30,8 +30,9 @@ var ProStyle;
                 var Models = ProStyle.Models;
                 var StackFlowModel = (function (_super) {
                     __extends(StackFlowModel, _super);
-                    function StackFlowModel(story, placement, defaultPageClass, pageAspectRatio, stacks) {
-                        _super.call(this, story, "stack", placement, defaultPageClass, pageAspectRatio, "stackedpage");
+                    function StackFlowModel(story, placement, overriddenPageClass, pageAspectRatio, stacks) {
+                        _super.call(this, story, "stack", placement, overriddenPageClass, pageAspectRatio, "stackedpage");
+                        this.overriddenPageClass = overriddenPageClass;
                         this.stacks = stacks;
                     }
                     StackFlowModel.prototype.serialize = function () {
@@ -667,7 +668,7 @@ var ProStyle;
                     var placement = ProStyle.Types.Placement.fromJson(Util.getSetup(json, "placement"));
                     var pageAspectRatio = Util.convertToNumber(Util.getSetup(json, "pageAspectRatio"), 4 / 3);
                     var stacks = ProStyle.Types.Stacks.fromJson(Util.getSetup(json, "stacks") || Stack.StackFlowModel.defaultStacksJson);
-                    return new Stack.StackFlowModel(story, placement, Util.getSetup(json, "defaultPageClass"), pageAspectRatio, stacks);
+                    return new Stack.StackFlowModel(story, placement, Util.getSetup(json, "pageClass"), pageAspectRatio, stacks);
                 }
                 Stack.deserialize = deserialize;
             })(Stack = Flows.Stack || (Flows.Stack = {}));
@@ -691,8 +692,8 @@ var ProStyle;
                     //   don't write future and past page placements and their offsets if they equal the defaults
                     var json = {};
                     json.setup = {};
-                    if (model.defaultPageClass !== undefined)
-                        json.setup.defaultPageClass = model.defaultPageClass;
+                    if (model.overriddenPageClass !== undefined)
+                        json.setup.pageClass = model.overriddenPageClass;
                     return json;
                 }
                 Stack.serialize = serialize;
