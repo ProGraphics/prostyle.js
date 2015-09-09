@@ -1,6 +1,6 @@
 {
   "name": "prostyle",
-  "version": "0.20.0",
+  "version": "0.21.0",
   "description": "ProStyle is a JavaScript library for crafting rich, timeline-based animation for the web. Craft Rich Animations with Ease™",
   "main": "/examples/examples.html",
   "repository": {
@@ -23,5 +23,5 @@
   "bugs": {
     "url": "https://github.com/ProGraphics/prostyle.js/issues"
   },
-  "homepage": "http://prostyle.io"
+  "homepage": "https://prostyle.io"
 }

@@ -564,8 +564,13 @@ declare module ProStyle.Extensions.Controllers.Track {
         private scrubberProgressClass;
         private scrubberHoverPointClass;
         private scrubberHoverTextClass;
+        private scrubberMouseMoveBound;
+        private scrubberMouseClickBound;
+        private progressChangedBound;
+        private stateChangedBound;
         private progress;
         constructor(canvas: Views.CanvasView, player: Play.IPlayer, controller: TrackController);
+        stop(): void;
         private setupButtons();
         private setupScrubber();
         private scrubberMouseMove(e);
