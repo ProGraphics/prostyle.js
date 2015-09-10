@@ -1,5 +1,5 @@
 /*!
- * VERSION: 0.21.0
+ * VERSION: 1.0.0
  * DATE: 09-Sep-2015
  * UPDATES AND DOCS AT: https://prostyle.io/
  * 
@@ -1235,9 +1235,8 @@ var ProStyle;
   var CanvasView = function(_super) {
    __extends(CanvasView, _super);
    function CanvasView(story, div) {
-    _super.call(this, story.canvas, div);
+    _super.call(this, story.canvas, CanvasView.duplicateDiv(div));
     this.story = story;
-    Util.setElementText(div, "");
     this.fullScreen = div instanceof HTMLBodyElement;
     this.generateStyles();
     this.setCanvasSize();
@@ -1245,6 +1244,19 @@ var ProStyle;
     this.player = new ProStyle.Play.Player(this.frame);
     this.hideContextMenu();
    }
+   CanvasView.duplicateDiv = function(div) {
+    var parent = div.parentElement;
+    var newDiv;
+    if (div instanceof HTMLBodyElement) {
+     newDiv = document.createElement("body");
+    } else {
+     newDiv = document.createElement("div");
+    }
+    newDiv.setAttribute("data-prostyle", div.getAttribute("data-prostyle"));
+    newDiv.setAttribute("class", div.getAttribute("class"));
+    parent.replaceChild(newDiv, div);
+    return newDiv;
+   };
    CanvasView.prototype.startControllers = function() {
     var _this = this;
     this.story.controllers.forEach(function(controller) {
@@ -6872,7 +6884,7 @@ var ProStyle;
    if (storyJson === undefined) {
     div.innerHTML = "<strong style='background-color: #FFF;color:#C00'>Missing story at ProStyle.Stories." + storyName + "</strong>";
    } else {
-    div.innerHTML = "";
+    ProStyle.Util.setElementText(div, "");
     var canvas = div["proStyleCanvas"];
     div["proStyleCanvas"] = undefined;
     if (canvas) canvas.stopControllers();

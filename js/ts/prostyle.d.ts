@@ -399,6 +399,7 @@ declare module ProStyle.Views {
         size: Types.Size;
         fullScreen: boolean;
         constructor(story: Models.Story, div: HTMLDivElement);
+        private static duplicateDiv(div);
         startControllers(): void;
         stopControllers(): void;
         resize(force?: boolean): void;
