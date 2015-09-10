@@ -4053,8 +4053,8 @@ var ProStyle;
     };
     FontPropertyType.prototype.createPropertyFromArray = function(json) {
      var property = _super.prototype.createPropertyFromBoolean.call(this, false);
-     if (json.length > 0) property["family"].setValue(json[0] === null ? undefined :json[0]);
-     if (json.length > 1) property["size"].setValue(json[1] === null ? undefined :json[1]);
+     if (json.length > 0) property["size"].setValue(json[1] === null ? undefined :json[0]);
+     if (json.length > 1) property["family"].setValue(json[0] === null ? undefined :json[1]);
      if (json.length > 2) property["lineheight"].setValue(json[2] === null ? undefined :json[2]);
      return property;
     };
