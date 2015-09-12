@@ -1,6 +1,6 @@
 /*!
- * VERSION: 0.20.0
- * DATE: 07-Sep-2015
+ * VERSION: 1.0.0
+ * DATE: 12-Sep-2015
  * UPDATES AND DOCS AT: https://prostyle.io/plus/
  * 
  * This file is part of ProStyle Plus, a set of premium extensions for ProStyle. It may be

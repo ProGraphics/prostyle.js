@@ -1,6 +1,6 @@
 /*!
  * VERSION: 1.0.0
- * DATE: 09-Sep-2015
+ * DATE: 12-Sep-2015
  * UPDATES AND DOCS AT: https://prostyle.io/
  * 
  * @license Copyright (c) 2013-2015, Pro Graphics, Inc. All rights reserved. 
@@ -4346,8 +4346,8 @@ var ProStyle;
     __extends(SizePropertyType, _super);
     function SizePropertyType() {
      var v = [];
-     v.push(new Properties.Variables.ContainerWidthPctVariableType("Width", [ "width", "w" ], "width", 0, Number.POSITIVE_INFINITY, 0, 2, "", false));
-     v.push(new Properties.Variables.ContainerHeightPctVariableType("Height", [ "height", "h" ], "height", 0, Number.POSITIVE_INFINITY, 0, 2, "", false));
+     v.push(new Properties.Variables.ContainerWidthPctVariableType("Width", [ "width", "w" ], "width", 0, Number.POSITIVE_INFINITY, 100, 2, "", true));
+     v.push(new Properties.Variables.ContainerHeightPctVariableType("Height", [ "height", "h" ], "height", 0, Number.POSITIVE_INFINITY, 100, 2, "", true));
      _super.call(this, "size", [ "size" ], v);
     }
     SizePropertyType.prototype.createPropertyFromBoolean = function(json) {
