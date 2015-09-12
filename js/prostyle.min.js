@@ -4,7 +4,7 @@
  * UPDATES AND DOCS AT: https://prostyle.io/
  * 
  * @license Copyright (c) 2013-2015, Pro Graphics, Inc. All rights reserved. 
- * This work is subject to the terms at https://prostyle.io/licensing/
+ * This work is subject to the terms at https://prostyle.io/
  * @author: Gary Chamberlain, gary@pro.graphics.
  * 
  **/
