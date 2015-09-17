@@ -8,6 +8,6 @@ _Please click the Star button_ in the top-right corner of [the GitHub repository
 
 ## Links
 
-* [Examples on CodePen](http://codepen.io/garyc/)
+* [Examples on CodePen](http://codepen.io/garyc/popular/)
 * [Documentation](http://prostyle.io/)
 * [Changelog](https://github.com/pro-graphics/prostyle/releases)
