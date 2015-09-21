@@ -4346,10 +4346,19 @@ var ProStyle;
   
    var SizePropertyType = function(_super) {
     __extends(SizePropertyType, _super);
-    function SizePropertyType() {
+    function SizePropertyType(defaultWidth, defaultHeight, alwaysInitialize) {
+     if (defaultWidth === void 0) {
+      defaultWidth = 100;
+     }
+     if (defaultHeight === void 0) {
+      defaultHeight = 100;
+     }
+     if (alwaysInitialize === void 0) {
+      alwaysInitialize = true;
+     }
      var v = [];
-     v.push(new Properties.Variables.ContainerWidthPctVariableType("Width", [ "width", "w" ], "width", 0, Number.POSITIVE_INFINITY, 100, 2, "", true));
-     v.push(new Properties.Variables.ContainerHeightPctVariableType("Height", [ "height", "h" ], "height", 0, Number.POSITIVE_INFINITY, 100, 2, "", true));
+     v.push(new Properties.Variables.ContainerWidthPctVariableType("Width", [ "width", "w" ], "width", 0, Number.POSITIVE_INFINITY, defaultWidth, 2, "", alwaysInitialize));
+     v.push(new Properties.Variables.ContainerHeightPctVariableType("Height", [ "height", "h" ], "height", 0, Number.POSITIVE_INFINITY, defaultHeight, 2, "", alwaysInitialize));
      _super.call(this, "size", [ "size" ], v);
     }
     SizePropertyType.prototype.createPropertyFromBoolean = function(json) {
@@ -4754,6 +4763,7 @@ var ProStyle;
     Cache.ROTATION = new Properties.RotationPropertyType();
     Cache.SCALE = new Properties.ScalePropertyType();
     Cache.SIZE = new Properties.SizePropertyType();
+    Cache.SIZE_IMAGE = new Properties.SizePropertyType(0, 0, false);
     Cache.SKEW = new Properties.SkewPropertyType();
     Cache.SHADOW = new Properties.ShadowPropertyType();
     Cache.TEXT_ALIGN = new Properties.TextAlignPropertyType();
@@ -4815,7 +4825,6 @@ var ProStyle;
       var forceProps = {};
       if (model.width !== undefined) forceProps.width = model.width.toString() + "%";
       if (model.height !== undefined) forceProps.height = model.height.toString() + "%";
-      if (model.width === undefined && model.height === undefined) forceProps.width = "50%";
       this.initializeProperties(model.itemModelSet.flow.story, [ this.element ], pageSize, timeline, model.init, false, forceProps);
      };
      return ImageItemView;
@@ -4842,6 +4851,7 @@ var ProStyle;
        p.push(Properties.Cache.POSITION);
        p.push(Properties.Cache.ROTATION);
        p.push(Properties.Cache.SCALE);
+       p.push(Properties.Cache.SIZE_IMAGE);
        p.push(Properties.Cache.SHADOW);
        p.push(Properties.Cache.SKEW);
        p.push(Properties.Cache.TRANSFORM_ORIGIN);
@@ -6406,7 +6416,6 @@ var ProStyle;
    var img = document.createElement("img");
    img.setAttribute("class", cssClass);
    img.setAttribute("src", src);
-   if (width === undefined && height === undefined) width = 50;
    if (width !== undefined) img.setAttribute("width", width.toString() + "%");
    if (height !== undefined) img.setAttribute("height", height.toString() + "%");
    parentDiv.appendChild(img);
