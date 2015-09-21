@@ -1,6 +1,6 @@
 /*!
- * VERSION: 1.1.0
- * DATE: 17-Sep-2015
+ * VERSION: 1.2.0
+ * DATE: 21-Sep-2015
  * UPDATES AND DOCS AT: https://prostyle.io/
  * 
  * @copyright Copyright (c) 2013-2015, Pro Graphics, Inc. All rights reserved. 
@@ -3109,7 +3109,7 @@ var ProStyle;
       this.variableTypes.forEach(function(variableType) {
        property[variableType.jsonNames[0]].setValue(variableType.defaultValue);
       });
-     } else if (json === true) {}
+     }
      return property;
     };
     PropertyType.prototype.createPropertyFromObject = function(json) {
@@ -5003,13 +5003,12 @@ var ProStyle;
        return scriptSet;
       }
      }
-     return scriptSet;
     }
-    var scriptSet = new Scripts.ScriptSet(itemModelSet, name, propertyTypes);
-    if (!(json instanceof Array)) return scriptSet;
-    json.forEach(function(scriptJson) {
-     scriptSet.scripts.push(Serialization.ScriptReader.read(scriptSet, scriptJson));
-    });
+    if (json instanceof Array) {
+     json.forEach(function(scriptJson) {
+      scriptSet.scripts.push(Serialization.ScriptReader.read(scriptSet, scriptJson));
+     });
+    }
     return scriptSet;
    };
    return ScriptSetReader;
