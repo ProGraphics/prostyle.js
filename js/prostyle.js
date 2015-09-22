@@ -1,6 +1,6 @@
 /*!
  * VERSION: 1.2.0
- * DATE: 21-Sep-2015
+ * DATE: 22-Sep-2015
  * UPDATES AND DOCS AT: https://prostyle.io/
  * 
  * @copyright Copyright (c) 2013-2015, Pro Graphics, Inc. All rights reserved. 
@@ -2903,6 +2903,17 @@ var ProStyle;
   })(Properties = Models.Properties || (Models.Properties = {}));
  })(Models = ProStyle.Models || (ProStyle.Models = {}));
 
+ var Types;
+ (function(Types) {
+  (function(RepeatDirection) {
+   RepeatDirection[RepeatDirection["Forward"] = 0] = "Forward";
+   RepeatDirection[RepeatDirection["Yoyo"] = 1] = "Yoyo";
+   RepeatDirection[RepeatDirection["InvertedYoyo"] = 2] = "InvertedYoyo";
+   RepeatDirection[RepeatDirection["Mirror"] = 3] = "Mirror";
+  })(Types.RepeatDirection || (Types.RepeatDirection = {}));
+  var RepeatDirection = Types.RepeatDirection;
+ })(Types = ProStyle.Types || (ProStyle.Types = {}));
+
  var Util;
  (function(Util) {
   function getSign(n) {
@@ -2910,6 +2921,102 @@ var ProStyle;
   }
   Util.getSign = getSign;
  })(Util = ProStyle.Util || (ProStyle.Util = {}));
+
+ var Types;
+ (function(Types) {
+  var Repeat = function() {
+   function Repeat(count, direction, delay, diminishing) {
+    if (direction === void 0) {
+     direction = Types.RepeatDirection.Forward;
+    }
+    if (delay === void 0) {
+     delay = 0;
+    }
+    if (diminishing === void 0) {
+     diminishing = false;
+    }
+    this.count = count;
+    this.direction = direction;
+    this.delay = delay;
+    this.diminishing = diminishing;
+    this.count = Math.max(0, count);
+    this.delay = Math.max(0, delay);
+   }
+   Repeat.fromJson = function(json) {
+    json = json || 0;
+    if (json instanceof Array) {
+     if (json.length < 1) json.push(0);
+     if (json.length < 2) json.push("f");
+     if (json.length < 3) json.push(0);
+     if (json.length < 4) json.push(false);
+     json[0] = ProStyle.Util.convertToNumber(json[0]);
+     json[1] = (json[1] || "f").toString().trim().toLowerCase().charAt(0);
+     json[2] = ProStyle.Util.convertToNumber(json[2]);
+     json[3] = !!json[3];
+     var dir = Types.RepeatDirection.Forward;
+     if (json[1] === "y") dir = Types.RepeatDirection.Yoyo;
+     if (json[1] === "i") dir = Types.RepeatDirection.InvertedYoyo;
+     if (json[1] === "m") dir = Types.RepeatDirection.Mirror;
+     return new Repeat(json[0], dir, json[2], json[3]);
+    }
+    return new Repeat(ProStyle.Util.convertToNumber(json));
+   };
+   Repeat.prototype.toJson = function() {
+    if (this.direction === Types.RepeatDirection.Forward && this.delay === 0 && this.diminishing === false) {
+     return this.count;
+    }
+    var json = [];
+    var d = "f";
+    if (this.direction === Types.RepeatDirection.Yoyo) d = "y";
+    if (this.direction === Types.RepeatDirection.InvertedYoyo) d = "i";
+    if (this.direction === Types.RepeatDirection.Mirror) d = "m";
+    json.push(this.count);
+    json.push(d);
+    if (this.delay > 0 || this.diminishing) json.push(this.delay);
+    if (this.diminishing) json.push(true);
+    return json;
+   };
+   Repeat.prototype.equals = function(other) {
+    if (other === undefined) return false;
+    if (other.count !== this.count) return false;
+    if (other.direction !== this.direction) return false;
+    if (other.delay !== this.delay) return false;
+    if (other.diminishing !== this.diminishing) return false;
+    return true;
+   };
+   Repeat.DEFAULT = new Repeat(0);
+   return Repeat;
+  }();
+  Types.Repeat = Repeat;
+ })(Types = ProStyle.Types || (ProStyle.Types = {}));
+
+ var Models;
+ (function(Models) {
+  var Properties;
+  (function(Properties) {
+   var Variables;
+   (function(Variables) {
+    var RepeatVariableType = function(_super) {
+     __extends(RepeatVariableType, _super);
+     function RepeatVariableType() {
+      _super.call(this, "repeat", [ "repeat" ], "repeat", "", ProStyle.Types.Repeat.DEFAULT, false);
+     }
+     RepeatVariableType.prototype.scrubValue = function(value) {
+      return ProStyle.Types.Repeat.fromJson(value);
+     };
+     RepeatVariableType.prototype.writeCssBucket = function(story, model, containerSize, bucket, repeat) {
+      if (repeat.count > 0) {
+       bucket["repeat"] = repeat.count;
+       if (repeat.delay > 0) bucket["repeatDelay"] = repeat.delay;
+       if (repeat.direction === ProStyle.Types.RepeatDirection.Yoyo) bucket["yoyo"] = true;
+      }
+     };
+     return RepeatVariableType;
+    }(Variables.VariableType);
+    Variables.RepeatVariableType = RepeatVariableType;
+   })(Variables = Properties.Variables || (Properties.Variables = {}));
+  })(Properties = Models.Properties || (Models.Properties = {}));
+ })(Models = ProStyle.Models || (ProStyle.Models = {}));
 
  var Types;
  (function(Types) {
@@ -3684,9 +3791,7 @@ var ProStyle;
      var v = [];
      v.push(new Properties.Variables.NumberVariableType("duration", [ "duration", "dur" ], undefined, 0, Number.POSITIVE_INFINITY, 0, 2, " secs", false));
      v.push(new Properties.Variables.EaseVariableType());
-     v.push(new Properties.Variables.NumberVariableType("repeat", [ "repeat", "rep" ], "repeat", 0, Number.POSITIVE_INFINITY, 0, 0, " times", false));
-     v.push(new Properties.Variables.NumberVariableType("repeat delay", [ "repeatdelay", "delay" ], "repeatDelay", 0, Number.POSITIVE_INFINITY, 0, 0, " secs", false));
-     v.push(new Properties.Variables.BooleanVariableType("yoyo", [ "yoyo" ], "yoyo", false, true));
+     v.push(new Properties.Variables.RepeatVariableType());
      v.push(new Properties.Variables.NumberVariableType("stagger", [ "stagger", "stag" ], undefined, 0, Number.POSITIVE_INFINITY, 0, 2, " secs", false));
      _super.call(this, "animation", [ "animation", "anim" ], v);
     }
@@ -3711,9 +3816,7 @@ var ProStyle;
      if (json.length > 0) property["duration"].setValue(json[0] === null ? undefined :json[0]);
      if (json.length > 1) property["ease"].setValue(json[1] === null ? undefined :json[1]);
      if (json.length > 2) property["repeat"].setValue(json[2] === null ? undefined :json[2]);
-     if (json.length > 3) property["repeatdelay"].setValue(json[3] === null ? undefined :json[3]);
-     if (json.length > 4) property["yoyo"].setValue(json[4] === null ? undefined :json[4]);
-     if (json.length > 5) property["stagger"].setValue(json[5] === null ? undefined :json[5]);
+     if (json.length > 3) property["stagger"].setValue(json[3] === null ? undefined :json[3]);
      return property;
     };
     AnimationPropertyType.prototype.renderLabel = function(property) {
