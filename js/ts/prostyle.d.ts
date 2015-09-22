@@ -832,8 +832,36 @@ declare module ProStyle.Models.Properties.Variables {
         writeCssBucket(story: Story, model: Model, containerSize: Types.Size, bucket: any, value: number): void;
     }
 }
+declare module ProStyle.Types {
+    enum RepeatDirection {
+        Forward = 0,
+        Yoyo = 1,
+        InvertedYoyo = 2,
+        Mirror = 3,
+    }
+}
 declare module ProStyle.Util {
     function getSign(n: number): number;
+}
+declare module ProStyle.Types {
+    class Repeat {
+        count: number;
+        direction: RepeatDirection;
+        delay: number;
+        diminishing: boolean;
+        static DEFAULT: Repeat;
+        constructor(count: number, direction?: RepeatDirection, delay?: number, diminishing?: boolean);
+        static fromJson(json: any): Repeat;
+        toJson(): any;
+        equals(other: Repeat): boolean;
+    }
+}
+declare module ProStyle.Models.Properties.Variables {
+    class RepeatVariableType extends VariableType<Types.Repeat> {
+        constructor();
+        scrubValue(value: any): Types.Repeat;
+        writeCssBucket(story: Story, model: Model, containerSize: Types.Size, bucket: any, repeat: Types.Repeat): void;
+    }
 }
 declare module ProStyle.Types {
     class Shadow {
@@ -1177,7 +1205,7 @@ declare module ProStyle.Models.Properties {
 }
 declare module ProStyle.Models.Properties {
     class SizePropertyType extends PropertyType {
-        constructor();
+        constructor(defaultWidth?: number, defaultHeight?: number, alwaysInitialize?: boolean);
         createPropertyFromBoolean(json: boolean): IProperty;
         createPropertyFromNumber(json: number): IProperty;
         createPropertyFromString(json: string): IProperty;
@@ -1284,6 +1312,7 @@ declare module ProStyle.Models.Properties {
         static ROTATION: RotationPropertyType;
         static SCALE: ScalePropertyType;
         static SIZE: SizePropertyType;
+        static SIZE_IMAGE: SizePropertyType;
         static SKEW: SkewPropertyType;
         static SHADOW: ShadowPropertyType;
         static TEXT_ALIGN: TextAlignPropertyType;
