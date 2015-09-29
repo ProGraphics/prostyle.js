@@ -45,7 +45,7 @@ ProStyle.Stories.layers2 = {
                     {delay:11, anim:3, opacity:0}
                 ],
                 charAction:{
-                    anim:{dur:0.7, stagger:0.1, yoyo:true, repeat:25},
+                    anim:{dur:0.7, stagger:0.1, repeat:[25,'yoyo']},
                     pos:{z:40}
                 }
             }
