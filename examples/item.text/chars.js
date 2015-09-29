@@ -9,7 +9,7 @@ ProStyle.Stories.chars = {
                 origin:[0,8,-6]
             },
             charAction:{
-                anim:{dur:4, stagger:0.12, repeat:7, ease:"curve inout", yoyo:true},
+                anim:{dur:4, stagger:[0.12,"outCenter"], repeat:[7,"yoyo"], ease:"curve inout"},
                 rotation:{x:720}
             }
         },
