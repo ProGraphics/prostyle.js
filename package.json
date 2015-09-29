@@ -1,13 +1,15 @@
 {
   "name": "prostyle",
   "version": "1.2.0",
-  "description": "ProStyle is a JavaScript library for crafting rich, timeline-based animation for the web. Craft Rich Animations with Ease™",
-  "main": "/examples/examples.html",
+  "description": "If you love the Greensock Animation Platform (GSAP) then you'll love ProStyle, too. ProStyle extends GSAP letting you craft timeline animations using an expressive, declarative JSON syntax. Plus, it has custom controllers and extensions. Want a trackbar controller? Just add one line of JSON. It automatically resizes to fit the display, too.  Craft Rich Animations with Ease™",
+  "main": "/js/prostyle.min.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/ProGraphics/prostyle.js"
   },
   "keywords": [
+		"2D",
+		"3D",
     "web",
     "animation",
     "css",
@@ -15,8 +17,11 @@
     "html5",
     "greensock",
     "gsap",
+		"greensock",
+		"json",
     "timeline",
     "tween",
+		"tweening",
     "animate"
   ],
   "author": "Gary Chamberlain <gary@pro.graphics>",
