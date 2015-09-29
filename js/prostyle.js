@@ -4126,7 +4126,7 @@ var ProStyle;
      var looksLikeAnImage = false;
      if (ProStyle.Util.splitNoParens(json).length < 2) {
       var jsonLower = json.toLowerCase();
-      looksLikeAnImage = json.toLowerCase().indexOf("url()") === 0 || json.toLowerCase().indexOf("linear-gradient(") === 0 || json.toLowerCase().indexOf("repeating-linear-gradient()") === 0 || json.toLowerCase().indexOf("radial-gradient(") === 0 || json.toLowerCase().indexOf("repeating-radial-gradient()") === 0;
+      looksLikeAnImage = json.toLowerCase().indexOf("url(") === 0 || json.toLowerCase().indexOf("linear-gradient(") === 0 || json.toLowerCase().indexOf("repeating-linear-gradient(") === 0 || json.toLowerCase().indexOf("radial-gradient(") === 0 || json.toLowerCase().indexOf("repeating-radial-gradient(") === 0;
      }
      if (looksLikeAnImage) {
       property = _super.prototype.createPropertyFromBoolean.call(this, false);
@@ -5950,6 +5950,7 @@ var ProStyle;
       var allButText = [ TextPropertyTypes._linePropertyTypes, TextPropertyTypes._wordPropertyTypes, TextPropertyTypes._charPropertyTypes ];
       TextPropertyTypes.addPropertyType(text, Properties.Cache.ANCHOR);
       TextPropertyTypes.addPropertyType(all, Properties.Cache.ANIMATION);
+      TextPropertyTypes.addPropertyType(all, Properties.Cache.BACKGROUND);
       TextPropertyTypes.addPropertyType(all, Properties.Cache.BORDER);
       TextPropertyTypes.addPropertyType(line, Properties.Cache.BULLET);
       TextPropertyTypes.addPropertyType(all, Properties.Cache.CLASS);
@@ -7202,7 +7203,6 @@ var ProStyle;
       var b = {};
       Properties.BackgroundPropertyType.writeBackgroundBuckets(story, bg, containerSize, [ b ]);
       for (var i = 0; i < divs.length; i++) {
-       console.log("SET-" + orgTime, b);
        timeline.set(divs[i], b, orgTime);
       }
       if (!animationIsNoop) {
@@ -7239,10 +7239,8 @@ var ProStyle;
       for (var i = 0; i < indexes_1.length; i++) {
        var c = indexes_1[i];
        if (duration > 0) {
-        console.log("to-" + orgTime, buckets[c]);
         timeline.to(divs[c], duration, buckets[c], time);
        } else {
-        console.log("set-" + orgTime, buckets[c]);
         timeline.set(divs[c], buckets[c], time);
        }
        time += staggerDelay;
