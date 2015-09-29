@@ -8,7 +8,7 @@ ProStyle.Stories.hello = {
       font:26
     },
     charAction: {
-      anim:[1,"sine inout",100,0.47,true,0.1],
+      anim:[1,"sine inout",[100,'yoyo',0.1],0.47],
       textShadow:[0,2,4],
       pos:{z:5}
     }
