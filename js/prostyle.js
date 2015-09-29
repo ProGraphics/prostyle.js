@@ -1,6 +1,6 @@
 /*!
  * VERSION: 1.2.0
- * DATE: 22-Sep-2015
+ * DATE: 29-Sep-2015
  * UPDATES AND DOCS AT: https://prostyle.io/
  * 
  * @copyright Copyright (c) 2013-2015, Pro Graphics, Inc. All rights reserved. 
@@ -554,6 +554,61 @@ var ProStyle;
  
   var Properties;
   (function(Properties) {
+   var BackgroundCache = function() {
+    function BackgroundCache(sizeW, sizeH, borderSize, image, layout, ar, x, y, w, h, clip, repeat) {
+     if (sizeW === void 0) {
+      sizeW = undefined;
+     }
+     if (sizeH === void 0) {
+      sizeH = undefined;
+     }
+     if (borderSize === void 0) {
+      borderSize = 0;
+     }
+     if (image === void 0) {
+      image = undefined;
+     }
+     if (layout === void 0) {
+      layout = undefined;
+     }
+     if (ar === void 0) {
+      ar = undefined;
+     }
+     if (x === void 0) {
+      x = undefined;
+     }
+     if (y === void 0) {
+      y = undefined;
+     }
+     if (w === void 0) {
+      w = undefined;
+     }
+     if (h === void 0) {
+      h = undefined;
+     }
+     if (clip === void 0) {
+      clip = undefined;
+     }
+     if (repeat === void 0) {
+      repeat = undefined;
+     }
+     this.sizeW = sizeW;
+     this.sizeH = sizeH;
+     this.borderSize = borderSize;
+     this.image = image;
+     this.layout = layout;
+     this.ar = ar;
+     this.x = x;
+     this.y = y;
+     this.w = w;
+     this.h = h;
+     this.clip = clip;
+     this.repeat = repeat;
+    }
+    return BackgroundCache;
+   }();
+   Properties.BackgroundCache = BackgroundCache;
+  
    var Property = function() {
     function Property(type) {
      var _this = this;
@@ -569,11 +624,7 @@ var ProStyle;
      return this.type.renderLabel(this);
     };
     Property.prototype.writeCssBuckets = function(story, model, containerSize, buckets, initializing) {
-     var _this = this;
-     this.type.variableTypes.forEach(function(variableType) {
-      var variable = _this[variableType.jsonNames[0]];
-      variable.type.writeCssBuckets(story, model, containerSize, variable, buckets, initializing);
-     });
+     this.type.writeCssBuckets(this, story, model, containerSize, buckets, initializing);
     };
     return Property;
    }();
@@ -632,13 +683,13 @@ var ProStyle;
     this.model = model;
     this.element = element;
     this.div = undefined;
+    this.bgCache = new Properties.BackgroundCache();
     if (element instanceof HTMLDivElement || element instanceof HTMLBodyElement) {
      this.div = element;
     }
     element["proCache"] = {};
    }
    View.prototype.initializeProperties = function(story, elements, containerSize, timeline, init, centerAlignment, forceProps, afterCssBuckets) {
-    var _this = this;
     if (forceProps === void 0) {
      forceProps = undefined;
     }
@@ -666,11 +717,34 @@ var ProStyle;
     init.properties.forEach(function(property) {
      propertyBucket["prostyle_" + property.type.jsonNames[0]] = property;
     });
+    var bg = this.bgCache;
+    bg.sizeH = 100;
+    bg.sizeW = 100;
+    bg.borderSize = 0;
+    var sizeChanged = false;
+    var backgroundProperty = undefined;
     init.propertyTypes.forEach(function(propertyType) {
      var property = propertyBucket["prostyle_" + propertyType.jsonNames[0]];
      if (property === undefined) property = new Properties.Property(propertyType);
-     property.writeCssBuckets(story, _this, containerSize, buckets, true);
+     if (propertyType instanceof Properties.BackgroundPropertyType) {
+      backgroundProperty = property;
+     } else {
+      property.writeCssBuckets(story, undefined, containerSize, buckets, true);
+      if (propertyType instanceof Properties.SizePropertyType) {
+       bg.sizeW = property.getVariable("width").getValue(false) || bg.sizeW;
+       bg.sizeH = property.getVariable("height").getValue(false) || bg.sizeH;
+       if (property.getVariable("width").getValue(false) || property.getVariable("height").getValue(false)) sizeChanged = true;
+      } else if (propertyType instanceof Properties.BorderPropertyType) {
+       bg.borderSize = property.getVariable("size").getValue(false) || bg.borderSize;
+       if (property.getVariable("size").getValue(false)) sizeChanged = true;
+      }
+     }
     });
+    if (backgroundProperty) {
+     backgroundProperty.sizeChanged = sizeChanged;
+     backgroundProperty.cache = bg;
+     backgroundProperty.writeCssBuckets(story, undefined, containerSize, buckets, true);
+    }
     View.postProcessCssBuckets(buckets, afterCssBuckets, init.properties, containerSize);
     for (var c = 0; c < elements.length; c++) {
      timeline.set(elements[c], buckets[c], "initialize");
@@ -996,7 +1070,7 @@ var ProStyle;
    };
    Player.prototype.triggerStepComplete = function(step) {
     if (this.animating) return;
-    this.timeline.pause(step.stopTime);
+    this.pause(step.stopTime);
     this.stepComplete.trigger(step);
    };
    Player.prototype.getNextStep = function(cycle) {
@@ -1255,7 +1329,8 @@ var ProStyle;
      newDiv = document.createElement("div");
     }
     newDiv.setAttribute("data-prostyle", div.getAttribute("data-prostyle"));
-    newDiv.setAttribute("class", div.getAttribute("class"));
+    var classAttr = div.getAttribute("class");
+    if (classAttr) newDiv.setAttribute("class", classAttr);
     parent.replaceChild(newDiv, div);
     return newDiv;
    };
@@ -2461,59 +2536,6 @@ var ProStyle;
     }();
     Variables.VariableType = VariableType;
    
-    var StringVariableType = function(_super) {
-     __extends(StringVariableType, _super);
-     function StringVariableType(label, jsonNames, cssName, defaultValue, alwaysInitializeCss) {
-      _super.call(this, label, jsonNames, cssName, "", defaultValue, alwaysInitializeCss);
-     }
-     StringVariableType.prototype.scrubValue = function(value) {
-      if (value === undefined) return "";
-      return value.toString();
-     };
-     return StringVariableType;
-    }(Variables.VariableType);
-    Variables.StringVariableType = StringVariableType;
-   
-    var BackgroundCssVariableType = function(_super) {
-     __extends(BackgroundCssVariableType, _super);
-     function BackgroundCssVariableType(label, jsonNames, cssName, defaultValue, alwaysInitializeCss) {
-      _super.call(this, label, jsonNames, cssName, defaultValue, alwaysInitializeCss);
-     }
-     BackgroundCssVariableType.prototype.writeCssBucket = function(story, model, containerSize, bucket, value) {
-      console.log(value);
-      bucket[this.cssName] = this.rewriteUrls(story.canvas, (value || "").trim());
-      console.log(bucket[this.cssName]);
-     };
-     BackgroundCssVariableType.prototype.rewriteUrls = function(canvas, css) {
-      var parts = [];
-      this.rewriteUrl(canvas, parts, css);
-      return parts.join("");
-     };
-     BackgroundCssVariableType.prototype.rewriteUrl = function(canvas, parts, css) {
-      if ((css || "").length == 0) return;
-      var css2 = css.toLowerCase();
-      var pos = css2.indexOf("url(");
-      if (pos < 0) {
-       parts.push(css);
-      } else {
-       if (pos > 0) {
-        parts.push(css.substr(0, pos));
-        css = css.substr(pos);
-       }
-       css = css.substr(4);
-       pos = css.indexOf(")");
-       if (pos < 0) pos = css.length + 1;
-       var url = css.substr(0, pos);
-       parts.push("url(");
-       parts.push(canvas.adjustImageUrl(url));
-       parts.push(")");
-       this.rewriteUrl(canvas, parts, css.substr(pos + 1));
-      }
-     };
-     return BackgroundCssVariableType;
-    }(Variables.StringVariableType);
-    Variables.BackgroundCssVariableType = BackgroundCssVariableType;
-   
     var BooleanVariableType = function(_super) {
      __extends(BooleanVariableType, _super);
      function BooleanVariableType(label, jsonNames, cssName, falseValue, trueValue, alwaysInitializeCss) {
@@ -2533,6 +2555,19 @@ var ProStyle;
      return BooleanVariableType;
     }(Variables.VariableType);
     Variables.BooleanVariableType = BooleanVariableType;
+   
+    var StringVariableType = function(_super) {
+     __extends(StringVariableType, _super);
+     function StringVariableType(label, jsonNames, cssName, defaultValue, alwaysInitializeCss) {
+      _super.call(this, label, jsonNames, cssName, "", defaultValue, alwaysInitializeCss);
+     }
+     StringVariableType.prototype.scrubValue = function(value) {
+      if (value === undefined) return "";
+      return value.toString();
+     };
+     return StringVariableType;
+    }(Variables.VariableType);
+    Variables.StringVariableType = StringVariableType;
    
     var EnumVariableType = function(_super) {
      __extends(EnumVariableType, _super);
@@ -2823,6 +2858,47 @@ var ProStyle;
     }(Variables.NumberVariableType);
     Variables.NumberOffsetVariableType = NumberOffsetVariableType;
    
+    var NumberArrayVariableType = function(_super) {
+     __extends(NumberArrayVariableType, _super);
+     function NumberArrayVariableType(label, jsonNames, cssName, minValue, maxValue, defaultValue, decimalPlaces, alwaysInitializeCss) {
+      if (decimalPlaces === void 0) {
+       decimalPlaces = 2;
+      }
+      if (alwaysInitializeCss === void 0) {
+       alwaysInitializeCss = false;
+      }
+      _super.call(this, label, jsonNames, cssName, "", defaultValue, alwaysInitializeCss);
+      this._minValue = minValue;
+      this._maxNumber = maxValue;
+      this._decimalPlaces = decimalPlaces;
+     }
+     NumberArrayVariableType.prototype.scrubValue = function(value) {
+      var strings;
+      if (typeof value === "boolean") {
+       return this.defaultValue;
+      } else if (typeof value === "number") {
+       return [ value ];
+      } else if (typeof value === "string") {
+       strings = ProStyle.Util.splitNoParens(value);
+      } else if (value instanceof Array) {
+       strings = value;
+      } else {
+       return this.defaultValue;
+      }
+      var numbers = [];
+      for (var i = 0; i < strings.length; i++) {
+       var v = ProStyle.Util.convertToNumber(value, this.defaultValue.length > 0 ? this.defaultValue[0] :0);
+       var placeMultiplier = Math.pow(10, this._decimalPlaces);
+       v = Math.round(v * placeMultiplier) / placeMultiplier;
+       v = Math.max(this._minValue, Math.min(v, this._maxNumber));
+       numbers.push(v);
+      }
+      return numbers;
+     };
+     return NumberArrayVariableType;
+    }(Variables.VariableType);
+    Variables.NumberArrayVariableType = NumberArrayVariableType;
+   
     var Types = ProStyle.Types;
     var OriginVariableType = function(_super) {
      __extends(OriginVariableType, _super);
@@ -2912,18 +2988,7 @@ var ProStyle;
    RepeatDirection[RepeatDirection["Mirror"] = 3] = "Mirror";
   })(Types.RepeatDirection || (Types.RepeatDirection = {}));
   var RepeatDirection = Types.RepeatDirection;
- })(Types = ProStyle.Types || (ProStyle.Types = {}));
-
- var Util;
- (function(Util) {
-  function getSign(n) {
-   return n ? n < 0 ? -1 :1 :0;
-  }
-  Util.getSign = getSign;
- })(Util = ProStyle.Util || (ProStyle.Util = {}));
-
- var Types;
- (function(Types) {
+ 
   var Repeat = function() {
    function Repeat(count, direction, delay, diminishing) {
     if (direction === void 0) {
@@ -2984,6 +3049,12 @@ var ProStyle;
     if (other.diminishing !== this.diminishing) return false;
     return true;
    };
+   Repeat.prototype.isNoop = function() {
+    if (this.direction === Types.RepeatDirection.Yoyo) {
+     return this.count % 2 > 0;
+    }
+    return false;
+   };
    Repeat.DEFAULT = new Repeat(0);
    return Repeat;
   }();
@@ -3017,6 +3088,14 @@ var ProStyle;
    })(Variables = Properties.Variables || (Properties.Variables = {}));
   })(Properties = Models.Properties || (Models.Properties = {}));
  })(Models = ProStyle.Models || (ProStyle.Models = {}));
+
+ var Util;
+ (function(Util) {
+  function getSign(n) {
+   return n ? n < 0 ? -1 :1 :0;
+  }
+  Util.getSign = getSign;
+ })(Util = ProStyle.Util || (ProStyle.Util = {}));
 
  var Types;
  (function(Types) {
@@ -3164,6 +3243,145 @@ var ProStyle;
      return ShadowVariableType;
     }(Variables.VariableType);
     Variables.ShadowVariableType = ShadowVariableType;
+   })(Variables = Properties.Variables || (Properties.Variables = {}));
+  })(Properties = Models.Properties || (Models.Properties = {}));
+ })(Models = ProStyle.Models || (ProStyle.Models = {}));
+
+ var Types;
+ (function(Types) {
+  (function(StaggerOrder) {
+   StaggerOrder[StaggerOrder["Forward"] = 0] = "Forward";
+   StaggerOrder[StaggerOrder["Backward"] = 1] = "Backward";
+   StaggerOrder[StaggerOrder["Random"] = 2] = "Random";
+   StaggerOrder[StaggerOrder["CenterOut"] = 3] = "CenterOut";
+   StaggerOrder[StaggerOrder["OutCenter"] = 4] = "OutCenter";
+  })(Types.StaggerOrder || (Types.StaggerOrder = {}));
+  var StaggerOrder = Types.StaggerOrder;
+ 
+  var Stagger = function() {
+   function Stagger(delay, order) {
+    if (order === void 0) {
+     order = Types.StaggerOrder.Forward;
+    }
+    this.delay = delay;
+    this.order = order;
+    this.delay = Math.max(0, delay);
+   }
+   Stagger.fromJson = function(json) {
+    json = json || 0;
+    if (json instanceof Array) {
+     if (json.length < 1) json.push(0);
+     if (json.length < 2) json.push("f");
+     json[0] = ProStyle.Util.convertToNumber(json[0]);
+     json[1] = (json[1] || "f").toString().trim().toLowerCase().charAt(0);
+     var order = Types.StaggerOrder.Forward;
+     if (json[1] === "b") order = Types.StaggerOrder.Backward;
+     if (json[1] === "r") order = Types.StaggerOrder.Random;
+     if (json[1] === "c") order = Types.StaggerOrder.CenterOut;
+     if (json[1] === "o") order = Types.StaggerOrder.OutCenter;
+     return new Stagger(json[0], order);
+    }
+    return new Stagger(ProStyle.Util.convertToNumber(json));
+   };
+   Stagger.prototype.toJson = function() {
+    if (this.order === Types.StaggerOrder.Forward) {
+     return this.delay;
+    }
+    var json = [];
+    var o = "f";
+    if (this.order === Types.StaggerOrder.Backward) o = "b";
+    if (this.order === Types.StaggerOrder.Random) o = "r";
+    if (this.order === Types.StaggerOrder.CenterOut) o = "c";
+    if (this.order === Types.StaggerOrder.OutCenter) o = "o";
+    json.push(this.delay);
+    json.push(o);
+    return json;
+   };
+   Stagger.prototype.equals = function(other) {
+    if (other === undefined) return false;
+    if (other.delay !== this.delay) return false;
+    if (other.order !== this.order) return false;
+    return true;
+   };
+   Stagger.DEFAULT = new Stagger(0);
+   return Stagger;
+  }();
+  Types.Stagger = Stagger;
+ })(Types = ProStyle.Types || (ProStyle.Types = {}));
+
+ var Models;
+ (function(Models) {
+  var Properties;
+  (function(Properties) {
+   var Variables;
+   (function(Variables) {
+    var StaggerVariableType = function(_super) {
+     __extends(StaggerVariableType, _super);
+     function StaggerVariableType() {
+      _super.call(this, "stagger", [ "stagger" ], undefined, "", ProStyle.Types.Stagger.DEFAULT, false);
+     }
+     StaggerVariableType.prototype.scrubValue = function(value) {
+      return ProStyle.Types.Stagger.fromJson(value);
+     };
+     return StaggerVariableType;
+    }(Variables.VariableType);
+    Variables.StaggerVariableType = StaggerVariableType;
+   
+    var StringArrayVariableType = function(_super) {
+     __extends(StringArrayVariableType, _super);
+     function StringArrayVariableType(label, jsonNames, cssName, defaultValue, forceLowerCase, enumValues, alwaysInitializeCss, trueValue, falseValue) {
+      if (forceLowerCase === void 0) {
+       forceLowerCase = true;
+      }
+      if (enumValues === void 0) {
+       enumValues = undefined;
+      }
+      if (alwaysInitializeCss === void 0) {
+       alwaysInitializeCss = false;
+      }
+      if (trueValue === void 0) {
+       trueValue = undefined;
+      }
+      if (falseValue === void 0) {
+       falseValue = undefined;
+      }
+      _super.call(this, label, jsonNames, cssName, "", defaultValue, alwaysInitializeCss);
+      this.forceLowerCase = forceLowerCase;
+      this.enumValues = enumValues;
+      this.trueValue = trueValue;
+      this.falseValue = falseValue;
+      if (trueValue === undefined) trueValue = defaultValue;
+      if (falseValue === undefined) falseValue = defaultValue;
+     }
+     StringArrayVariableType.prototype.scrubValue = function(value) {
+      var strings;
+      if (typeof value === "boolean") {
+       return value ? this.trueValue :this.falseValue;
+      } else if (typeof value === "number") {
+       return this.defaultValue;
+      } else if (typeof value === "string") {
+       strings = ProStyle.Util.splitNoParens(value);
+      } else if (value instanceof Array) {
+       strings = value;
+      } else {
+       return this.defaultValue;
+      }
+      for (var i = 0; i < strings.length; i++) {
+       strings[i] = (strings[i] || "").toString().trim();
+       if (this.forceLowerCase) strings[i] = strings[i].toLowerCase();
+       if (this.enumValues && this.enumValues.length > 0) {
+        value = strings[i];
+        strings[i] = this.enumValues[0];
+        for (var j = 1; j < this.enumValues.length; j++) {
+         if (value === this.enumValues[j]) strings[i] = this.enumValues[j];
+        }
+       }
+      }
+      return strings;
+     };
+     return StringArrayVariableType;
+    }(Variables.VariableType);
+    Variables.StringArrayVariableType = StringArrayVariableType;
    
     var TextAlignVariableType = function(_super) {
      __extends(TextAlignVariableType, _super);
@@ -3190,6 +3408,42 @@ var ProStyle;
      return TextWidthVariableType;
     }(Variables.NumberVariableType);
     Variables.TextWidthVariableType = TextWidthVariableType;
+   
+    var Variable = function() {
+     function Variable(type) {
+      this.type = type;
+     }
+     Variable.prototype.getValue = function(getDefaultIfMissing) {
+      if (getDefaultIfMissing === void 0) {
+       getDefaultIfMissing = false;
+      }
+      if (this._value !== undefined) return this._value;
+      if (this.defaultValueOverride !== undefined) return this.defaultValueOverride;
+      if (getDefaultIfMissing) return this.type.defaultValue;
+      return undefined;
+     };
+     Variable.prototype.setValue = function(value) {
+      if (value === undefined) {
+       this._value = undefined;
+      } else {
+       this._value = this.type.scrubValue(value);
+      }
+     };
+     Variable.prototype.render = function(includeLabel, includeText) {
+      var value = this.getValue();
+      if (value === undefined) return undefined;
+      var s = [];
+      if (includeLabel) {
+       s.push(this.type.label);
+       s.push(": ");
+      }
+      s.push(value.toString());
+      if (includeText) s.push(this.type.text);
+      return s.join("");
+     };
+     return Variable;
+    }();
+    Variables.Variable = Variable;
    })(Variables = Properties.Variables || (Properties.Variables = {}));
   
    var PropertyType = function() {
@@ -3256,6 +3510,12 @@ var ProStyle;
      var text = renderings.join(", ");
      if (text.length > 0) text = (includeLabel ? " " :": ") + text;
      return this.label + text;
+    };
+    PropertyType.prototype.writeCssBuckets = function(property, story, model, containerSize, buckets, initializing) {
+     this.variableTypes.forEach(function(variableType) {
+      var variable = property[variableType.jsonNames[0]];
+      variable.type.writeCssBuckets(story, model, containerSize, variable, buckets, initializing);
+     });
     };
     return PropertyType;
    }();
@@ -3792,7 +4052,7 @@ var ProStyle;
      v.push(new Properties.Variables.NumberVariableType("duration", [ "duration", "dur" ], undefined, 0, Number.POSITIVE_INFINITY, 0, 2, " secs", false));
      v.push(new Properties.Variables.EaseVariableType());
      v.push(new Properties.Variables.RepeatVariableType());
-     v.push(new Properties.Variables.NumberVariableType("stagger", [ "stagger", "stag" ], undefined, 0, Number.POSITIVE_INFINITY, 0, 2, " secs", false));
+     v.push(new Properties.Variables.StaggerVariableType());
      _super.call(this, "animation", [ "animation", "anim" ], v);
     }
     AnimationPropertyType.prototype.createPropertyFromBoolean = function(json) {
@@ -3836,7 +4096,15 @@ var ProStyle;
      }
      var v = [];
      v.push(new Properties.Variables.ColorVariableType("color", [ "color" ], "backgroundColor", color, color !== "transparent"));
-     v.push(new Properties.Variables.BackgroundCssVariableType("css", [ "css" ], "background", "", false));
+     v.push(new Properties.Variables.StringArrayVariableType("image", [ "image", "img" ], undefined, [ "none" ], false));
+     v.push(new Properties.Variables.StringArrayVariableType("layout", [ "layout" ], undefined, [ "cover" ], true, [ "cover", "contain", "stretch", "stretch-w", "stretch-h" ]));
+     v.push(new Properties.Variables.NumberArrayVariableType("aspectRatio", [ "aspectRatio", "ar" ], undefined, .01, 100, [ 1 ]));
+     v.push(new Properties.Variables.NumberArrayVariableType("x", [ "x" ], undefined, -1e3, 1e3, [ 0 ]));
+     v.push(new Properties.Variables.NumberArrayVariableType("y", [ "y" ], undefined, -1e3, 1e3, [ 0 ]));
+     v.push(new Properties.Variables.NumberArrayVariableType("width", [ "width", "w" ], undefined, -1e3, 1e3, [ 100 ]));
+     v.push(new Properties.Variables.NumberArrayVariableType("height", [ "height", "h" ], undefined, -1e3, 1e3, [ 100 ]));
+     v.push(new Properties.Variables.StringArrayVariableType("repeat", [ "repeat", "rep" ], undefined, [ "repeat" ], true, [ "repeat", "repeat-x", "repeat-y", "no-repeat" ], false, [ "repeat" ], [ "no-repeat" ]));
+     v.push(new Properties.Variables.StringArrayVariableType("clip", [ "clip" ], undefined, [ "border-box" ], true, [ "border-box", "padding-box", "content-box" ]));
      _super.call(this, "background", [ "background", "bg" ], v);
     }
     BackgroundPropertyType.prototype.createPropertyFromBoolean = function(json) {
@@ -3855,11 +4123,16 @@ var ProStyle;
       return _super.prototype.createPropertyFromBoolean.call(this, false);
      }
      var property;
-     if (json.toLowerCase().indexOf("url(") === 0) {
-      property = new Properties.Property(this);
-      property["css"].setValue(json);
-     } else {
+     var looksLikeAnImage = false;
+     if (ProStyle.Util.splitNoParens(json).length < 2) {
+      var jsonLower = json.toLowerCase();
+      looksLikeAnImage = json.toLowerCase().indexOf("url()") === 0 || json.toLowerCase().indexOf("linear-gradient(") === 0 || json.toLowerCase().indexOf("repeating-linear-gradient()") === 0 || json.toLowerCase().indexOf("radial-gradient(") === 0 || json.toLowerCase().indexOf("repeating-radial-gradient()") === 0;
+     }
+     if (looksLikeAnImage) {
       property = _super.prototype.createPropertyFromBoolean.call(this, false);
+      property["image"].setValue(json);
+     } else {
+      property = new Properties.Property(this);
       property["color"].setValue(json);
      }
      return property;
@@ -3870,10 +4143,121 @@ var ProStyle;
      if (json.length > 1) property["css"].setValue(json[1] === null ? undefined :json[1]);
      return property;
     };
-    BackgroundPropertyType.prototype.renderLabel = function(property) {
+    BackgroundPropertyType.getVal = function(index, arr) {
+     if (index === undefined || arr === undefined) return undefined;
+     if (index < arr.length) return arr[index]; else return arr[arr.length - 1];
+    };
+    BackgroundPropertyType.prototype.updateCache = function(property) {
+     var c = property.cache;
+     c.image = property.getVariable("image").getValue(false) || c.image;
+     c.layout = property.getVariable("layout").getValue(false) || c.layout || property.getVariable("layout").getValue(true);
+     c.ar = property.getVariable("aspectRatio").getValue(false) || c.ar || property.getVariable("aspectRatio").getValue(true);
+     c.x = property.getVariable("x").getValue(false) || c.x || property.getVariable("x").getValue(true);
+     c.y = property.getVariable("y").getValue(false) || c.y || property.getVariable("y").getValue(true);
+     c.w = property.getVariable("width").getValue(false) || c.w || property.getVariable("width").getValue(true);
+     c.h = property.getVariable("height").getValue(false) || c.h || property.getVariable("height").getValue(true);
+     c.clip = property.getVariable("clip").getValue(false) || c.clip || property.getVariable("clip").getValue(true);
+     c.repeat = property.getVariable("repeat").getValue(false) || c.repeat || property.getVariable("repeat").getValue(true);
+     return c;
+    };
+    BackgroundPropertyType.prototype.writeCssBuckets = function(property, story, model, containerSize, buckets, initializing) {
+     var color = property.getVariable("color");
+     color.type.writeCssBuckets(story, model, containerSize, color, buckets, initializing);
+     this.updateCache(property);
+     var c = property.cache;
+     if (property.sizeChanged || property.getVariable("image").getValue(false) || property.getVariable("layout").getValue(false) || property.getVariable("aspectRatio").getValue(false) || property.getVariable("x").getValue(false) || property.getVariable("y").getValue(false) || property.getVariable("width").getValue(false) || property.getVariable("height").getValue(false) || property.getVariable("clip").getValue(false) || property.getVariable("repeat").getValue(false)) {
+      BackgroundPropertyType.writeBackgroundBuckets(story, c, containerSize, buckets);
+     }
+    };
+    BackgroundPropertyType.writeBackgroundBuckets = function(story, c, containerSize, buckets) {
+     if (c.image === undefined) return;
+     var css = {};
+     css["backgroundImage"] = BackgroundPropertyType.rewriteUrls(story.canvas, c.image.join(","));
+     css["backgroundRepeat"] = c.repeat.join(",");
+     var bPos = [];
+     var bSize = [];
+     var bClip = [];
+     var bOrig = [];
+     for (var i = 0; i < c.image.length; i++) {
+      var ew = c.sizeW / 100 * containerSize.width;
+      var eh = c.sizeH / 100 * containerSize.height;
+      var s = BackgroundPropertyType.getVal(i, c.clip);
+      if (s === "border-box") {
+       ew += 2 * (c.borderSize / 100) * containerSize.height;
+       eh += 2 * (c.borderSize / 100) * containerSize.height;
+       bClip.push("border-box");
+       bOrig.push("border-box");
+      } else {
+       bClip.push("padding-box");
+       bOrig.push("padding-box");
+      }
+      var l = this.getVal(i, c.layout);
+      var ar = this.getVal(i, c.ar);
+      var x = this.getVal(i, c.x);
+      var y = this.getVal(i, c.y);
+      var w = this.getVal(i, c.w);
+      var h = this.getVal(i, c.h);
+      var cover = l === "cover";
+      var contain = l === "contain";
+      var ear = ew / eh;
+      if (cover || contain) {
+       if (cover && ear <= ar || contain && ear > ar) {
+        h = eh;
+        w = eh * ar;
+       } else {
+        w = ew;
+        h = ew / ar;
+       }
+      } else {
+       w = w / 100 * ew;
+       h = h / 100 * eh;
+       if (l === "stretch-w") h = w / ar; else if (l === "stretch-h") w = h * ar;
+      }
+      bSize.push(w.toFixed(1) + "px " + h.toFixed(1) + "px");
+      x = (ew - w) / 2 + x / 100 * ew;
+      y = (eh - h) / 2 + y / 100 * eh;
+      bPos.push(x.toFixed(1) + "px " + y.toFixed(1) + "px");
+     }
+     css["backgroundPosition"] = bPos.join(",");
+     css["backgroundSize"] = bSize.join(",");
+     css["backgroundClip"] = bClip.join(",");
+     css["backgroundOrigin"] = bOrig.join(",");
+     buckets.forEach(function(bucket) {
+      if (css.backgroundImage !== undefined) bucket.backgroundImage = css.backgroundImage;
+      if (css.backgroundRepeat !== undefined) bucket.backgroundRepeat = css.backgroundRepeat;
+      if (css.backgroundPosition !== undefined) {
+       bucket.backgroundPosition = css.backgroundPosition;
+       bucket.backgroundSize = css.backgroundSize;
+       bucket.backgroundClip = css.backgroundClip;
+       bucket.backgroundOrigin = css.backgroundOrigin;
+      }
+     });
+    };
+    BackgroundPropertyType.rewriteUrls = function(canvas, css) {
      var parts = [];
-     if (property["color"].getValue() !== undefined) parts.push("color");
-     if (parts.length === 0) return this.label; else return this.label + ": " + parts.join(", ");
+     BackgroundPropertyType.rewriteUrl(canvas, parts, css);
+     return parts.join("");
+    };
+    BackgroundPropertyType.rewriteUrl = function(canvas, parts, css) {
+     if ((css || "").length == 0) return;
+     var css2 = css.toLowerCase();
+     var pos = css2.indexOf("url(");
+     if (pos < 0) {
+      parts.push(css);
+     } else {
+      if (pos > 0) {
+       parts.push(css.substr(0, pos));
+       css = css.substr(pos);
+      }
+      css = css.substr(4);
+      pos = css.indexOf(")");
+      if (pos < 0) pos = css.length + 1;
+      var url = css.substr(0, pos);
+      parts.push("url(");
+      parts.push(canvas.adjustImageUrl(url));
+      parts.push(")");
+      this.rewriteUrl(canvas, parts, css.substr(pos + 1));
+     }
     };
     return BackgroundPropertyType;
    }(Properties.PropertyType);
@@ -5071,6 +5455,9 @@ var ProStyle;
        }
       });
      }
+     if (property === undefined && propertyType instanceof Properties.BackgroundPropertyType) {
+      property = new Properties.Property(propertyType);
+     }
      if (property !== undefined) {
       properties.push(property);
      }
@@ -5563,7 +5950,6 @@ var ProStyle;
       var allButText = [ TextPropertyTypes._linePropertyTypes, TextPropertyTypes._wordPropertyTypes, TextPropertyTypes._charPropertyTypes ];
       TextPropertyTypes.addPropertyType(text, Properties.Cache.ANCHOR);
       TextPropertyTypes.addPropertyType(all, Properties.Cache.ANIMATION);
-      TextPropertyTypes.addPropertyType(all, Properties.Cache.BACKGROUND);
       TextPropertyTypes.addPropertyType(all, Properties.Cache.BORDER);
       TextPropertyTypes.addPropertyType(line, Properties.Cache.BULLET);
       TextPropertyTypes.addPropertyType(all, Properties.Cache.CLASS);
@@ -5914,48 +6300,6 @@ var ProStyle;
    return PagePropertyTypes;
   }();
   Models.PagePropertyTypes = PagePropertyTypes;
- 
-  var Properties;
-  (function(Properties) {
-   var Variables;
-   (function(Variables) {
-    var Variable = function() {
-     function Variable(type) {
-      this.type = type;
-     }
-     Variable.prototype.getValue = function(getDefaultIfMissing) {
-      if (getDefaultIfMissing === void 0) {
-       getDefaultIfMissing = false;
-      }
-      if (this._value !== undefined) return this._value;
-      if (this.defaultValueOverride !== undefined) return this.defaultValueOverride;
-      if (getDefaultIfMissing) return this.type.defaultValue;
-      return undefined;
-     };
-     Variable.prototype.setValue = function(value) {
-      if (value === undefined) {
-       this._value = undefined;
-      } else {
-       this._value = this.type.scrubValue(value);
-      }
-     };
-     Variable.prototype.render = function(includeLabel, includeText) {
-      var value = this.getValue();
-      if (value === undefined) return undefined;
-      var s = [];
-      if (includeLabel) {
-       s.push(this.type.label);
-       s.push(": ");
-      }
-      s.push(value.toString());
-      if (includeText) s.push(this.type.text);
-      return s.join("");
-     };
-     return Variable;
-    }();
-    Variables.Variable = Variable;
-   })(Variables = Properties.Variables || (Properties.Variables = {}));
-  })(Properties = Models.Properties || (Models.Properties = {}));
  
   var Scripts;
   (function(Scripts) {
@@ -6431,6 +6775,27 @@ var ProStyle;
 
  var Util;
  (function(Util) {
+  function arrayShuffle(array) {
+   for (var i = array.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
+   }
+   return array;
+  }
+  Util.arrayShuffle = arrayShuffle;
+ 
+  function arraySplit(a, n) {
+   var len = a.length, out = [], i = 0;
+   while (i < len) {
+    var size = Math.ceil((len - i) / n--);
+    out.push(a.slice(i, i += size));
+   }
+   return out;
+  }
+  Util.arraySplit = arraySplit;
+ 
   function autoButton(btn, action, start, speedup) {
    if (start === void 0) {
     start = 1e3;
@@ -6796,32 +7161,92 @@ var ProStyle;
        elementIndex:c
       });
      }
-     var stagger = 0;
+     var stagger = undefined;
      var duration = 0;
      var story = action.script.scriptSet.itemModelSet.flow.story;
      var pageAspectRatio = action.script.scriptSet.itemModelSet.flow.pageAspectRatio;
+     var bg = view.bgCache;
+     var newSizeW = undefined;
+     var newSizeH = undefined;
+     var newBorderSize = undefined;
+     var animationIsNoop = false;
+     var backgroundProperty = undefined;
      action.properties.forEach(function(property) {
       if (property.type instanceof Properties.AnimationPropertyType) {
        duration = property["duration"].getValue() || 0;
-       stagger = property["stagger"].getValue() || 0;
+       stagger = property["stagger"].getValue();
+       var repeat = property["repeat"].getValue();
+       if (repeat !== undefined) animationIsNoop = repeat.isNoop();
        if (duration > 0) {
         property.writeCssBuckets(story, view.model, containerSize, buckets, false);
        }
+      }
+      if (property.type instanceof Properties.BackgroundPropertyType) {
+       backgroundProperty = property;
       } else {
        if (moveToIndex !== undefined && (property.type instanceof Properties.MoveToPropertyType || property.type instanceof Properties.PositionPropertyType || property.type instanceof Properties.RotationPropertyType || property.type instanceof Properties.ScalePropertyType || property.type instanceof Properties.SkewPropertyType)) {} else {
         property.writeCssBuckets(story, view.model, containerSize, buckets, false);
+        if (property.type instanceof Properties.SizePropertyType) {
+         newSizeW = property.getVariable("width").getValue(false);
+         newSizeH = property.getVariable("height").getValue(false);
+        } else if (property.type instanceof Properties.BorderPropertyType) {
+         newBorderSize = property.getVariable("size").getValue(false);
+        }
        }
       }
      });
      Views.View.postProcessCssBuckets(buckets, afterCssBuckets, action.properties, containerSize);
-     var time = timeline.totalDuration();
-     for (var c = 0; c < divs.length; c++) {
-      if (duration > 0) {
-       timeline.to(divs[c], duration, buckets[c], time);
-      } else {
-       timeline.set(divs[c], buckets[c], time);
+     var orgTime = timeline.totalDuration();
+     var sizeChanged = newSizeW !== undefined || newSizeH !== undefined || newBorderSize !== undefined;
+     if (sizeChanged) {
+      var b = {};
+      Properties.BackgroundPropertyType.writeBackgroundBuckets(story, bg, containerSize, [ b ]);
+      for (var i = 0; i < divs.length; i++) {
+       console.log("SET-" + orgTime, b);
+       timeline.set(divs[i], b, orgTime);
       }
-      time += stagger;
+      if (!animationIsNoop) {
+       bg.sizeW = newSizeW || bg.sizeW;
+       bg.sizeH = newSizeH || bg.sizeH;
+       bg.borderSize = newBorderSize || bg.borderSize;
+      }
+     }
+     if (backgroundProperty) {
+      backgroundProperty.cache = bg;
+      backgroundProperty.sizeChanged = sizeChanged;
+      backgroundProperty.writeCssBuckets(story, undefined, containerSize, buckets, false);
+     }
+     var staggerDelay = 0;
+     var divSets = [ divs ];
+     var indexes = [];
+     var indexSets = [ indexes ];
+     for (var i = 0; i < divs.length; i++) indexes.push(i);
+     if (stagger) {
+      staggerDelay = stagger.delay;
+      if (stagger.order === ProStyle.Types.StaggerOrder.Backward) indexes.reverse(); else if (stagger.order === ProStyle.Types.StaggerOrder.Random) Util.arrayShuffle(indexes); else if (stagger.order === ProStyle.Types.StaggerOrder.CenterOut || stagger.order === ProStyle.Types.StaggerOrder.OutCenter) {
+       indexSets = Util.arraySplit(indexes, 2);
+       if (stagger.order === ProStyle.Types.StaggerOrder.OutCenter) {
+        indexSets[1].reverse();
+       } else {
+        indexSets[0].reverse();
+        if (indexSets[1].length < indexSets[0].length) indexSets[1].unshift(indexSets[0][0]);
+       }
+      }
+     }
+     for (var j = 0; j < indexSets.length; j++) {
+      var time = orgTime;
+      var indexes_1 = indexSets[j];
+      for (var i = 0; i < indexes_1.length; i++) {
+       var c = indexes_1[i];
+       if (duration > 0) {
+        console.log("to-" + orgTime, buckets[c]);
+        timeline.to(divs[c], duration, buckets[c], time);
+       } else {
+        console.log("set-" + orgTime, buckets[c]);
+        timeline.set(divs[c], buckets[c], time);
+       }
+       time += staggerDelay;
+      }
      }
      return moveToIndex;
     };
@@ -6935,12 +7360,12 @@ var ProStyle;
      fontFamily:"arial"
     };
     if (!canvas.fullScreen) forceProps.height = canvasSize.height;
-    canvas.initializeProperties(story, [ canvas.div ], cameraSize, this.timeline, story.canvas.init, false, forceProps);
+    canvas.initializeProperties(story, [ canvas.div ], canvasSize, this.timeline, story.canvas.init, false, forceProps);
     forceProps = {
      width:frameSize.width,
      height:frameSize.height
     };
-    frame.initializeProperties(story, [ frame.div ], cameraSize, this.timeline, story.frame.init, false, forceProps);
+    frame.initializeProperties(story, [ frame.div ], frameSize, this.timeline, story.frame.init, false, forceProps);
     camera.flows.forEach(function(flow) {
      var pageSize = cameraSize.getContainedSize(flow.pageAspectRatio());
      flow.pages.forEach(function(page) {

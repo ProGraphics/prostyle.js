@@ -138,6 +138,7 @@ declare module ProStyle.Models.Properties {
         createPropertyFromObject(json: {}): IProperty;
         createPropertyFromArray(json: any[]): IProperty;
         renderLabel(property: IProperty): string;
+        writeCssBuckets(property: IProperty, story: Story, model: Model, containerSize: Types.Size, buckets: any[], initializing?: boolean): any;
     }
 }
 declare module ProStyle.Models.Properties {
@@ -206,6 +207,23 @@ declare module ProStyle.Models {
     }
 }
 declare module ProStyle.Models.Properties {
+    class BackgroundCache {
+        sizeW: number;
+        sizeH: number;
+        borderSize: number;
+        image: string[];
+        layout: string[];
+        ar: number[];
+        x: number[];
+        y: number[];
+        w: number[];
+        h: number[];
+        clip: string[];
+        repeat: string[];
+        constructor(sizeW?: number, sizeH?: number, borderSize?: number, image?: string[], layout?: string[], ar?: number[], x?: number[], y?: number[], w?: number[], h?: number[], clip?: string[], repeat?: string[]);
+    }
+}
+declare module ProStyle.Models.Properties {
     class Property implements IProperty {
         type: IPropertyType;
         constructor(type: IPropertyType);
@@ -242,6 +260,7 @@ declare module ProStyle.Views {
         model: Models.Model;
         element: Element;
         div: HTMLDivElement;
+        bgCache: Properties.BackgroundCache;
         constructor(model: Models.Model, element: Element);
         initializeProperties(story: Models.Story, elements: Element[], containerSize: Types.Size, timeline: TimelineMax, init: Properties.PropertyList, centerAlignment: boolean, forceProps?: any, afterCssBuckets?: AfterCssBuckets): void;
         private generateEventTimeline(itemViewSet, divs, containerSize, event, rootTimeline, label, afterCssBuckets?);
@@ -679,26 +698,18 @@ declare module ProStyle.Models.Properties.Variables {
     }
 }
 declare module ProStyle.Models.Properties.Variables {
-    class StringVariableType extends VariableType<string> {
-        constructor(label: string, jsonNames: string[], cssName: string, defaultValue: string, alwaysInitializeCss: boolean);
-        scrubValue(value: any): string;
-    }
-}
-declare module ProStyle.Models.Properties.Variables {
-    class BackgroundCssVariableType extends StringVariableType {
-        constructor(label: string, jsonNames: string[], cssName: string, defaultValue: string, alwaysInitializeCss: boolean);
-        writeCssBucket(story: Story, model: Model, containerSize: Types.Size, bucket: any, value: string): void;
-        private rewriteUrls(canvas, css);
-        private rewriteUrl(canvas, parts, css);
-    }
-}
-declare module ProStyle.Models.Properties.Variables {
     class BooleanVariableType extends VariableType<boolean> {
         private falseValue;
         private trueValue;
         constructor(label: string, jsonNames: string[], cssName: string, falseValue: any, trueValue: any, alwaysInitializeCss?: boolean);
         scrubValue(value: any): boolean;
         writeCssBucket(story: Story, model: Model, containerSize: Types.Size, bucket: any, value: boolean): void;
+    }
+}
+declare module ProStyle.Models.Properties.Variables {
+    class StringVariableType extends VariableType<string> {
+        constructor(label: string, jsonNames: string[], cssName: string, defaultValue: string, alwaysInitializeCss: boolean);
+        scrubValue(value: any): string;
     }
 }
 declare module ProStyle.Models.Properties.Variables {
@@ -816,6 +827,15 @@ declare module ProStyle.Models.Properties.Variables {
     }
 }
 declare module ProStyle.Models.Properties.Variables {
+    class NumberArrayVariableType extends VariableType<number[]> {
+        private _minValue;
+        private _maxNumber;
+        private _decimalPlaces;
+        constructor(label: string, jsonNames: string[], cssName: string, minValue: number, maxValue: number, defaultValue: number[], decimalPlaces?: number, alwaysInitializeCss?: boolean);
+        scrubValue(value: any): number[];
+    }
+}
+declare module ProStyle.Models.Properties.Variables {
     import Types = ProStyle.Types;
     class OriginVariableType extends VariableType<Types.Xyz> {
         private transform;
@@ -840,9 +860,6 @@ declare module ProStyle.Types {
         Mirror = 3,
     }
 }
-declare module ProStyle.Util {
-    function getSign(n: number): number;
-}
 declare module ProStyle.Types {
     class Repeat {
         count: number;
@@ -854,6 +871,7 @@ declare module ProStyle.Types {
         static fromJson(json: any): Repeat;
         toJson(): any;
         equals(other: Repeat): boolean;
+        isNoop(): boolean;
     }
 }
 declare module ProStyle.Models.Properties.Variables {
@@ -862,6 +880,9 @@ declare module ProStyle.Models.Properties.Variables {
         scrubValue(value: any): Types.Repeat;
         writeCssBucket(story: Story, model: Model, containerSize: Types.Size, bucket: any, repeat: Types.Repeat): void;
     }
+}
+declare module ProStyle.Util {
+    function getSign(n: number): number;
 }
 declare module ProStyle.Types {
     class Shadow {
@@ -886,6 +907,42 @@ declare module ProStyle.Models.Properties.Variables {
         writeCssBucket(story: Story, model: Model, containerSize: Types.Size, bucket: any, shadows: Types.Shadow[]): void;
     }
 }
+declare module ProStyle.Types {
+    enum StaggerOrder {
+        Forward = 0,
+        Backward = 1,
+        Random = 2,
+        CenterOut = 3,
+        OutCenter = 4,
+    }
+}
+declare module ProStyle.Types {
+    class Stagger {
+        delay: number;
+        order: StaggerOrder;
+        static DEFAULT: Stagger;
+        constructor(delay: number, order?: StaggerOrder);
+        static fromJson(json: any): Stagger;
+        toJson(): any;
+        equals(other: Stagger): boolean;
+    }
+}
+declare module ProStyle.Models.Properties.Variables {
+    class StaggerVariableType extends VariableType<Types.Stagger> {
+        constructor();
+        scrubValue(value: any): Types.Stagger;
+    }
+}
+declare module ProStyle.Models.Properties.Variables {
+    class StringArrayVariableType extends VariableType<string[]> {
+        private forceLowerCase;
+        private enumValues;
+        private trueValue;
+        private falseValue;
+        constructor(label: string, jsonNames: string[], cssName: string, defaultValue: string[], forceLowerCase?: boolean, enumValues?: string[], alwaysInitializeCss?: boolean, trueValue?: string[], falseValue?: string[]);
+        scrubValue(value: any): string[];
+    }
+}
 declare module ProStyle.Models.Properties.Variables {
     class TextAlignVariableType extends EnumVariableType {
         constructor();
@@ -895,6 +952,17 @@ declare module ProStyle.Models.Properties.Variables {
     class TextWidthVariableType extends NumberVariableType {
         constructor();
         writeCssBucket(story: Story, model: Model, containerSize: Types.Size, bucket: any, value: number): void;
+    }
+}
+declare module ProStyle.Models.Properties.Variables {
+    class Variable<T> implements IVariable {
+        type: IVariableType;
+        private _value;
+        defaultValueOverride: T;
+        constructor(type: IVariableType);
+        getValue(getDefaultIfMissing?: boolean): T;
+        setValue(value: T): void;
+        render(includeLabel: boolean, includeText: any): string;
     }
 }
 declare module ProStyle.Models.Properties {
@@ -911,6 +979,7 @@ declare module ProStyle.Models.Properties {
         renderLabel(property: IProperty): string;
         countOfValues(property: IProperty): number;
         renderVariables(property: IProperty, includeLabel: boolean, includeText: boolean): string;
+        writeCssBuckets(property: IProperty, story: Story, model: Model, containerSize: Types.Size, buckets: any[], initializing?: boolean): void;
     }
 }
 declare module ProStyle.Models.Items {
@@ -1073,7 +1142,12 @@ declare module ProStyle.Models.Properties {
         createPropertyFromNumber(json: number): IProperty;
         createPropertyFromString(json: string): IProperty;
         createPropertyFromArray(json: any[]): IProperty;
-        renderLabel(property: IProperty): string;
+        private static getVal(index, arr);
+        private updateCache(property);
+        writeCssBuckets(property: IBackgroundProperty, story: Story, model: Model, containerSize: Types.Size, buckets: any[], initializing?: boolean): void;
+        static writeBackgroundBuckets(story: Story, c: BackgroundCache, containerSize: Types.Size, buckets: any[]): void;
+        private static rewriteUrls(canvas, css);
+        private static rewriteUrl(canvas, parts, css);
     }
 }
 declare module ProStyle.Models.Properties {
@@ -1596,15 +1670,10 @@ declare module ProStyle.Models {
         static get(): Properties.IPropertyType[];
     }
 }
-declare module ProStyle.Models.Properties.Variables {
-    class Variable<T> implements IVariable {
-        type: IVariableType;
-        private _value;
-        defaultValueOverride: T;
-        constructor(type: IVariableType);
-        getValue(getDefaultIfMissing?: boolean): T;
-        setValue(value: T): void;
-        render(includeLabel: boolean, includeText: any): string;
+declare module ProStyle.Models.Properties {
+    interface IBackgroundProperty extends IProperty {
+        sizeChanged: boolean;
+        cache: BackgroundCache;
     }
 }
 declare module ProStyle.Models.Scripts {
@@ -1758,6 +1827,12 @@ declare module ProStyle.Serialization {
         static write(story: Models.Story): any;
         static stringify(story: Models.Story): string;
     }
+}
+declare module ProStyle.Util {
+    function arrayShuffle(array: any): any;
+}
+declare module ProStyle.Util {
+    function arraySplit(a: any, n: any): any[];
 }
 declare module ProStyle.Util {
     function autoButton(btn: any, action: any, start?: number, speedup?: number): void;
