@@ -3070,7 +3070,7 @@ var ProStyle;
     var RepeatVariableType = function(_super) {
      __extends(RepeatVariableType, _super);
      function RepeatVariableType() {
-      _super.call(this, "repeat", [ "repeat" ], "repeat", "", ProStyle.Types.Repeat.DEFAULT, false);
+      _super.call(this, "repeat", [ "repeat", "rep" ], "repeat", "", ProStyle.Types.Repeat.DEFAULT, false);
      }
      RepeatVariableType.prototype.scrubValue = function(value) {
       return ProStyle.Types.Repeat.fromJson(value);
@@ -3318,7 +3318,7 @@ var ProStyle;
     var StaggerVariableType = function(_super) {
      __extends(StaggerVariableType, _super);
      function StaggerVariableType() {
-      _super.call(this, "stagger", [ "stagger" ], undefined, "", ProStyle.Types.Stagger.DEFAULT, false);
+      _super.call(this, "stagger", [ "stagger", "stag" ], undefined, "", ProStyle.Types.Stagger.DEFAULT, false);
      }
      StaggerVariableType.prototype.scrubValue = function(value) {
       return ProStyle.Types.Stagger.fromJson(value);
